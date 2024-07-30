@@ -1,0 +1,40 @@
+
+$initWidth: 100;
+
+@mixin borderLayout($borderRadius, $borderStyle) {
+  border-radius: $borderRadius + px;
+  border-style: $borderStyle;
+}
+
+.button {
+  width: $initWidth * 2 + px;
+  height: 40px;
+  font-size: 14pt;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+  @include borderLayout(5, dashed);
+  .button-danger {
+    color: red;
+    background-color: aliceblue;
+    @include borderLayout(10, dotted);
+    &:hover {
+      transform: scale(1.25,1.25);
+      transition: 1s;
+    }
+  }
+}
+
+// %message-abstract {
+//   border: 1px solid #ccc;
+//   padding: 10px;
+//   color: #333;
+// }
+
+// .message {
+//   @extend %message-abstract;
+// }
+
+// .popup {
+//   @extend %message-abstract;
+//   border-color: red;
+// }

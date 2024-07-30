@@ -1,0 +1,5 @@
+export const BUTTON_TYPE = {	
+	INFO_BUTTON: 1,
+	ALERT_BUTTON: 2,
+	SUCCESS_BUTTON: 3
+}	

@@ -1,0 +1,25 @@
+Xây dựng một Component dành cho việc đăng ký địa chỉ
+1. Danh sách hạng mục
+- ZipUpperCodeText
+- ZipLowerCodeText
+- SearchCityButton
+- CityDropdown
+- EngCityText
+- DistrictDropdown
+- WardDropdown
+- CityDistrictWardCombineText
+2. Danh sách các hoạt động
+a. Khi nhập ZipUpperCodeText và ZipLowerCodeText rồi click SearchCityButton: thực hiện fetch dữ liệu từ backend (lấy thông tin gồm tên thành phố + tên thành phố tại tiếng Anh)
+Nếu có data thì đưa vào dropdown CityDropdown
+b. Khi chọn thành phố trong dropdown CityDropdown: thực hiện fetch dữ liệu từ backend (lấy thông tin gồm tên quận)
+Nếu có data thì đưa vào dropdown DistrictDropdown
+Ngoài ra, tên tiếng Anh được set vào EngCityText
+c. Khi chọn quận trong dropdown DistrictDropdown: thực hiện fetch dữ liệu từ backend (lấy thông tin gồm tên phường)
+Nếu có data thì đưa vào dropdown WardDropdown
+d. Nếu chọn đủ 3 dropdown thì thông tin combination của 3 giá trị trên dropdown được đưa vào hạng mục CityDistrictWardCombineText
+e. Nếu thay đổi 1 trong 3 giá trị trên Dropdown thì các dropdown kế tiếp được reset dữ liệu
+(VD: Nếu thay đổi giá trị tại CityDropdown thì DistrictDropdown và WardDropdown được reset dữ liệu chọn)
+(Nếu search dữ liệu mới thì reset dữ liệu của tất cả dropdown)
+3. Sử dụng useReducer làm đối tượng state chính
+- Ưu điểm: giảm thiểu re-render rất nhiều nên tối ưu performance. Các xử lý được gom nhóm và cô lập side-effect nên hạn chế được các xử lý không đúng
+- Nhược điểm: nhiều đoạn code tương đối khó để đọc hiểu, khó debug hơn
