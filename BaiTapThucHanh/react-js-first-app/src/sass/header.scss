@@ -1,0 +1,12 @@
+@use 'color';
+
+.heeader {
+	background: var(color.$alice-blue-1);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	transition: var(--transition);
+	z-index: 4;
+	.header-contact { display: none; }
+}
