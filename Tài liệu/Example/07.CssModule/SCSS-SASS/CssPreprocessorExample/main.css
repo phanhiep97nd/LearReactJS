@@ -1,0 +1,19 @@
+.button {
+  width: 200px;
+  height: 40px;
+  font-size: 14pt;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  border-radius: 5px;
+  border-style: dashed;
+}
+.button .button-danger {
+  color: red;
+  background-color: aliceblue;
+  border-radius: 10px;
+  border-style: dotted;
+}
+.button .button-danger:hover {
+  transform: scale(1.25, 1.25);
+  transition: 1s;
+}/*# sourceMappingURL=main.css.map */
