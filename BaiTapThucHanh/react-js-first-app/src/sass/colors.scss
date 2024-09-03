@@ -22,4 +22,4 @@ $sapphire: hsl(211, 100%, 35%);
 $manatee: hsl(219, 14%, 60%);
 $white: hsl(0, 0%, 100%);
 
-$gradient: linear-gradient(to top, var(--alice-blue-2), var(--alice-blue-3));
+$gradient: linear-gradient(to top, $alice-blue-2, $alice-blue-3);

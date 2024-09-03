@@ -1,7 +1,39 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import '../../sass/header.scss';
+import { ShowPhoneNumber } from '../../App';	
 
-const Header = () => {
+const Header = (props) => {
+	useEffect(() => {
+		const overlay = document.querySelector("[data-overlay]");
+		const navbar = document.querySelector("[data-navbar]");
+		const navToggleBtn = document.querySelector("[data-nav-toggle-btn]");
+		const navbarLinks = document.querySelectorAll("[data-nav-link]");
+
+		const navToggleFunc = function () {
+			navToggleBtn.classList.toggle("active");
+			navbar.classList.toggle("active");
+			overlay.classList.toggle("active");
+		}
+
+		navToggleBtn.addEventListener("click", navToggleFunc);
+		overlay.addEventListener("click", navToggleFunc);
+
+		for (let i = 0; i < navbarLinks.length; i++) {
+			navbarLinks[i].addEventListener("click", navToggleFunc);
+		}
+
+		const header = document.querySelector("[data-header]");
+
+		window.addEventListener("scroll", function () {
+			window.scrollY >= 10 ? header.classList.add("active")
+				: header.classList.remove("active");
+		});
+
+		return () => {
+			navToggleBtn.removeEventListener("click", navToggleFunc);
+		};
+	}, []);
+
 	return (
 		<header className="header" data-header>
 			<div className="container">
@@ -9,7 +41,7 @@ const Header = () => {
 				<div className="overlay" data-overlay></div>
 
 				<a href="#home" className="logo" id="home">
-					<h2 style={{ color: "gray" }}>Mr.Phóng</h2>
+					<h2 style={{ color: "gray" }}>Mr.{ props.DriverName}</h2>
 
 				</a>
 
@@ -38,7 +70,7 @@ const Header = () => {
 				<div className="header-actions">
 
 					<div className="header-contact">
-                        <a href="tel:0868266815" className="contact-link">0868 266 815</a>
+						<a href={`tel:${props.PhoneNumber}`} className="contact-link">{ ShowPhoneNumber(props.PhoneNumber)}</a>
 
                         <span className="contact-time">Phục vụ 24/7</span>
 					</div>

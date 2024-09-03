@@ -1,0 +1,241 @@
+/* body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+} */
+@use '../src/sass/colors';
+@use '../src/sass/typography';
+@use '../src/sass/radius';
+@use '../src/sass/sessionPadding';
+@use '../src/sass/shadow';
+@use '../src/sass/transition';
+/*-----------------------------------*\
+#RESET
+\*-----------------------------------*/
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li { list-style: none; }
+
+a { text-decoration: none; }
+
+a,
+img,
+span,
+label,
+input,
+button,
+ion-icon { display: block; }
+
+button,
+input {
+  background: none;
+  border: none;
+  font: inherit;
+}
+
+button { cursor: pointer; }
+
+input { width: 100%; }
+
+ion-icon { pointer-events: none; }
+
+html {
+  font-family: typography.$ff-open-sans;
+  color: colors.$eerie-black;
+  font-size: 1rem;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: colors.$alice-blue-1;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track { background: colors.$white; }
+
+::-webkit-scrollbar-thumb {
+  background: hsla(219, 14%, 60%, 0.3);
+  border: 2px solid colors.$white;
+}
+
+::-webkit-scrollbar-thumb:hover { background: hsla(219, 14%, 60%, 0.5); }
+
+
+
+
+
+/*-----------------------------------*\
+#REUSED STYLE
+\*-----------------------------------*/
+
+.container { padding-inline: 15px; }
+
+button, a { transition: transition.$transition; }
+
+.btn {
+  position: relative;
+  background: var(--background, colors.$carolina-blue);
+  color: var(--color, colors.$white);
+  min-width: var(--width, 40px);
+  min-height: var(--height, 40px);
+  padding: 5px;
+  display: grid;
+  place-items: center;
+  border-radius: radius.$radius-14;
+  font-family: typography.$ff-nunito;
+  font-size: typography.$fs-6;
+  font-weight: typography.$fw-600;
+  overflow: hidden;
+}
+
+.btn ion-icon {
+  font-size: 22px;
+  --ionicon-stroke-width: 40px;
+}
+
+.btn::before {
+content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, hsla(0, 0%, 100%, 0.4), transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: transition.$transition;
+}
+
+.btn:is(:hover, :focus) { box-shadow: shadow.$shadow-2; }
+
+.btn:is(:hover, :focus)::before { opacity: 1; }
+
+.section { padding-block: sessionPadding.$section-padding; }
+
+.h1,
+.h2,
+.h3 {
+  color: colors.$space-cadet;
+  font-family: typography.$ff-nunito;
+  line-height: 1.4;
+}
+
+.h1 {
+  font-size: typography.$fs-1;
+  text-transform: uppercase;
+}
+
+.h2,
+.h3 { font-weight: typography.$fw-400; }
+
+.h2 { font-size: typography.$fs-2; }
+
+.h3 { font-size: typography.$fs-4; }
+
+.w-100 { width: 100%; }
+
+/*-----------------------------------*\
+  #MEDIA QUERIES
+\*-----------------------------------*/
+
+/**
+ * responsive for large than 350px screen
+ */
+
+ @media (min-width: 580px){
+  /**
+   * REUSED STYLE
+   */
+
+   .container {
+    max-width: 540px;
+    margin-inline: auto;
+  }
+
+ }
+
+ /**
+ * responsive for large than 768px screen
+ */
+
+@media (min-width: 768px) {
+  /**
+   * CUSTOM PROPERTY
+   */
+
+   :root {
+
+    /**
+     * typography
+     */
+
+    --fs-1: 2.625rem;
+
+  }
+
+
+
+  /**
+   * REUSED STYLE
+   */
+
+  .container { max-width: 720px; }
+}
+
+/**
+ * responsive for large than 992px screen
+ */
+
+ @media (min-width: 992px) {
+  /**
+   * REUSED STYLE
+   */
+
+   .container { max-width: 960px; }
+
+ }
+
+ /**
+ * responsive for large than 1200px screen
+ */
+
+@media (min-width: 1200px) {
+    /**
+   * CUSTOM PROPERTY
+   */
+
+   :root {
+
+    /**
+     * typography
+     */
+
+    --fs-1: 2.875rem;
+    --fs-2: 2rem;
+
+  }
+
+
+
+  /**
+   * REUSED STYLE
+   */
+
+  .container { max-width: 1170px; }
+}
