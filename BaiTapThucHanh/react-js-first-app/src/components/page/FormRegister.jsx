@@ -2,10 +2,10 @@ import React, { useEffect } from 'react';
 import '../../sass/FormRegister.scss';
 import { TypeOfCar,PriceAllSeatHoliday, PriceAllSeatNormal, PricePerSeat } from '../../module/Constants';
 
-const FormRegister = ({ UpdateTypeofCar }) => {
+const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
     const [typeofCar, settypeofCar] = React.useState(TypeOfCar.NAM_CHO);
     const [allSeatCheck, setAllSeatCheck] = React.useState(false);
-    const [numberOfGuest, setNumberOfGuest] = React.useState(0);
+    const [numberOfGuest, setNumberOfGuest] = React.useState(1);
     const [holiday] = React.useState(true);
 
     const handleUpdateTypeofCar = (typeofCarInput) => {
@@ -82,6 +82,10 @@ const FormRegister = ({ UpdateTypeofCar }) => {
         const priceElement = document.getElementById("price");
         priceElement.innerHTML = getPrice();
     }, [numberOfGuest])// eslint-disable-line react-hooks/exhaustive-deps
+
+    useEffect(() => {
+        settypeofCar(TypeChecked);
+    }, [TypeChecked])// eslint-disable-line react-hooks/exhaustive-deps
     return (
              <>
                 <span className="price" id='price'></span>
@@ -91,11 +95,11 @@ const FormRegister = ({ UpdateTypeofCar }) => {
                         <label htmlFor="input-1" className="input-label">Chọn loại xe</label>
                         <div className="container_radio">
                             <div className="radio_container">
-                                <input type="radio" name="radio" id="one" checked={typeofCar === TypeOfCar.NAM_CHO} onChange={() => handleUpdateTypeofCar(TypeOfCar.NAM_CHO)} />
+                                <input type="radio" name="radio" id="one" checked={TypeChecked === TypeOfCar.NAM_CHO} onChange={() => handleUpdateTypeofCar(TypeOfCar.NAM_CHO)} />
                                 <label htmlFor="one">5 chỗ</label>
-                                <input type="radio" name="radio" id="two" checked={typeofCar === TypeOfCar.BAY_CHO}  onChange={() => handleUpdateTypeofCar(TypeOfCar.BAY_CHO)} />
+                                <input type="radio" name="radio" id="two" checked={TypeChecked === TypeOfCar.BAY_CHO}  onChange={() => handleUpdateTypeofCar(TypeOfCar.BAY_CHO)} />
                                 <label htmlFor="two">7 chỗ</label>
-                                <input type="radio" name="radio" id="three" checked={typeofCar === TypeOfCar.XE_TAI}  onChange={() => handleUpdateTypeofCar(TypeOfCar.XE_TAI)} />
+                                <input type="radio" name="radio" id="three" checked={TypeChecked === TypeOfCar.XE_TAI}  onChange={() => handleUpdateTypeofCar(TypeOfCar.XE_TAI)} />
                                 <label htmlFor="three">Xe tải</label>
                             </div>
                         </div>
@@ -121,7 +125,7 @@ const FormRegister = ({ UpdateTypeofCar }) => {
                         <label  className="input-label">----------------------------</label>
                         <label htmlFor="input-3" className="input-label">Số lượng khách</label>
 
-                        <input type="number" name="NumberOfGuest" id="input-3" className="input-field" min={1} max={typeofCar === TypeOfCar.NAM_CHO ? 4 : 6} defaultValue={1}
+                        <input type="number" name="NumberOfGuest" id="input-3" className="input-field" min={1} max={typeofCar === TypeOfCar.NAM_CHO ? 4 : 6} value={numberOfGuest}
                             placeholder="Nhập số khách tại đây..." onChange={(e) => handleUpdateNumberOfGuest(e.target.value)} />
                     </div>
 

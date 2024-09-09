@@ -4,7 +4,9 @@ import './App.scss';
 import Header from './components/base/Header';
 import Footer from './components/base/Footer';
 import Hero from './components/page/Hero';
-import { TypeOfCar } from './module/Constants';
+import { DriverInfo, CheckHoliday } from './module/Data';
+import ListCar from './components/page/ListCar';
+import Contact from "./components/page/Contact";
 
 export const ShowPhoneNumber = (phoneNumber) => {
   if (phoneNumber && typeof phoneNumber === 'string' && phoneNumber.length === 10) {
@@ -13,26 +15,11 @@ export const ShowPhoneNumber = (phoneNumber) => {
     return phoneNumber;
   }
 }
-const DriverInfo = [
-  {
-    Type: TypeOfCar.NAM_CHO,
-    DriverName: 'DriverA',
-    PhoneNumber: '0948171499',
-  },
-  {
-    Type: TypeOfCar.BAY_CHO,
-    DriverName: 'DriverB',
-    PhoneNumber: '01294697666',
-  },
-  {
-    Type: TypeOfCar.XE_TAI,
-    DriverName: 'DriverC',
-    PhoneNumber: '0963690629',
-  }
-]
 
 function App() {
   const [Driver, setUpdateDriver] = useState(DriverInfo[0]);
+  const [checkHoliday] = useState(CheckHoliday('03/02/2025'));
+
   const handleUpdateDriver = (Type) => {
     setUpdateDriver(DriverInfo.find(item => item.Type === Type));
   }
@@ -42,7 +29,13 @@ function App() {
       <Header DriverName={Driver.DriverName} PhoneNumber={Driver.PhoneNumber} />
       <main>
         <article>
-          <Hero UpdateDriver={handleUpdateDriver} />
+          <Hero UpdateDriver={handleUpdateDriver} Type={Driver.Type} />
+          <ListCar
+            UpdateDriver={handleUpdateDriver}
+            DriverInfo={DriverInfo}
+            CheckHoliday={checkHoliday}
+          />
+          <Contact DriverInfo={Driver}/>
         </article>
       </main>
       <div style={{ height: "1000px" }}></div>

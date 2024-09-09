@@ -3,8 +3,8 @@ import FormRegister from '../page/FormRegister';
 import '../../sass/hero.scss';
 import { TypeOfCar, HeroBackgroundImage } from '../../module/Constants';
 
-const Hero = ({UpdateDriver}) => {
-    const [typeofCar, settypeofCar] = useState('5cho');
+const Hero = ({UpdateDriver, Type}) => {
+    const [typeofCar, settypeofCar] = useState(TypeOfCar.NAM_CHO);
 
     useEffect(() => {
         var bannerImg = document.getElementById("BannerImg");
@@ -17,15 +17,19 @@ const Hero = ({UpdateDriver}) => {
         else{
             bannerImg.style.background = `url('assets/images/${HeroBackgroundImage.XE_TAI}') no-repeat`;
         }
-    }, [typeofCar])
+    }, [typeofCar]);
     
     const handleUpdateTypeofCar = (typeofCarInput) => {
         UpdateDriver(typeofCarInput);
         settypeofCar(typeofCarInput);
     };
 
+    useEffect(() => {
+        settypeofCar(Type);
+    }, [Type]);
+
     return (
-        <section className="section hero" id="home">
+        <section className="section hero" id="hero">
             <div className="container">
 
             <div className="hero-content">
@@ -37,7 +41,7 @@ const Hero = ({UpdateDriver}) => {
             </div>
 
             <div className="hero-banner" id="BannerImg"></div>
-            <FormRegister UpdateTypeofCar={handleUpdateTypeofCar} TypeChecked={typeofCar} />
+            <FormRegister UpdateTypeofCar={handleUpdateTypeofCar} TypeChecked={Type} />
             </div>
         </section>
     )
