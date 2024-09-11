@@ -104,7 +104,7 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
 						<div className="container-checkbox">
 							<div className="row">
 								<section>
-									Bao xe
+									Bao xe:
 									</section>
 									<section>
 									<div className="btn-wrap">

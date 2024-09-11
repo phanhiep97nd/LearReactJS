@@ -29,7 +29,7 @@ const Hero = ({UpdateDriver, Type}) => {
 	}, [Type]);
 
 	return (
-		<section className="section hero" id="hero">
+		<section className="section hero" id="home">
 			<div className="container">
 			<div className="hero-content">
 				<h2 className="h1 hero-title">🚙🚛Dịch vụ xe ghép, xe du lịch, gửi hàng</h2>

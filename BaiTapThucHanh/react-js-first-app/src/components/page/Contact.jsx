@@ -6,7 +6,7 @@ const Contact = ({DriverInfo}) => {
 	return (
 	<section className="section get-start" id="contact">
 		<div className="container">
-			<h2 className="h2 section-title">Thông tin liên hệ</h2>
+			<h2 className="h2 section-title">Thông tin liên hệ({DriverInfo.Name})</h2>
 			<ul className="get-start-list">
 			<li>
 				<div className="get-start-card">

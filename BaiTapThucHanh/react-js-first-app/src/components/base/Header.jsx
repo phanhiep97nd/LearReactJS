@@ -38,7 +38,7 @@ const Header = (props) => {
 		<header className="header" data-header>
 			<div className="container">
 				<div className="overlay" data-overlay></div>
-				<a href="#home" className="logo" id="home">
+				<a href="#home" className="logo">
 					<h2 style={{ color: "gray" }}>Mr.{ props.DriverName}</h2>
 				</a>
 				<nav className="navbar" data-navbar>

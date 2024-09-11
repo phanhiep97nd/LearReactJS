@@ -42,7 +42,7 @@ const ListCar = ({ UpdateDriver, DriverInfo, CheckHoliday}) => {
 	return (
 		<section className="section featured-car" id="featured-car">
 			{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-			<a id='scroll' href='#hero'> </a>
+			<a id='scroll' href='#home'> </a>
 			<div className="container">
 				<div className="title-wrapper">
 					<h2 className="h2 section-title">Các Loại Xe</h2>
@@ -60,7 +60,7 @@ const ListCar = ({ UpdateDriver, DriverInfo, CheckHoliday}) => {
 								<div className="card-title-wrapper">
 								<h3 className="h3 card-title">
 								{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-									<a href='#hero' onClick={() => handleUpdateTypeofCar(item.Type)}>{ item.Name }</a>
+									<a href='#home' onClick={() => handleUpdateTypeofCar(item.Type)}>{ item.Name }</a>
 								</h3>
 								<data className="year" value="2021">Mới</data>
 								</div>
@@ -106,7 +106,7 @@ const ListCar = ({ UpdateDriver, DriverInfo, CheckHoliday}) => {
 									{`Ngày lễ: ${GetPriceInfo(item.Type, false, true)}đ / ghế | Bao xe ${GetPriceInfo(item.Type, true, true)}đ`}
 								</p>)}
 								</div>
-								<button className="btn" onClick={() => handleUpdateTypeofCar(item.Type)}>Đặt ngay</button>
+								<button href="#home" className="btn" onClick={() => handleUpdateTypeofCar(item.Type)}>Đặt ngay</button>
 								</div>
 							</div>
 						</div>

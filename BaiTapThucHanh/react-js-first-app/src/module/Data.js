@@ -49,7 +49,7 @@ export const DriverInfo = [
 		ZaloName: "DriverC_Zalo",
 		BankNumber: "88886666",
 		BankName: "Vietcombank - DriverC",
-		ImageQRBank: "Bank_Driver3.jpg",
+		ImageQRBank: "Bank_Driver3.png",
 	}
 ]
 	
@@ -114,3 +114,34 @@ export const CheckHoliday = (dayCheck) => {
 	}
 }
 
+
+export const ExtraInfoData = [
+	{
+		ImageName: "accent.jpg",
+		Title: "Accent - Vios"
+	},
+	{
+		ImageName: "Xpander-Cross.jpg",
+		Title: "Expander Cross"
+	},
+	{
+		ImageName: "xeTai.jpg",
+		Title: "5T-7T"
+	},
+	{
+		ImageName: "blog-4.jpg",
+		Title: "Sẵn sàng phục vụ"
+	},
+	{
+		ImageName: "blog-1.jpg",
+		Title: "Blog1"
+	},
+	{
+		ImageName: "blog-2.jpg",
+		Title: "Blog2"
+	},
+	{
+		ImageName: "blog-3.jpg",
+		Title: "Blog3"
+	},
+]
