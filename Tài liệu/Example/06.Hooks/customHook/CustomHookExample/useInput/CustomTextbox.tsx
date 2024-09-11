@@ -11,7 +11,7 @@ const CustomTextbox: React.FC<Props> = (props: Props) => {
   const defaultClassName = props.className ?? ".custom-input";
 
   return (
-    <input type="text" {...props} className={defaultClassName} />
+		<input type="text" {...props} className={defaultClassName} />
   )
 }
 

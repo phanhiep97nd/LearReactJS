@@ -9,26 +9,26 @@
 \*-----------------------------------*/
 
 .footer {
-    background: colors.$alice-blue-4;
-    color: colors.$independence;
+		background: colors.$alice-blue-4;
+		color: colors.$independence;
   }
   
   .footer a { color: inherit; }
   
   .footer-top {
-    padding-block: 60px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    row-gap: 50px;
+		padding-block: 60px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: flex-start;
+		row-gap: 50px;
   }
   
   .footer-top .logo { margin-bottom: 20px; }
   
   .footer-text {
-    font-size: typography.$fs-6;
-    line-height: 1.8;
+		font-size: typography.$fs-6;
+		line-height: 1.8;
   }
   
   .footer-list { font-family: typography.$ff-nunito; }
@@ -36,19 +36,19 @@
   .footer-list:not(:last-of-type) { width: 50%; }
   
   .footer-list:last-of-type {
-    width: 100%;
-    column-count: 2;
+		width: 100%;
+		column-count: 2;
   }
   
   .footer-list-title {
-    color: colors.$space-cadet;
-    font-weight: typography.$fw-600;
-    margin-bottom: 8px;
+		color: colors.$space-cadet;
+		font-weight: typography.$fw-600;
+		margin-bottom: 8px;
   }
   
   .footer-link {
-    font-size: typography.$fs-6;
-    padding-block: 6px;
+		font-size: typography.$fs-6;
+		padding-block: 6px;
   }
   
   .footer-link:is(:hover, :focus) { color: colors.$carolina-blue; }
@@ -56,17 +56,17 @@
   .footer-list:last-child > li:first-child { column-span: all; }
   
   .footer-bottom {
-    background: colors.$gradient;
-    border: 1px solid colors.$white;
-    border-radius: radius.$radius-18 radius.$radius-18 0 0;
-    padding: 20px;
+		background: colors.$gradient;
+		border: 1px solid colors.$white;
+		border-radius: radius.$radius-18 radius.$radius-18 0 0;
+		padding: 20px;
   }
   
   .social-list {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 20px;
+		display: flex;
+		align-items: center;
+		gap: 20px;
+		margin-bottom: 20px;
   }
   
   .social-link { font-size: 20px; }
@@ -91,18 +91,18 @@
    .footer-text { max-width: 400px; }
  
    .footer-bottom {
-     display: flex;
-     flex-direction: row-reverse;
-     justify-content: space-between;
-     align-items: center;
-     padding-block: 30px;
-     box-shadow: shadow.$shadow-1;
+		 display: flex;
+		 flex-direction: row-reverse;
+		 justify-content: space-between;
+		 align-items: center;
+		 padding-block: 30px;
+		 box-shadow: shadow.$shadow-1;
    }
  
    .social-list { margin-bottom: 0; }
  
    .hero-form {
-     width: 90%;
+		 width: 90%;
    }
   }
 

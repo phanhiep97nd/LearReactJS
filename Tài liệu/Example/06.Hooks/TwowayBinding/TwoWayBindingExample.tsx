@@ -8,14 +8,14 @@ const ShowInputComponent = () => {
   const [text, setText] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setText(e.target.value);
+		setText(e.target.value);
   };
 
   return (
-    <div>
-      <input type="text" value={text} onChange={handleChange} />
-      <p>Text: {text}</p>
-    </div>
+		<div>
+		  <input type="text" value={text} onChange={handleChange} />
+		  <p>Text: {text}</p>
+		</div>
   );
 }
 

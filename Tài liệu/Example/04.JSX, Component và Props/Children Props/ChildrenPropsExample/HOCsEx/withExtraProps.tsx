@@ -6,7 +6,7 @@ import OriginalComponent from "./OriginalComponent";
  */
 const withExtraProps = (Component: React.ComponentType) => {
   // Trả về Component có bổ sung thêm một số props
-	return (props: any) => <Component {...props} extraProp="extraValue" />;
+		return (props: any) => <Component {...props} extraProp="extraValue" />;
 };
 
 const EnhancedComponent = withExtraProps(OriginalComponent);

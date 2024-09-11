@@ -8,8 +8,8 @@ import useCounter from './useCounter';
  */
 const withCounter = <P extends object>(WrappedComponent: React.ComponentType<P>) => {
   return (props: P) => {
-    const counter = useCounter(0);
-    return <WrappedComponent {...props} counter={counter} />;
+		const counter = useCounter(0);
+		return <WrappedComponent {...props} counter={counter} />;
   };
 };
 

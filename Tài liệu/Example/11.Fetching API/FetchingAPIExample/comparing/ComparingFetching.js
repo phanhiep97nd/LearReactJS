@@ -29,40 +29,40 @@ const todoData = {
 const optionsFetchAPI = {
   method: 'POST',
   headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json;charset=UTF-8',
-    'Authorization': '',
+		'Accept': 'application/json',
+		'Content-Type': 'application/json;charset=UTF-8',
+		'Authorization': '',
   },
   body: JSON.stringify(todoData),
 }
 
 fetch(urlToDoCreate, optionsFetchAPI)
   .then(response => {
-    if (response.ok)
-      return response.json();
-    return {}
+		if (response.ok)
+		  return response.json();
+		return {}
   })
   .then(data => {
-    console.log(`Add task success. Task name: ${data.name}`);
+		console.log(`Add task success. Task name: ${data.name}`);
   })
   .catch(error => console.error(error.message));
 
 // Axios
 axios.post(urlToDoCreate, todoData, {
   headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json;charset=UTF-8',
-    'Authorization': '',
+		'Accept': 'application/json',
+		'Content-Type': 'application/json;charset=UTF-8',
+		'Authorization': '',
   }
 }).then(({ data }) => {
   console.log(`Add task success. Task name: ${data.name}`);
 }).catch(error => {
   if (error.response) {
-    console.error(`HTTP error: ${error.response.status}`);
+		console.error(`HTTP error: ${error.response.status}`);
   } else if (error.request) {
-    console.error("Request error: No response received");
+		console.error("Request error: No response received");
   } else {
-    console.error("Error:", error.message);
+		console.error("Error:", error.message);
   }
 });
 
@@ -86,12 +86,12 @@ axios.interceptors.request.use((request) => {
   // giả định chúng ta cần add thông tin token cố định vào request
   const newToken = 'Bearer abc';
   const newHeaders = {
-    ...request.headers,
-    Authorization: newToken,
+		...request.headers,
+		Authorization: newToken,
   };
 
   const tokenRequest = {
-    ...request, headers: newHeaders
+		...request, headers: newHeaders
   }
 
   return tokenRequest;
@@ -108,10 +108,10 @@ axios.interceptors.response.use((response) => {
 
 axios.get(urltodoList)
   .then(({data}) => {
-    console.log("Data received:", data);
+		console.log("Data received:", data);
   })
   .catch((error) => {
-    console.error("Error:", error.message);
+		console.error("Error:", error.message);
   });
 
 
@@ -125,10 +125,10 @@ const timeout = 5000;
 
 axios.get(urltodoList, { timeout: timeout })
   .then(({data}) => {
-    console.log("Data received:", data);
+		console.log("Data received:", data);
   })
   .catch((error) => {
-    console.error("Error:", error.message);
+		console.error("Error:", error.message);
   });
 
 
@@ -145,25 +145,25 @@ const timeoutId = setTimeout(() => {
 
 fetch(urltodoList, { signal })
   .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
+		if (!response.ok) {
+		  throw new Error('Network response was not ok');
+		}
+		return response.json();
   })
   .then(data => {
-    console.log('Data received:', data);
+		console.log('Data received:', data);
   })
   .catch(error => {
-    // Kiểm tra xem lỗi trả về có phải là lỗi timeout hay không (thông qua đối tượng AbortError)
-    if (error.name === 'AbortError') {
-      console.error('Request timed out');
-    } else {
-      console.error('Error fetching data:', error.message);
-    }
+		// Kiểm tra xem lỗi trả về có phải là lỗi timeout hay không (thông qua đối tượng AbortError)
+		if (error.name === 'AbortError') {
+		  console.error('Request timed out');
+		} else {
+		  console.error('Error fetching data:', error.message);
+		}
   })
   .finally(() => {
-    // Clear đối tượng timeout. Đối tượng này là không tự giải phóng được nên cần phải clear
-    clearTimeout(timeoutId);
+		// Clear đối tượng timeout. Đối tượng này là không tự giải phóng được nên cần phải clear
+		clearTimeout(timeoutId);
   });
 
 // IV. Parallel requests: Trong axios, có hỗ trợ việc thực hiện việc gọi nhiều HTTP request đồng thời
@@ -189,12 +189,12 @@ const axiosRequests = urls.map(url => axios.get(url));
 axios.all(axiosRequests)
 .then(axios.spread(...responses => {
   responses.array.forEach((response, index) => {
-    if (index == 0) {
-      // Action for urlCountDoneTodos response
-    }
-    if (index == 1) {
-      // Action for urlGetCurrentTodo response
-    }
+		if (index == 0) {
+		  // Action for urlCountDoneTodos response
+		}
+		if (index == 1) {
+		  // Action for urlGetCurrentTodo response
+		}
   });
 }))
 .catch(error => {
@@ -207,17 +207,17 @@ const fetchRequests = urls.map((url) => fetch(url));
 Promise.all(fetchRequests)
 .then((responses) => {
   responses.array.forEach((response, index) => {
-    if (response.ok) {
-      if (index == 0) {
-        // Action for urlCountDoneTodos response
-      }
-      if (index == 1) {
-        // Action for urlGetCurrentTodo response
-      }
-      response.json().then((data) => {
-        // Process data
-      })
-    }
+		if (response.ok) {
+		  if (index == 0) {
+				// Action for urlCountDoneTodos response
+		  }
+		  if (index == 1) {
+				// Action for urlGetCurrentTodo response
+		  }
+		  response.json().then((data) => {
+				// Process data
+		  })
+		}
   });
 })
 .catch((error) => {

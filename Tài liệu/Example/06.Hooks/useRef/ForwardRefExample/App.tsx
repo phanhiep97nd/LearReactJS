@@ -7,17 +7,17 @@ const App: React.FC = () => {
 
   // Truy cập vào inputRef. Điều kiện control phải là forwardRef
   const handleFocus = () => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
+		if (inputRef.current) {
+		  inputRef.current.focus();
+		}
   };
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.header}>Forward Ref Example</h1>
-      <CustomInput ref={inputRef} placeholder="Enter text here" />
-      <button className={styles.button} onClick={handleFocus}>Focus Input</button>
-    </div>
+		<div className={styles.container}>
+		  <h1 className={styles.header}>Forward Ref Example</h1>
+		  <CustomInput ref={inputRef} placeholder="Enter text here" />
+		  <button className={styles.button} onClick={handleFocus}>Focus Input</button>
+		</div>
   );
 };
 

@@ -1,9 +1,9 @@
 import React from "react";
 
 const OthersProfile = () => {
-    return (
-        <></>
-    )
+		return (
+				<></>
+		)
 }
 
 export default OthersProfile;

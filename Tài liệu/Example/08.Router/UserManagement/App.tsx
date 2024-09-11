@@ -5,11 +5,11 @@ import Routing from './Routing';
 
 const App: React.FC = () => {
   return (
-    <AuthProvider>
-      <div className={styles.container}>
-        <Routing />
-      </div>
-    </AuthProvider>
+		<AuthProvider>
+		  <div className={styles.container}>
+				<Routing />
+		  </div>
+		</AuthProvider>
   );
 };
 

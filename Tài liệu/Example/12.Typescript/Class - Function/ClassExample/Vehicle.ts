@@ -6,7 +6,7 @@ abstract class Vehicle {
   protected year!: number;
 
   public displayData(): void {
-    console.log(`Make: ${this.make}, Model: ${this.model}, Year: ${this.year}`);
+		console.log(`Make: ${this.make}, Model: ${this.model}, Year: ${this.year}`);
   }
 
   abstract startEngine(): void;
@@ -17,20 +17,20 @@ class Car extends Vehicle {
   private isElectric: boolean;
 
   constructor(make?: string, model?: string, year?: number, numberOfDoors?: number, isElectric?: boolean) {
-    super();
-    this.make = make ?? 'Unknown';
-    this.model = model ?? 'Unknown';
-    this.year = year ?? 0;
-    this.numberOfDoors = numberOfDoors ?? 0;
-    this.isElectric = isElectric ?? false;
+		super();
+		this.make = make ?? 'Unknown';
+		this.model = model ?? 'Unknown';
+		this.year = year ?? 0;
+		this.numberOfDoors = numberOfDoors ?? 0;
+		this.isElectric = isElectric ?? false;
   }
 
   public override displayData() {
-    console.log(`Make: ${this.make}, Model: ${this.model}, Year: ${this.year}, Number of Door: ${this.numberOfDoors}, ${this.isElectric? `Electric car` : ``}`);
+		console.log(`Make: ${this.make}, Model: ${this.model}, Year: ${this.year}, Number of Door: ${this.numberOfDoors}, ${this.isElectric? `Electric car` : ``}`);
   }
 
   startEngine(): void {
-    console.log(`Start!!!`);
+		console.log(`Start!!!`);
   }
 }
 

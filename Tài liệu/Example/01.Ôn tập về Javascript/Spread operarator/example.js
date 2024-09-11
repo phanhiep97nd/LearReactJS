@@ -7,13 +7,13 @@
 // var arr2 = [...arr1];   // Giá trị trả về là arr2 = ['a', 'b', 'g', 'h']
 
 // // Đối với Object
-// var obj1 = {	
+// var obj1 = {		
 //   name: 'Nguyễn Văn A',
 //   age: 30,
 //   country: 'Việt Nam',
-// }	
+// }		
 
-// var obj2 = {...obj1}	
+// var obj2 = {...obj1}		
 
 // var arr5 = [1, '2', 'abc', {script_dat: 'hello', greet: () => console.log(this.script_dat)}]
 
@@ -23,41 +23,41 @@
 
 // // Với Object
 
-// var obj1 = {			
-//   name: 'Nguyễn Văn A',			
-//   age: 30,			
-//   country: 'Việt Nam',			
-// }			
+// var obj1 = {						
+//   name: 'Nguyễn Văn A',						
+//   age: 30,						
+//   country: 'Việt Nam',						
+// }						
    
-// var obj2 = {...obj1}			
+// var obj2 = {...obj1}						
    
-// var obj1 = {			
-//   name: 'Nguyễn Văn A',			
-//   age: 30,			
-//   country: 'Việt Nam',			
-// }			
+// var obj1 = {						
+//   name: 'Nguyễn Văn A',						
+//   age: 30,						
+//   country: 'Việt Nam',						
+// }						
    
-// var obj2 = {			        // obj2 được sao chép và thay đổi từ obj1. Ở đây chúng ta cần lưu ý: dù là
-//   ...obj1,		            // đang gán 2 lần thuộc tính  name trong obj tuy nhiên không có lỗi do thuộc
-//   name: 'Nguyễn Văn B',		// tính được lấy theo giá trị set sau. Về bản chất obj vẫn chỉ có 1 thuộc tính name
-// }	
+// var obj2 = {										// obj2 được sao chép và thay đổi từ obj1. Ở đây chúng ta cần lưu ý: dù là
+//   ...obj1,										// đang gán 2 lần thuộc tính  name trong obj tuy nhiên không có lỗi do thuộc
+//   name: 'Nguyễn Văn B',				// tính được lấy theo giá trị set sau. Về bản chất obj vẫn chỉ có 1 thuộc tính name
+// }		
 
 /**
  * Ví dụ 3: Sử dụng Spread Operator để mở rộng Array/Object
  */
 
 // // Với Array
-// var arr1 = ['a', 'b', 'g', 'h']	
+// var arr1 = ['a', 'b', 'g', 'h']		
 // var arr2 = [...arr1, 'b', 'c', 'd'] // arr2 = ['a', 'b', 'g', 'h', 'b', 'c', 'd']
 
 // // Với Object
-// var initEmp = {			
+// var initEmp = {						
 //   name: '',
 //   age: 0,
 //   country: 'Việt Nam',
 // }
    
-// var firstEmp = {			// emp2 được mở rộng từ initEmp
+// var firstEmp = {						// emp2 được mở rộng từ initEmp
 //   ...initEmp,
 //   name: 'Nguyễn Văn B',
 //   age: 30,
@@ -93,12 +93,12 @@ var profile = {...info, ...address}
  * Ví dụ 5: Sử dụng Spread Operator để chuyển đổi thành đối số
  */
 
-function sumPrice(priceProd, tax, other) {	
-  return (priceProd + tax + other);	
-}	
+function sumPrice(priceProd, tax, other) {		
+  return (priceProd + tax + other);		
+}		
 
-let phonePrices = [100, 10, 2]	
-console.log(sum(...addressphonePrices))	
+let phonePrices = [100, 10, 2]		
+console.log(sum(...addressphonePrices))		
 
 
 
@@ -108,10 +108,10 @@ console.log(sum(...addressphonePrices))
 function checkData(...args) {
   let queryString = '?';
   if (args.name) {
-    queryString = `${queryString}name=${args.name}&`;
+		queryString = `${queryString}name=${args.name}&`;
   }
   if (args.age) {
-    queryString = `${queryString}age=${args.age}&`;
+		queryString = `${queryString}age=${args.age}&`;
   }
   //...
   return queryString;

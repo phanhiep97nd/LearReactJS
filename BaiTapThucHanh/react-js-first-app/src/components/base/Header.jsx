@@ -72,13 +72,13 @@ const Header = (props) => {
 					<div className="header-contact">
 						<a href={`tel:${props.PhoneNumber}`} className="contact-link">{ ShowPhoneNumber(props.PhoneNumber)}</a>
 
-                        <span className="contact-time">Phục vụ 24/7</span>
+						<span className="contact-time">Phục vụ 24/7</span>
 					</div>
 
 					<a href="#featured-car" className="btn" aria-labelledby="aria-label-txt">
-                        <ion-icon name="car-outline"></ion-icon>
+						<ion-icon name="car-outline"></ion-icon>
 
-                        <span id="aria-label-txt">Đặt xe</span>
+						<span id="aria-label-txt">Đặt xe</span>
 					</a>
 
 					<a href="#contact" className="btn user-btn" aria-label="Profile">
@@ -86,9 +86,9 @@ const Header = (props) => {
 					</a>
 
 					<button className="nav-toggle-btn" data-nav-toggle-btn aria-label="Toggle Menu">
-                        <span className="one"></span>
-                        <span className="two"></span>
-                        <span className="three"></span>
+						<span className="one"></span>
+						<span className="two"></span>
+						<span className="three"></span>
 					</button>
 
 				</div>

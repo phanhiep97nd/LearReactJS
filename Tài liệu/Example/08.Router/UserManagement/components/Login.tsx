@@ -8,29 +8,29 @@ const Login: React.FC = () => {
   const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await login({username, password});
-    } catch (error) {
-      console.error('Failed to login:', error);
-    }
+		e.preventDefault();
+		try {
+		  await login({username, password});
+		} catch (error) {
+		  console.error('Failed to login:', error);
+		}
   };
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.header}>Login</h2>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <label className={styles.label}>
-          Username:
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className={styles.input} />
-        </label>
-        <label className={styles.label}>
-          Password:
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className={styles.input} />
-        </label>
-        <button type="submit" className={styles.button}>Login</button>
-      </form>
-    </div>
+		<div className={styles.container}>
+		  <h2 className={styles.header}>Login</h2>
+		  <form onSubmit={handleSubmit} className={styles.form}>
+				<label className={styles.label}>
+				  Username:
+				  <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className={styles.input} />
+				</label>
+				<label className={styles.label}>
+				  Password:
+				  <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className={styles.input} />
+				</label>
+				<button type="submit" className={styles.button}>Login</button>
+		  </form>
+		</div>
   );
 };
 

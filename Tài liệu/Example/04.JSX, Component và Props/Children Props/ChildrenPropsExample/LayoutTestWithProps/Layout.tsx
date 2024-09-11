@@ -9,13 +9,13 @@ interface Props {
 /**
  * Hiển thị cấu trúc Layout. Với children là component con truyền vào
  */
-const Layout: React.FC<Props> = ({ sidebar, children }) => {			
-	return (
-		<div className="layout">
-			<aside className="sidebar">{sidebar}</aside>
-			<main className="mainContent">{children}</main>
-		</div>
-	);
+const Layout: React.FC<Props> = ({ sidebar, children }) => {						
+		return (
+				<div className="layout">
+						<aside className="sidebar">{sidebar}</aside>
+						<main className="mainContent">{children}</main>
+				</div>
+		);
 };
 
 export default Layout;

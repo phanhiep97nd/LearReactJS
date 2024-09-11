@@ -11,12 +11,12 @@ const logError = async (message: string, error: unknown) => {
   console.error(message, error);
   // Ghi log
   try {
-    await axios.post('/api/logError', {
-      message,
-      error: error instanceof Error ? error.message : String(error)
-    });
+		await axios.post('/api/logError', {
+		  message,
+		  error: error instanceof Error ? error.message : String(error)
+		});
   } catch (logError) {
-    console.error('Error logging to external service', logError);
+		console.error('Error logging to external service', logError);
   }
 };
 
@@ -25,13 +25,13 @@ const logError = async (message: string, error: unknown) => {
  */
 const createSession = async () => {
   try {
-    const response = await axios.post(`https://api.themoviedb.org/3/authentication/session/new?api_key=${apiKey}`, {
-      request_token: requestToken
-    });
-    return response.data.session_id;
+		const response = await axios.post(`https://api.themoviedb.org/3/authentication/session/new?api_key=${apiKey}`, {
+		  request_token: requestToken
+		});
+		return response.data.session_id;
   } catch (error) {
-    await logError('Error creating session', error);
-    throw new Error('Có lỗi bất thường khi thao tác');
+		await logError('Error creating session', error);
+		throw new Error('Có lỗi bất thường khi thao tác');
   }
 };
 
@@ -40,15 +40,15 @@ const createSession = async () => {
  */
 const deleteSession = async (sessionId: string) => {
   try {
-    const response = await axios.delete(`https://api.themoviedb.org/3/authentication/session?api_key=${apiKey}`, {
-      data: { session_id: sessionId }
-    });
-    if (response.status !== 200) {
-      throw new Error('Failed to delete session');
-    }
+		const response = await axios.delete(`https://api.themoviedb.org/3/authentication/session?api_key=${apiKey}`, {
+		  data: { session_id: sessionId }
+		});
+		if (response.status !== 200) {
+		  throw new Error('Failed to delete session');
+		}
   } catch (error) {
-    await logError('Error deleting session', error);
-    throw new Error('Có lỗi bất thường khi thao tác');
+		await logError('Error deleting session', error);
+		throw new Error('Có lỗi bất thường khi thao tác');
   }
 };
 
@@ -58,15 +58,15 @@ const deleteSession = async (sessionId: string) => {
 const performApiPost = async ({ sessionId, channelName, channelDescription }: 
   { sessionId: string, channelName: string, channelDescription: string }) => {
   try {
-    const response = await axios.post(`https://api.themoviedb.org/3/list?api_key=${apiKey}&session_id=${sessionId}`, {
-      name: channelName,
-      description: channelDescription,
-      language: "en"
-    });
-    return response.data;
+		const response = await axios.post(`https://api.themoviedb.org/3/list?api_key=${apiKey}&session_id=${sessionId}`, {
+		  name: channelName,
+		  description: channelDescription,
+		  language: "en"
+		});
+		return response.data;
   } catch (error) {
-    await logError('Error performing API POST', error);
-    throw new Error('Có lỗi bất thường khi thao tác');
+		await logError('Error performing API POST', error);
+		throw new Error('Có lỗi bất thường khi thao tác');
   }
 };
 
@@ -75,10 +75,10 @@ const performApiPost = async ({ sessionId, channelName, channelDescription }:
  */
 const fetchGenres = async () => {
   const response = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?language=en`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`,
-    },
+		headers: {
+		  'Content-Type': 'application/json',
+		  'Authorization': `Bearer ${apiKey}`,
+		},
   });
   return response.data.genres;
 };
@@ -89,13 +89,13 @@ const fetchGenres = async () => {
 export const useCreateSession = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: createSession,
-    onSuccess: () => {
-      // Vô hiệu hóa và refetch query trong cache dựa theo các query key để react query tìm nạp lại
-      // dữ liệu đó. Lúc này dữ liệu liên quan đến query key ['session'] được nạp lại
-      // (data được nạp vào cache với thông tin session vừa tạo)
-      queryClient.invalidateQueries({queryKey: ['session']});
-    }
+		mutationFn: createSession,
+		onSuccess: () => {
+		  // Vô hiệu hóa và refetch query trong cache dựa theo các query key để react query tìm nạp lại
+		  // dữ liệu đó. Lúc này dữ liệu liên quan đến query key ['session'] được nạp lại
+		  // (data được nạp vào cache với thông tin session vừa tạo)
+		  queryClient.invalidateQueries({queryKey: ['session']});
+		}
   });
 };
 
@@ -105,13 +105,13 @@ export const useCreateSession = () => {
 export const useDeleteSession = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: deleteSession,
-    onSuccess: () => {
-      // Vô hiệu hóa và refetch query trong cache dựa theo các query key để react query tìm nạp lại
-      // dữ liệu đó. Lúc này dữ liệu liên quan đến query key ['session'] được nạp lại
-      // (data được nạp vào cache với thông tin session vừa xóa - hiểu là hiện tại cache dữ liệu session là rỗng)
-      queryClient.invalidateQueries({ queryKey: ['session'] });
-    }
+		mutationFn: deleteSession,
+		onSuccess: () => {
+		  // Vô hiệu hóa và refetch query trong cache dựa theo các query key để react query tìm nạp lại
+		  // dữ liệu đó. Lúc này dữ liệu liên quan đến query key ['session'] được nạp lại
+		  // (data được nạp vào cache với thông tin session vừa xóa - hiểu là hiện tại cache dữ liệu session là rỗng)
+		  queryClient.invalidateQueries({ queryKey: ['session'] });
+		}
   });
 };
 
@@ -121,13 +121,13 @@ export const useDeleteSession = () => {
 export const usePerformApiPost = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: performApiPost,
-    onSuccess: (data) => {
-      // Cập nhật thông tin dữ liệu. Giả định sau khi tạo kênh thành công, server trả về dữ liệu kênh
-      // vừa được tạo trong data. Lúc này, đối tượng oldData được cập nhật mới theo các giá trị hiện
-      // tại trong data
-      queryClient.setQueryData(['channels'], (oldData: any) => [...oldData, data]);
-    }
+		mutationFn: performApiPost,
+		onSuccess: (data) => {
+		  // Cập nhật thông tin dữ liệu. Giả định sau khi tạo kênh thành công, server trả về dữ liệu kênh
+		  // vừa được tạo trong data. Lúc này, đối tượng oldData được cập nhật mới theo các giá trị hiện
+		  // tại trong data
+		  queryClient.setQueryData(['channels'], (oldData: any) => [...oldData, data]);
+		}
   });
 };
 
@@ -143,7 +143,7 @@ type DataType = {
 export const useGenres = () => {
   const queryClient = useQueryClient();
   return useQuery<DataType[]>({
-    queryKey: ['genres'],
-    queryFn: fetchGenres
+		queryKey: ['genres'],
+		queryFn: fetchGenres
   }, queryClient);
 };

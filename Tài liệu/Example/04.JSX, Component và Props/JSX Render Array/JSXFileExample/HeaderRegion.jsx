@@ -1,11 +1,11 @@
 const HeaderRegion = 
-<div id="header">		
+<div id="header">				
   <h1>
-    Hello
+		Hello
   </h1>
   <div>
-    <h2>Test component by <b>Me</b></h2>
+		<h2>Test component by <b>Me</b></h2>
   </div>
-</div>		
+</div>				
 
 export default HeaderRegion;

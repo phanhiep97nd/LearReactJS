@@ -7,7 +7,7 @@ const list_filter = [
 const MenuList = 
 <ul>
   {
-    list_filter.map(item => <li key={item.key}>{item.value}</li>)
+		list_filter.map(item => <li key={item.key}>{item.value}</li>)
   }
 </ul>
 

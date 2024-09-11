@@ -23,10 +23,10 @@ const CustomRadio: React.FC<Props> = (props: Props) => {
   const id=`radio_${currentDate.getFullYear()}_${currentDate.getMonth()}_${currentDate.getDay()}_${currentDate.getHours()}_${currentDate.getMinutes()}_${currentDate.getSeconds()}_${currentDate.getMilliseconds()}`;
 
   return (
-    <React.Fragment key={id}>
-      <input type="radio" id={id} {...props.radioProps} className={defaultClassName} />
-      <label htmlFor={id} {...props.labelProps}>{props.labelProps.label}</label>
-    </React.Fragment>
+		<React.Fragment key={id}>
+		  <input type="radio" id={id} {...props.radioProps} className={defaultClassName} />
+		  <label htmlFor={id} {...props.labelProps}>{props.labelProps.label}</label>
+		</React.Fragment>
   )
 }
 

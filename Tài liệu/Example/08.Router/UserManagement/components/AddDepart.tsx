@@ -9,29 +9,29 @@ const AddDepart: React.FC = () => {
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await axios.post('/api/departs', { name });
-      /**
-       * Chuyển hướng sang Component list departs
-       */
-      navigate('/departs');
-    } catch (error) {
-      console.error('Failed to add department:', error);
-    }
+		e.preventDefault();
+		try {
+		  await axios.post('/api/departs', { name });
+		  /**
+		   * Chuyển hướng sang Component list departs
+		   */
+		  navigate('/departs');
+		} catch (error) {
+		  console.error('Failed to add department:', error);
+		}
   };
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.header}>Add Department</h2>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <label className={styles.label}>
-          Name:
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} className={styles.input} />
-        </label>
-        <button type="submit" className={styles.button}>Add</button>
-      </form>
-    </div>
+		<div className={styles.container}>
+		  <h2 className={styles.header}>Add Department</h2>
+		  <form onSubmit={handleSubmit} className={styles.form}>
+				<label className={styles.label}>
+				  Name:
+				  <input type="text" value={name} onChange={(e) => setName(e.target.value)} className={styles.input} />
+				</label>
+				<button type="submit" className={styles.button}>Add</button>
+		  </form>
+		</div>
   );
 };
 

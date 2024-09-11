@@ -63,48 +63,48 @@ const initialAddressRegisterState: AddressRegisterState = {
  */
 function reducer(state: AddressRegisterState, action: Action): AddressRegisterState {
   switch (action.type) {
-    case 'SET_UPPER_ZIP_CODE':
-      return { ...state, upperZipCode: action.payload };
-    case 'SET_LOWER_ZIP_CODE':
-      return { ...state, lowerZipCode: action.payload };
-    case 'SET_SELECTED_CITY':
-      return {
-        ...state,
-        selectedCity: action.payload,
-        engCityName: action.engCityName,
-        selectedDistrict: '',
-        selectedWard: '',
-        districts: [],
-        wards: []
-      };
-    case 'SET_SELECTED_DISTRICT':
-      return {
-        ...state,
-        selectedDistrict: action.payload,
-        selectedWard: '',
-        wards: []
-      };
-    case 'SET_SELECTED_WARD':
-      return { ...state, selectedWard: action.payload };
-    case 'SET_DISTRICTS':
-      return { ...state, districts: action.payload };
-    case 'SET_WARDS':
-      return { ...state, wards: action.payload };
-    case 'SET_CITY_DISTRICT_WARD_COMBINATION':
-      return { ...state, cityDistrictWardCombination: action.payload };
-    case 'RESET':
-      return initialAddressRegisterState;
-    default:
-      return state;
+		case 'SET_UPPER_ZIP_CODE':
+		  return { ...state, upperZipCode: action.payload };
+		case 'SET_LOWER_ZIP_CODE':
+		  return { ...state, lowerZipCode: action.payload };
+		case 'SET_SELECTED_CITY':
+		  return {
+				...state,
+				selectedCity: action.payload,
+				engCityName: action.engCityName,
+				selectedDistrict: '',
+				selectedWard: '',
+				districts: [],
+				wards: []
+		  };
+		case 'SET_SELECTED_DISTRICT':
+		  return {
+				...state,
+				selectedDistrict: action.payload,
+				selectedWard: '',
+				wards: []
+		  };
+		case 'SET_SELECTED_WARD':
+		  return { ...state, selectedWard: action.payload };
+		case 'SET_DISTRICTS':
+		  return { ...state, districts: action.payload };
+		case 'SET_WARDS':
+		  return { ...state, wards: action.payload };
+		case 'SET_CITY_DISTRICT_WARD_COMBINATION':
+		  return { ...state, cityDistrictWardCombination: action.payload };
+		case 'RESET':
+		  return initialAddressRegisterState;
+		default:
+		  return state;
   }
 }
 
 const defaultQueryClient = new QueryClient({
   defaultOptions: {
-    queries: {
-      staleTime: Infinity,
-      enabled: false
-    }
+		queries: {
+		  staleTime: Infinity,
+		  enabled: false
+		}
   }
 })
 
@@ -119,176 +119,176 @@ const AddressRegistration: React.FC = () => {
   const queryClient = useQueryClient(defaultQueryClient);
 
   const {data: cities, isSuccess: isSuccessSearchCities} = useQuery({
-    queryKey: ['cities', state.upperZipCode, state.lowerZipCode],
-    queryFn: () => fetchCities(state.upperZipCode, state.lowerZipCode),
-    enabled: !!state.upperZipCode && !!state.lowerZipCode,
+		queryKey: ['cities', state.upperZipCode, state.lowerZipCode],
+		queryFn: () => fetchCities(state.upperZipCode, state.lowerZipCode),
+		enabled: !!state.upperZipCode && !!state.lowerZipCode,
   }, queryClient);
 
   useEffect(() => {
-    if (isSuccessSearchCities) {
-      dispatch({ type: 'SET_SELECTED_CITY', payload: '', engCityName: '' });
-      dispatch({ type: 'SET_CITIES', payload: cities });
-      dispatch({ type: 'RESET' });
-    }
+		if (isSuccessSearchCities) {
+		  dispatch({ type: 'SET_SELECTED_CITY', payload: '', engCityName: '' });
+		  dispatch({ type: 'SET_CITIES', payload: cities });
+		  dispatch({ type: 'RESET' });
+		}
   }, [isSuccessSearchCities]);
 
   const {data: districts, isSuccess: isSuccessSearchDistricts} = useQuery({
-    queryKey: ['districts', state.selectedCity],
-    queryFn: () => fetchDistricts(state.selectedCity),
-    enabled: !!state.selectedCity,
+		queryKey: ['districts', state.selectedCity],
+		queryFn: () => fetchDistricts(state.selectedCity),
+		enabled: !!state.selectedCity,
   }, queryClient);
 
   useEffect(() => {
-    if (isSuccessSearchDistricts) {
-      dispatch({ type: 'SET_DISTRICTS', payload: districts });
-    }
+		if (isSuccessSearchDistricts) {
+		  dispatch({ type: 'SET_DISTRICTS', payload: districts });
+		}
   }, [isSuccessSearchDistricts]);
 
   const { data: wards, isSuccess: isSuccessSearchWards } = useQuery(
-    {
-      queryKey: ['wards', state.selectedDistrict],
-      queryFn: () => fetchWards(state.selectedDistrict),
-      enabled: !!state.selectedDistrict,
-    }, queryClient
+		{
+		  queryKey: ['wards', state.selectedDistrict],
+		  queryFn: () => fetchWards(state.selectedDistrict),
+		  enabled: !!state.selectedDistrict,
+		}, queryClient
   );
 
   useEffect(() => {
-    if (isSuccessSearchWards) {
-      dispatch({ type: 'SET_WARDS', payload: wards });
-    }
+		if (isSuccessSearchWards) {
+		  dispatch({ type: 'SET_WARDS', payload: wards });
+		}
   }, [isSuccessSearchWards]);
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   /// Actions
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   const handleSearchCity = async () => {
-    dispatch({ type: 'RESET' });
-    const upperZipCode = state.upperZipCode;
-    const lowerZipCode = state.lowerZipCode;
+		dispatch({ type: 'RESET' });
+		const upperZipCode = state.upperZipCode;
+		const lowerZipCode = state.lowerZipCode;
 
-    queryClient.invalidateQueries({
-      queryKey: ['cities', upperZipCode, lowerZipCode]
-    }, {
-      cancelRefetch: false
-    });
+		queryClient.invalidateQueries({
+		  queryKey: ['cities', upperZipCode, lowerZipCode]
+		}, {
+		  cancelRefetch: false
+		});
   };
 
   const handleCityChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedCity = event.target.value;
-    dispatch({ type: 'SET_SELECTED_CITY', payload: selectedCity, engCityName: selectedCity });
-    if (selectedCity) {
-      queryClient.invalidateQueries({
-        queryKey: ['districts', selectedCity]
-      }, {
-        cancelRefetch: false
-      });
-    }
+		const selectedCity = event.target.value;
+		dispatch({ type: 'SET_SELECTED_CITY', payload: selectedCity, engCityName: selectedCity });
+		if (selectedCity) {
+		  queryClient.invalidateQueries({
+				queryKey: ['districts', selectedCity]
+		  }, {
+				cancelRefetch: false
+		  });
+		}
   };
 
   const handleDistrictChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedDistrict = event.target.value;
-    dispatch({ type: 'SET_SELECTED_DISTRICT', payload: selectedDistrict });
-    if (selectedDistrict) {
-      queryClient.invalidateQueries({
-        queryKey: ['wards', selectedDistrict]
-      }, {
-        cancelRefetch: false
-      });
-    }
+		const selectedDistrict = event.target.value;
+		dispatch({ type: 'SET_SELECTED_DISTRICT', payload: selectedDistrict });
+		if (selectedDistrict) {
+		  queryClient.invalidateQueries({
+				queryKey: ['wards', selectedDistrict]
+		  }, {
+				cancelRefetch: false
+		  });
+		}
   };
 
   const handleWardChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedWard = event.target.value;
-    dispatch({ type: 'SET_SELECTED_WARD', payload: selectedWard });
-    if (state.selectedCity && state.selectedDistrict && selectedWard) {
-      const combination = `${state.selectedCity}, ${state.selectedDistrict}, ${selectedWard}`;
-      dispatch({ type: 'SET_CITY_DISTRICT_WARD_COMBINATION', payload: combination });
-    }
+		const selectedWard = event.target.value;
+		dispatch({ type: 'SET_SELECTED_WARD', payload: selectedWard });
+		if (state.selectedCity && state.selectedDistrict && selectedWard) {
+		  const combination = `${state.selectedCity}, ${state.selectedDistrict}, ${selectedWard}`;
+		  dispatch({ type: 'SET_CITY_DISTRICT_WARD_COMBINATION', payload: combination });
+		}
   };
 
   return (
-    <div className={styles.addressForm}>
-      <h2>Address Registration</h2>
-      <div className={styles.label}>
-        <label>Upper Zip Code:</label>
-        <input
-          type="text"
-          className={styles.input}
-          value={state.upperZipCode}
-          onChange={(e) => dispatch({ type: 'SET_UPPER_ZIP_CODE', payload: e.target.value })}
-        />
-      </div>
-      <div className={styles.label}>
-        <label>Lower Zip Code:</label>
-        <input
-          type="text"
-          className={styles.input}
-          value={state.lowerZipCode}
-          onChange={(e) => dispatch({ type: 'SET_LOWER_ZIP_CODE', payload: e.target.value })}
-        />
-      </div>
-      <button
-        className={styles.button}
-        onClick={handleSearchCity}
-        disabled={!state.upperZipCode || !state.lowerZipCode}
-      >
-        Tìm kiếm
-      </button>
-      <div className={styles.label}>
-        <label>Thành phố:</label>
-        <select
-          className={styles.select}
-          value={state.selectedCity}
-          onChange={handleCityChange}
-        >
-          <option value="">Chọn thành phố</option>
-          {state.cities.map((city) => (
-            <option key={city} value={city}>
-              {city}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className={styles.label}>
-        <label>Tên thành phố (tiếng Anh):</label>
-        <input type="text" className={styles.input} value={state.engCityName} disabled />
-      </div>
-      <div className={styles.label}>
-        <label>Quận:</label>
-        <select
-          className={styles.select}
-          value={state.selectedDistrict}
-          onChange={handleDistrictChange}
-        >
-          <option value="">Chọn quận</option>
-          {state.districts.map((district) => (
-            <option key={district} value={district}>
-              {district}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className={styles.label}>
-        <label>Phường:</label>
-        <select className={styles.select} value={state.selectedWard} onChange={handleWardChange}>
-          <option value="">Chọn phường</option>
-          {state.wards.map((ward) => (
-            <option key={ward} value={ward}>
-              {ward}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className={styles.label}>
-        <label>Địa chỉ đầy đủ:</label>
-        <input
-          type="text"
-          className={`${styles.input} ${styles.disabled}`}
-          value={state.cityDistrictWardCombination}
-          disabled
-        />
-      </div>
-    </div>
+		<div className={styles.addressForm}>
+		  <h2>Address Registration</h2>
+		  <div className={styles.label}>
+				<label>Upper Zip Code:</label>
+				<input
+				  type="text"
+				  className={styles.input}
+				  value={state.upperZipCode}
+				  onChange={(e) => dispatch({ type: 'SET_UPPER_ZIP_CODE', payload: e.target.value })}
+				/>
+		  </div>
+		  <div className={styles.label}>
+				<label>Lower Zip Code:</label>
+				<input
+				  type="text"
+				  className={styles.input}
+				  value={state.lowerZipCode}
+				  onChange={(e) => dispatch({ type: 'SET_LOWER_ZIP_CODE', payload: e.target.value })}
+				/>
+		  </div>
+		  <button
+				className={styles.button}
+				onClick={handleSearchCity}
+				disabled={!state.upperZipCode || !state.lowerZipCode}
+		  >
+				Tìm kiếm
+		  </button>
+		  <div className={styles.label}>
+				<label>Thành phố:</label>
+				<select
+				  className={styles.select}
+				  value={state.selectedCity}
+				  onChange={handleCityChange}
+				>
+				  <option value="">Chọn thành phố</option>
+				  {state.cities.map((city) => (
+						<option key={city} value={city}>
+						  {city}
+						</option>
+				  ))}
+				</select>
+		  </div>
+		  <div className={styles.label}>
+				<label>Tên thành phố (tiếng Anh):</label>
+				<input type="text" className={styles.input} value={state.engCityName} disabled />
+		  </div>
+		  <div className={styles.label}>
+				<label>Quận:</label>
+				<select
+				  className={styles.select}
+				  value={state.selectedDistrict}
+				  onChange={handleDistrictChange}
+				>
+				  <option value="">Chọn quận</option>
+				  {state.districts.map((district) => (
+						<option key={district} value={district}>
+						  {district}
+						</option>
+				  ))}
+				</select>
+		  </div>
+		  <div className={styles.label}>
+				<label>Phường:</label>
+				<select className={styles.select} value={state.selectedWard} onChange={handleWardChange}>
+				  <option value="">Chọn phường</option>
+				  {state.wards.map((ward) => (
+						<option key={ward} value={ward}>
+						  {ward}
+						</option>
+				  ))}
+				</select>
+		  </div>
+		  <div className={styles.label}>
+				<label>Địa chỉ đầy đủ:</label>
+				<input
+				  type="text"
+				  className={`${styles.input} ${styles.disabled}`}
+				  value={state.cityDistrictWardCombination}
+				  disabled
+				/>
+		  </div>
+		</div>
   );
 };
 

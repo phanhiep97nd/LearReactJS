@@ -1,13 +1,13 @@
 /* tạo đối tượng css đơn giản Layout.css */
 .layout {
-	display: flex;
-	height: 100vh;
+		display: flex;
+		height: 100vh;
 }
 .sidebar {
-	width: 250px;
-	background-color: #f0f0f0;
+		width: 250px;
+		background-color: #f0f0f0;
 }
 .mainContent {
-	flex: 1;
-	padding: 20px;
+		flex: 1;
+		padding: 20px;
 }

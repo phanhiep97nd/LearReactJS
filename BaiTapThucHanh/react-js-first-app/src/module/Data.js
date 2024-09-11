@@ -1,53 +1,53 @@
 import { TypeOfCar } from './Constants';
 export const DriverInfo = [
-    {
-      Type: TypeOfCar.NAM_CHO,
-      Name: "Xe 5 chỗ",
-      DriverName: 'DriverA',
-      PhoneNumber: '0948171499',
-      SeatInfo: '4 khách',
-      Info1: 'Sạch sẽ',
-      Info2: 'Đời mới, Rộng rãi',
-      Info3: 'Phục vụ nhiệt tình',
-      ImageName: 'avatar-5cho.png',
-      FacebookName: 'DriverA_FB',
-      FacebookLink: "https://www.facebook.com/profile.php?id=100013603867883",
-      ZaloName: "DriverA_Zalo",
-      BankNumber: "0123456789",
-      BankName: "Techcombank - DriverA",
-    },
-    {
-      Type: TypeOfCar.BAY_CHO,
-      Name: "Xe 7 chỗ",
-      DriverName: 'DriverB',
-      PhoneNumber: '0129469766',
-      SeatInfo: '6 khách',
-      Info1: 'Sạch sẽ',
-      Info2: 'Đời mới, Rộng rãi',
-      Info3: 'Phục vụ nhiệt tình',
-      ImageName: 'avatar-7cho.png',
-      FacebookName: 'DriverB_FB',
-      FacebookLink: "https://www.facebook.com/profile.php?id=100013603867883",
-      ZaloName: "DriverB_Zalo",
-      BankNumber: "9876543210",
-      BankName: "MB bank - DriverB",
-    },
-    {
-      Type: TypeOfCar.XE_TAI,
-      Name: "Xe tải",
-      DriverName: 'DriverC',
-      PhoneNumber: '0963690629',
-      SeatInfo: 'Tất cả các loại hàng hóa',
-      Info1: 'Sạch sẽ',
-      Info2: 'An toàn, cẩn thận',
-      Info3: 'Phục vụ nhiệt tình',
-      ImageName: 'avatar-xeTai.png',
-      FacebookName: 'DriverC_FB',
-      FacebookLink: "https://www.facebook.com/profile.php?id=100071499535350",
-      ZaloName: "DriverC_Zalo",
-      BankNumber: "88886666",
-      BankName: "Vietcombank - DriverC",
-    }
+		{
+		  Type: TypeOfCar.NAM_CHO,
+		  Name: "Xe 5 chỗ",
+		  DriverName: 'DriverA',
+		  PhoneNumber: '0948171499',
+		  SeatInfo: '4 khách',
+		  Info1: 'Sạch sẽ',
+		  Info2: 'Đời mới, Rộng rãi',
+		  Info3: 'Phục vụ nhiệt tình',
+		  ImageName: 'avatar-5cho.png',
+		  FacebookName: 'DriverA_FB',
+		  FacebookLink: "https://www.facebook.com/profile.php?id=100013603867883",
+		  ZaloName: "DriverA_Zalo",
+		  BankNumber: "0123456789",
+		  BankName: "Techcombank - DriverA",
+		},
+		{
+		  Type: TypeOfCar.BAY_CHO,
+		  Name: "Xe 7 chỗ",
+		  DriverName: 'DriverB',
+		  PhoneNumber: '0129469766',
+		  SeatInfo: '6 khách',
+		  Info1: 'Sạch sẽ',
+		  Info2: 'Đời mới, Rộng rãi',
+		  Info3: 'Phục vụ nhiệt tình',
+		  ImageName: 'avatar-7cho.png',
+		  FacebookName: 'DriverB_FB',
+		  FacebookLink: "https://www.facebook.com/profile.php?id=100013603867883",
+		  ZaloName: "DriverB_Zalo",
+		  BankNumber: "9876543210",
+		  BankName: "MB bank - DriverB",
+		},
+		{
+		  Type: TypeOfCar.XE_TAI,
+		  Name: "Xe tải",
+		  DriverName: 'DriverC',
+		  PhoneNumber: '0963690629',
+		  SeatInfo: 'Tất cả các loại hàng hóa',
+		  Info1: 'Sạch sẽ',
+		  Info2: 'An toàn, cẩn thận',
+		  Info3: 'Phục vụ nhiệt tình',
+		  ImageName: 'avatar-xeTai.png',
+		  FacebookName: 'DriverC_FB',
+		  FacebookLink: "https://www.facebook.com/profile.php?id=100071499535350",
+		  ZaloName: "DriverC_Zalo",
+		  BankNumber: "88886666",
+		  BankName: "Vietcombank - DriverC",
+		}
 ]
   
 const Holiday = [
@@ -96,18 +96,18 @@ const Holiday = [
  */
 export const CheckHoliday = (dayCheck) => {
   if(dayCheck) {
-    return Holiday.find((item) => item.ngay === dayCheck);
+		return Holiday.find((item) => item.ngay === dayCheck);
   }
   else {
-    const now = new Date();
+		const now = new Date();
 
-    // Lấy ngày, tháng và năm hiện tại
-    const ngay = String(now.getDate()).padStart(2, '0'); // Đảm bảo ngày có 2 chữ số
-    const thang = String(now.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0 nên cần cộng thêm 1
-    const nam = now.getFullYear();
-    // Định dạng theo dd/mm/yyyy
-    const formattedDate = `${ngay}/${thang}/${nam}`;
-    return Holiday.find((item) => item.ngay === formattedDate);
+		// Lấy ngày, tháng và năm hiện tại
+		const ngay = String(now.getDate()).padStart(2, '0'); // Đảm bảo ngày có 2 chữ số
+		const thang = String(now.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0 nên cần cộng thêm 1
+		const nam = now.getFullYear();
+		// Định dạng theo dd/mm/yyyy
+		const formattedDate = `${ngay}/${thang}/${nam}`;
+		return Holiday.find((item) => item.ngay === formattedDate);
   }
 }
 

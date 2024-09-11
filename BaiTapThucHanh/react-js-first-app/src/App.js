@@ -10,9 +10,9 @@ import Contact from "./components/page/Contact";
 
 export const ShowPhoneNumber = (phoneNumber) => {
   if (phoneNumber && typeof phoneNumber === 'string' && phoneNumber.length === 10) {
-    return phoneNumber.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
+	return phoneNumber.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
   } else {
-    return phoneNumber;
+	return phoneNumber;
   }
 }
 
@@ -21,26 +21,26 @@ function App() {
   const [checkHoliday] = useState(CheckHoliday('03/02/2025'));
 
   const handleUpdateDriver = (Type) => {
-    setUpdateDriver(DriverInfo.find(item => item.Type === Type));
+	setUpdateDriver(DriverInfo.find(item => item.Type === Type));
   }
 
   return (
-    <>
-      <Header DriverName={Driver.DriverName} PhoneNumber={Driver.PhoneNumber} />
-      <main>
-        <article>
-          <Hero UpdateDriver={handleUpdateDriver} Type={Driver.Type} />
-          <ListCar
-            UpdateDriver={handleUpdateDriver}
-            DriverInfo={DriverInfo}
-            CheckHoliday={checkHoliday}
-          />
-          <Contact DriverInfo={Driver}/>
-        </article>
-      </main>
-      <div style={{ height: "1000px" }}></div>
-      <Footer DriverName={Driver.DriverName} />
-    </>
+	<>
+	  <Header DriverName={Driver.DriverName} PhoneNumber={Driver.PhoneNumber} />
+	  <main>
+		<article>
+		  <Hero UpdateDriver={handleUpdateDriver} Type={Driver.Type} />
+		  <ListCar
+			UpdateDriver={handleUpdateDriver}
+			DriverInfo={DriverInfo}
+			CheckHoliday={checkHoliday}
+		  />
+		  <Contact DriverInfo={Driver}/>
+		</article>
+	  </main>
+	  <div style={{ height: "1000px" }}></div>
+	  <Footer DriverName={Driver.DriverName} />
+	</>
   );
 }
 

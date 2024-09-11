@@ -8,6 +8,6 @@ const getStartAndEndDate = (date?: Date | string | null) => {
 
 const convertDate = (inputDate: Date, combination?: string | null) => {
   if (!combination || typeof(combination) === 'undefined')
-      combination = "-"
+		  combination = "-"
   return `${inputDate.getFullYear()}-${inputDate.getMonth() + 1}-${inputDate.getDate()}`
 }

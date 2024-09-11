@@ -10,39 +10,39 @@ const EditDepart: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchDepart = async () => {
-      try {
-        const { data } = await axios.get(`/api/departs/${id}`);
-        setName(data.name);
-      } catch (error) {
-        console.error('Failed to fetch department:', error);
-      }
-    };
-    fetchDepart();
+		const fetchDepart = async () => {
+		  try {
+				const { data } = await axios.get(`/api/departs/${id}`);
+				setName(data.name);
+		  } catch (error) {
+				console.error('Failed to fetch department:', error);
+		  }
+		};
+		fetchDepart();
   }, [id]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await axios.put(`/api/departs/${id}`, { name });
-      // Chuyển hướng sang Component list departs
-      navigate('/departs');
-    } catch (error) {
-      console.error('Failed to edit department:', error);
-    }
+		e.preventDefault();
+		try {
+		  await axios.put(`/api/departs/${id}`, { name });
+		  // Chuyển hướng sang Component list departs
+		  navigate('/departs');
+		} catch (error) {
+		  console.error('Failed to edit department:', error);
+		}
   };
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.header}>Edit Department</h2>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <label className={styles.label}>
-          Name:
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} className={styles.input} />
-        </label>
-        <button type="submit" className={styles.button}>Save</button>
-      </form>
-    </div>
+		<div className={styles.container}>
+		  <h2 className={styles.header}>Edit Department</h2>
+		  <form onSubmit={handleSubmit} className={styles.form}>
+				<label className={styles.label}>
+				  Name:
+				  <input type="text" value={name} onChange={(e) => setName(e.target.value)} className={styles.input} />
+				</label>
+				<button type="submit" className={styles.button}>Save</button>
+		  </form>
+		</div>
   );
 };
 

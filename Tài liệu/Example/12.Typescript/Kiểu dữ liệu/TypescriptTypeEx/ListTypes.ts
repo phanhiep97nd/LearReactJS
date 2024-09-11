@@ -57,12 +57,12 @@ action = 'Insert';
  */
 function handlingAction(action: ('Insert' | 'Update' | 'Delete')) {
   switch (action) {
-    case "Insert":
-      return 1;
-    case "Update":
-      return 2;
-    case "Delete":
-      return 3;
+		case "Insert":
+		  return 1;
+		case "Update":
+		  return 2;
+		case "Delete":
+		  return 3;
   }
 }
 
@@ -102,10 +102,10 @@ let myOtherInfo: {
   age: number,
   gender: 'Male' | 'Female',
   address: {
-    city: string,
-    district: string,
-    ward: string,
-    detailAddress?: string
+		city: string,
+		district: string,
+		ward: string,
+		detailAddress?: string
   }
   note?: string
 }
@@ -153,10 +153,10 @@ type UserInfo = {
   age: number,
   gender: Gender,
   address: {
-    city: string,
-    district: string,
-    ward: string,
-    detailAddress?: string
+		city: string,
+		district: string,
+		ward: string,
+		detailAddress?: string
   }
   note?: string
 }
@@ -205,7 +205,7 @@ let myCar: Car = {
   isElectric: false,
   getPrice: (modelName) => modelName === "Volvo"? 1000 : 2000,
   getOtherPrice: function(modelName) {
-    return modelName === "Volvo"? 1000 : 2000;
+		return modelName === "Volvo"? 1000 : 2000;
   }
 }
 
@@ -229,16 +229,16 @@ type Action = {
 
 const actionTmp: Action = {
   doLogging: function<T>(act: T) {
-    switch(typeof(act)){
-      case 'number':
-        console.log(`Number: ${act.toString()}`);
-        return;
-      case 'string':
-        console.log(`String: ${act.toString()}`);
-        return;
-      default:
-        console.log(`Unknown value`);
-        return;
-    }
+		switch(typeof(act)){
+		  case 'number':
+				console.log(`Number: ${act.toString()}`);
+				return;
+		  case 'string':
+				console.log(`String: ${act.toString()}`);
+				return;
+		  default:
+				console.log(`Unknown value`);
+				return;
+		}
   }
 }
