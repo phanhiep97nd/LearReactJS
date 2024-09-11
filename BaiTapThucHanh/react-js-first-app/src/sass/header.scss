@@ -1,5 +1,5 @@
 /*-----------------------------------*\
-  #style.css
+/t#style.css
 \*-----------------------------------*/
 
 /**
@@ -14,13 +14,13 @@
  @use './shadow';
  @use './transition';
 
-  /*-----------------------------------*\
+/t/*-----------------------------------*\
 		#HEADER
-  \*-----------------------------------*/
-  
-  .header-contact { display: none; }
-  
-  .header {
+/t\*-----------------------------------*/
+/t
+/t.header-contact { display: none; }
+/t
+/t.header {
 		background: colors.$alice-blue-1;
 		position: fixed;
 		top: 0;
@@ -28,33 +28,33 @@
 		width: 100%;
 		transition: transition.$transition;
 		z-index: 4;
-  }
-  
-  .header.active { box-shadow: shadow.$shadow-1; }
-  
-  .header .container {
+/t}
+/t
+/t.header.active { box-shadow: shadow.$shadow-1; }
+/t
+/t.header .container {
 		height: 70px;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-  }
-  
-  .header-actions {
+/t}
+/t
+/t.header-actions {
 		display: flex;
 		align-items: center;
 		gap: 20px;
-  }
-  
-  .header-actions .btn span { display: none; }
-  
-  .user-btn {
+/t}
+/t
+/t.header-actions .btn span { display: none; }
+/t
+/t.user-btn {
 		--color: colors.$independence;
 		--background: colors.$white;
 		--shadow-2: shadow.$shadow-1;
 		box-shadow: shadow.$shadow-1;
-  }
-  
-  .nav-toggle-btn span {
+/t}
+/t
+/t.nav-toggle-btn span {
 		background: colors.$independence;
 		width: 22px;
 		height: 2px;
@@ -62,20 +62,20 @@
 		margin-block: 8px;
 		transform-origin: right;
 		transition: transition.$transition;
-  }
-  
-  .nav-toggle-btn span.two { transform: scaleX(0.7); }
-  
-  .nav-toggle-btn span.three { transform: scaleX(0.4); }
-  
-  .nav-toggle-btn:is(:hover, :focus) span { background: colors.$carolina-blue; }
-  
-  .nav-toggle-btn.active span {
+/t}
+/t
+/t.nav-toggle-btn span.two { transform: scaleX(0.7); }
+/t
+/t.nav-toggle-btn span.three { transform: scaleX(0.4); }
+/t
+/t.nav-toggle-btn:is(:hover, :focus) span { background: colors.$carolina-blue; }
+/t
+/t.nav-toggle-btn.active span {
 		transform: scaleX(1);
 		background: colors.$carolina-blue;
-  }
-  
-  .navbar {
+/t}
+/t
+/t.navbar {
 		background: colors.$alice-blue-1;
 		position: fixed;
 		top: 70px;
@@ -88,25 +88,25 @@
 		box-shadow: shadow.$shadow-1;
 		visibility: hidden;
 		transition: 0.25s cubic-bezier(0.51, 0.03, 0.64, 0.28);
-  }
-  
-  .navbar.active {
+/t}
+/t
+/t.navbar.active {
 		visibility: visible;
 		transform: translateX(-100%);
 		transition: 0.5s cubic-bezier(0.33, 0.85, 0.56, 1.02);
-  }
-  
-  .navbar-link {
+/t}
+/t
+/t.navbar-link {
 		color: colors.$independence;
 		font-family: typography.$ff-nunito;
 		font-size: typography.$fs-6;
 		padding-block: 5px;
 		margin-bottom: 15px;
-  }
-  
-  .navbar-link:is(:hover, :focus) { color: colors.$carolina-blue; }
-  
-  .overlay {
+/t}
+/t
+/t.navbar-link:is(:hover, :focus) { color: colors.$carolina-blue; }
+/t
+/t.overlay {
 		position: fixed;
 		top: 70px;
 		background: hsl(216, 38%, 95%);
@@ -120,90 +120,90 @@
 		.active {
 				opacity: 0.7;
 				pointer-events: all;
-		  }
-  }
-  
-  /**
-   * responsive for large than 580px screen
-   */
-  
-  @media (min-width: 580px) {
+		/t}
+/t}
+/t
+/t/**
+/t * responsive for large than 580px screen
+/t */
+/t
+/t@media (min-width: 580px) {
 		/**
 		 * HEADER
 		 */
-  
+/t
 		.header-actions .btn span {
-		  display: block;
-		  font-weight: typography.$fw-400;
-		  padding-inline: 15px;
+		/tdisplay: block;
+		/tfont-weight: typography.$fw-400;
+		/tpadding-inline: 15px;
 		}
-  
+/t
 		.header-actions .btn:first-of-type ion-icon { display: none; }
-  
-  }
-  
-  
-  
-  
-  
-  /**
-   * responsive for large than 768px screen
-   */
-  
-  @media (min-width: 768px) {
+/t
+/t}
+/t
+/t
+/t
+/t
+/t
+/t/**
+/t * responsive for large than 768px screen
+/t */
+/t
+/t@media (min-width: 768px) {
 		/**
 		 * HEADER
 		 */
-  
+/t
 		.header-actions { gap: 30px; }
-  
+/t
 		.header-contact {
-		  display: block;
-		  text-align: center;
+		/tdisplay: block;
+		/ttext-align: center;
 		}
-  
+/t
 		.header-contact .contact-link {
-		  color: colors.$space-cadet;
-		  font-family: typography.$ff-nunito;
-		  font-size: typography.$fs-5;
-		  line-height: 1.3;
+		/tcolor: colors.$space-cadet;
+		/tfont-family: typography.$ff-nunito;
+		/tfont-size: typography.$fs-5;
+		/tline-height: 1.3;
 		}
-  
+/t
 		.header-contact .contact-link:is(:hover, :focus) { color: colors.$carolina-blue; }
-  
+/t
 		.header-contact .contact-time {
-		  color: colors.$independence;
-		  font-size: typography.$fs-7;
+		/tcolor: colors.$independence;
+		/tfont-size: typography.$fs-7;
 		}
-  }
-  
-  
-  
-  
-  
-  
-  /**
-   * responsive for large than 1200px screen
-   */
-  
-  @media (min-width: 1200px) {
+/t}
+/t
+/t
+/t
+/t
+/t
+/t
+/t/**
+/t * responsive for large than 1200px screen
+/t */
+/t
+/t@media (min-width: 1200px) {
 		/**
 		 * HEADER
 		 */
-  
+/t
 		.overlay,
 		.nav-toggle-btn { display: none; }
-  
+/t
 		.navbar,
 		.navbar.active { all: unset; }
-  
+/t
 		.navbar-link {
-		  margin-bottom: 0;
-		  font-weight: typography.$fw-600;
+		/tmargin-bottom: 0;
+		/tfont-weight: typography.$fw-600;
 		}
-  
+/t
 		.navbar-list {
-		  display: flex;
-		  gap: 50px;
+		/tdisplay: flex;
+		/tgap: 50px;
 		}
-  }
+/t}

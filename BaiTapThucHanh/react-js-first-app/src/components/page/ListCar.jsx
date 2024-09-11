@@ -13,130 +13,130 @@ const ListCar = ({ UpdateDriver, DriverInfo, CheckHoliday}) => {
 		const handleUpdateTypeofCar = (typeofCarInput) => {
 				UpdateDriver(typeofCarInput);
 				scrollToElement();
-  };
-  
-  const GetPriceInfo = (Type, isAllSeat, isHoliday) => {
+/t};
+/t
+/tconst GetPriceInfo = (Type, isAllSeat, isHoliday) => {
 		let price = 0;
 		if (isAllSeat) {
-		  switch (Type) {
-				  case TypeOfCar.NAM_CHO:
-						  price = isHoliday ? PriceAllSeatHoliday.NAM_CHO : PriceAllSeatNormal.NAM_CHO;
-						  break;
-				  case TypeOfCar.BAY_CHO:
-						  price = isHoliday ? PriceAllSeatHoliday.BAY_CHO : PriceAllSeatNormal.BAY_CHO;
-						  break;
-				  default:
-						  price = 0;
-		  }
+		/tswitch (Type) {
+				/tcase TypeOfCar.NAM_CHO:
+						/tprice = isHoliday ? PriceAllSeatHoliday.NAM_CHO : PriceAllSeatNormal.NAM_CHO;
+						/tbreak;
+				/tcase TypeOfCar.BAY_CHO:
+						/tprice = isHoliday ? PriceAllSeatHoliday.BAY_CHO : PriceAllSeatNormal.BAY_CHO;
+						/tbreak;
+				/tdefault:
+						/tprice = 0;
+		/t}
 		} else {
 				price = isHoliday ? PricePerSeat.HOLIDAY : PricePerSeat.NORMAL;
 		}
 		if (price >= 1_000_000) { // Kiểm tra nếu số lớn hơn hoặc bằng 1 triệu
-		  const million = (price / 1_000_000).toFixed(1); // Chia số cho 1 triệu và làm tròn đến 1 chữ số thập phân
-		  return `${million}tr `;
+		/tconst million = (price / 1_000_000).toFixed(1); // Chia số cho 1 triệu và làm tròn đến 1 chữ số thập phân
+		/treturn `${million}tr `;
 		} else {
 				return price.toLocaleString('vi-VN'); // Định dạng số bình thường nếu nhỏ hơn 1 triệu
 		}
-  }
-  return (
-		  <section className="section featured-car" id="featured-car">
-				  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-				  <a id='scroll' href='#hero'> </a>
+/t}
+/treturn (
+		/t<section className="section featured-car" id="featured-car">
+				/t{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+				/t<a id='scroll' href='#hero'> </a>
 				<div className="container">
 
-				  <div className="title-wrapper">
+				/t<div className="title-wrapper">
 						<h2 className="h2 section-title">Các Loại Xe</h2>
-				  </div>
+				/t</div>
 
-				  <ul className="featured-car-list">
+				/t<ul className="featured-car-list">
 
-				  {DriverInfo.map(
+				/t{DriverInfo.map(
 						(item, index) => (
-						  <li key={index}>
+						/t<li key={index}>
 								<div className="featured-car-card">
-						  
+						/t
 								<figure className="card-banner">
 										<img src={`./assets/images/${item.ImageName}`} alt="Vios-Accent" loading="lazy" width="440" height="300"
-								  className="w-100"/>
+								/tclassName="w-100"/>
 								</figure>
-						  
+						/t
 								<div className="card-content">
-						  
-								  <div className="card-title-wrapper">
-								  <h3 className="h3 card-title">
+						/t
+								/t<div className="card-title-wrapper">
+								/t<h3 className="h3 card-title">
 										{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
 												<a href='#hero' onClick={() => handleUpdateTypeofCar(item.Type)}>{ item.Name }</a>
-								  </h3>
-						  
-								  <data className="year" value="2021">Mới</data>
-								  </div>
-						  
-								  <ul className="card-list">
-						  
+								/t</h3>
+						/t
+								/t<data className="year" value="2021">Mới</data>
+								/t</div>
+						/t
+								/t<ul className="card-list">
+						/t
 										<li className="card-list-item">
-										  <ion-icon name="people-outline"></ion-icon>
+										/t<ion-icon name="people-outline"></ion-icon>
 								
-										  <span className="card-item-text">{ item.SeatInfo }</span>
+										/t<span className="card-item-text">{ item.SeatInfo }</span>
 										</li>
 								
 										<li className="card-list-item">
-										  <ion-icon name="bus-outline"></ion-icon>
+										/t<ion-icon name="bus-outline"></ion-icon>
 								
-										  <span className="card-item-text">{ item.Info2 }</span>
+										/t<span className="card-item-text">{ item.Info2 }</span>
 										</li>
 								
 										<li className="card-list-item">
-										  <ion-icon name="leaf-outline"></ion-icon>
+										/t<ion-icon name="leaf-outline"></ion-icon>
 								
-										  <span className="card-item-text">{ item.Info1 }</span>
+										/t<span className="card-item-text">{ item.Info1 }</span>
 										</li>
 								
 										<li className="card-list-item">
-										  <ion-icon name="heart-half-outline"></ion-icon>
+										/t<ion-icon name="heart-half-outline"></ion-icon>
 								
-										  <span className="card-item-text">{ item.Info3 }</span>
+										/t<span className="card-item-text">{ item.Info3 }</span>
 										</li>
-						  
-								  </ul>
-								  {CheckHoliday &&
-								  <ul>
+						/t
+								/t</ul>
+								/t{CheckHoliday &&
+								/t<ul>
 										<li className="card-list-item">
-										  <ion-icon name="trending-up-outline"></ion-icon>
-										  {/* <span style={{ color: "red" }} className="card-item-text"></span> */}
-										  <span style={{color: "red"}} className="card-item-text">Giá thay đổi với ngày lễ { CheckHoliday.tenLe }</span>
+										/t<ion-icon name="trending-up-outline"></ion-icon>
+										/t{/* <span style={{ color: "red" }} className="card-item-text"></span> */}
+										/t<span style={{color: "red"}} className="card-item-text">Giá thay đổi với ngày lễ { CheckHoliday.tenLe }</span>
 										</li>
-								  </ul>}
-								  <div className="card-price-wrapper">
-								  <div className="card-price">
-										  {item.Type === TypeOfCar.XE_TAI
+								/t</ul>}
+								/t<div className="card-price-wrapper">
+								/t<div className="card-price">
+										/t{item.Type === TypeOfCar.XE_TAI
 												? <strong>$ Liên hệ</strong>
 												: (<div><strong>{GetPriceInfo(item.Type, false, CheckHoliday)}</strong> / khách <br/> Bao xe: <strong>{GetPriceInfo(item.Type, true, CheckHoliday)}đ</strong></div>)}
-								  </div>
-								  <button type="button" className="btn fav-btn" title="Thông tin về giá" data-toggle="collapse" data-target={`#collapseExample${index}`} aria-expanded="false" aria-controls={`collapseExample${index}`}>
+								/t</div>
+								/t<button type="button" className="btn fav-btn" title="Thông tin về giá" data-toggle="collapse" data-target={`#collapseExample${index}`} aria-expanded="false" aria-controls={`collapseExample${index}`}>
 										<ion-icon name="information-outline"></ion-icon>
-								  </button>
-								  <div className="collapse" id={`collapseExample${index}`}> 
+								/t</button>
+								/t<div className="collapse" id={`collapseExample${index}`}> 
 										{item.Type === TypeOfCar.XE_TAI ? <strong>$ Liên hệ trực tiếp để biết giá</strong> :
-										  (<p className="" style={{ fontSize: "13px", color: "gray" }}>
+										/t(<p className="" style={{ fontSize: "13px", color: "gray" }}>
 												{`Ngày thường: ${GetPriceInfo(item.Type, false)}đ / ghế | Bao xe ${GetPriceInfo(item.Type, true)}đ`} <br></br>
 												{`Ngày lễ: ${GetPriceInfo(item.Type, false, true)}đ / ghế | Bao xe ${GetPriceInfo(item.Type, true, true)}đ`}
 										</p>)}
-								  </div>
-								  <button className="btn" onClick={() => handleUpdateTypeofCar(item.Type)}>Đặt ngay</button>
-						  
-								  </div>
-						  
+								/t</div>
+								/t<button className="btn" onClick={() => handleUpdateTypeofCar(item.Type)}>Đặt ngay</button>
+						/t
+								/t</div>
+						/t
 								</div>
-						  
+						/t
 								</div>
-						  </li>
+						/t</li>
 						))}
 
-				  </ul>
+				/t</ul>
 
 				</div>
-		  </section>
-  )
+		/t</section>
+/t)
 }
 
 export default ListCar;

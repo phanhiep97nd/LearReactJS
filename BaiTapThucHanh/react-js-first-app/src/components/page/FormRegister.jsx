@@ -97,9 +97,9 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
 														<div className="radio_container">
 																<input type="radio" name="radio" id="one" checked={TypeChecked === TypeOfCar.NAM_CHO} onChange={() => handleUpdateTypeofCar(TypeOfCar.NAM_CHO)} />
 																<label htmlFor="one">5 chỗ</label>
-																<input type="radio" name="radio" id="two" checked={TypeChecked === TypeOfCar.BAY_CHO}  onChange={() => handleUpdateTypeofCar(TypeOfCar.BAY_CHO)} />
+																<input type="radio" name="radio" id="two" checked={TypeChecked === TypeOfCar.BAY_CHO}/tonChange={() => handleUpdateTypeofCar(TypeOfCar.BAY_CHO)} />
 																<label htmlFor="two">7 chỗ</label>
-																<input type="radio" name="radio" id="three" checked={TypeChecked === TypeOfCar.XE_TAI}  onChange={() => handleUpdateTypeofCar(TypeOfCar.XE_TAI)} />
+																<input type="radio" name="radio" id="three" checked={TypeChecked === TypeOfCar.XE_TAI}/tonChange={() => handleUpdateTypeofCar(TypeOfCar.XE_TAI)} />
 																<label htmlFor="three">Xe tải</label>
 														</div>
 												</div>
@@ -122,7 +122,7 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
 												<label htmlFor="input-2" className="input-label">Ngày giờ đón</label>
 
 												<input type="datetime-local" name="monthly-pay" id="input-2" className="input-field" placeholder="Nhập tên tại đây..." />
-												<label  className="input-label">----------------------------</label>
+												<label/tclassName="input-label">----------------------------</label>
 												<label htmlFor="input-3" className="input-label">Số lượng khách</label>
 
 												<input type="number" name="NumberOfGuest" id="input-3" className="input-field" min={1} max={typeofCar === TypeOfCar.NAM_CHO ? 4 : 6} value={numberOfGuest}
@@ -133,7 +133,7 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
 												<label htmlFor="input-4" className="input-label">Điểm đón</label>
 
 												<input type="text" name="year" id="input-4" className="input-field" placeholder="Nhập điểm đón tại đây..." />
-												<label  className="input-label">----------------------------</label>
+												<label/tclassName="input-label">----------------------------</label>
 												<label htmlFor="input-4" className="input-label">Điểm trả</label>
 
 												<input type="text" name="year" id="input-4" className="input-field" placeholder="Nhập điểm trả tại đây..." />
@@ -143,7 +143,7 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
 												<label htmlFor="input-5" className="input-label" style={{ color: "brown" }}>Số điện thoại *(Bắt buộc)</label>
 
 												<input type="number" name="year" id="inputPhoneNumber" className="input-field" placeholder="Nhập SDT tại đây..." />
-												<label  className="input-label">----------------</label>
+												<label/tclassName="input-label">----------------</label>
 												<input type="text" name="year" id="input-4" className="input-field" placeholder="Ghi chú thêm ..." />
 										</div>
 

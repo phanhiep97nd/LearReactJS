@@ -3,24 +3,24 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
-  return (
+/treturn (
 	<div className="App">
-	  <header className="App-header">
+	/t<header className="App-header">
 		<img src={logo} className="App-logo" alt="logo" />
 		<p>
-		  Edit <code>src/App.tsx</code> and save to reload.
+		/tEdit <code>src/App.tsx</code> and save to reload.
 		</p>
 		<a
-		  className="App-link"
-		  href="https://reactjs.org"
-		  target="_blank"
-		  rel="noopener noreferrer"
+		/tclassName="App-link"
+		/thref="https://reactjs.org"
+		/ttarget="_blank"
+		/trel="noopener noreferrer"
 		>
-		  Learn React
+		/tLearn React
 		</a>
-	  </header>
+	/t</header>
 	</div>
-  );
+/t);
 }
 
 export default App;
