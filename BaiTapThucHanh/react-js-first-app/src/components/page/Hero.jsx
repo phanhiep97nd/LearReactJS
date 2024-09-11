@@ -31,17 +31,14 @@ const Hero = ({UpdateDriver, Type}) => {
 	return (
 		<section className="section hero" id="hero">
 			<div className="container">
-
 			<div className="hero-content">
 				<h2 className="h1 hero-title">🚙🚛Dịch vụ xe ghép, xe du lịch, gửi hàng</h2>
-
 				<p className="hero-text">
 				Xuân Trường - Giao Thủy - Hài Hậu - Nam Đinh 🔁 Hà Nội, Nội Bài - Liên Tỉnh!
 				</p>
 			</div>
-
 			<div className="hero-banner" id="BannerImg"></div>
-			<FormRegister UpdateTypeofCar={handleUpdateTypeofCar} TypeChecked={Type} />
+				<FormRegister UpdateTypeofCar={handleUpdateTypeofCar} TypeChecked={Type} />
 			</div>
 		</section>
 	)

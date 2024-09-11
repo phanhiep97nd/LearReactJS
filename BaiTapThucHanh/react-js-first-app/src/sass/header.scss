@@ -14,13 +14,13 @@
  @use './shadow';
  @use './transition';
 
-	/*-----------------------------------*\
-	#HEADER
-	\*-----------------------------------*/
-	
-	.header-contact { display: none; }
-	
-	.header {
+/*-----------------------------------*\
+#HEADER
+\*-----------------------------------*/
+
+.header-contact { display: none; }
+
+.header {
 	background: colors.$alice-blue-1;
 	position: fixed;
 	top: 0;
@@ -28,33 +28,33 @@
 	width: 100%;
 	transition: transition.$transition;
 	z-index: 4;
-	}
-	
-	.header.active { box-shadow: shadow.$shadow-1; }
-	
-	.header .container {
+}
+
+.header.active { box-shadow: shadow.$shadow-1; }
+
+.header .container {
 	height: 70px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	}
-	
-	.header-actions {
+}
+
+.header-actions {
 	display: flex;
 	align-items: center;
 	gap: 20px;
-	}
-	
-	.header-actions .btn span { display: none; }
-	
-	.user-btn {
+}
+
+.header-actions .btn span { display: none; }
+
+.user-btn {
 	--color: colors.$independence;
 	--background: colors.$white;
 	--shadow-2: shadow.$shadow-1;
 	box-shadow: shadow.$shadow-1;
-	}
-	
-	.nav-toggle-btn span {
+}
+
+.nav-toggle-btn span {
 	background: colors.$independence;
 	width: 22px;
 	height: 2px;
@@ -62,20 +62,20 @@
 	margin-block: 8px;
 	transform-origin: right;
 	transition: transition.$transition;
-	}
-	
-	.nav-toggle-btn span.two { transform: scaleX(0.7); }
-	
-	.nav-toggle-btn span.three { transform: scaleX(0.4); }
-	
-	.nav-toggle-btn:is(:hover, :focus) span { background: colors.$carolina-blue; }
-	
-	.nav-toggle-btn.active span {
+}
+
+.nav-toggle-btn span.two { transform: scaleX(0.7); }
+
+.nav-toggle-btn span.three { transform: scaleX(0.4); }
+
+.nav-toggle-btn:is(:hover, :focus) span { background: colors.$carolina-blue; }
+
+.nav-toggle-btn.active span {
 	transform: scaleX(1);
 	background: colors.$carolina-blue;
-	}
-	
-	.navbar {
+}
+
+.navbar {
 	background: colors.$alice-blue-1;
 	position: fixed;
 	top: 70px;
@@ -88,25 +88,25 @@
 	box-shadow: shadow.$shadow-1;
 	visibility: hidden;
 	transition: 0.25s cubic-bezier(0.51, 0.03, 0.64, 0.28);
-	}
-	
-	.navbar.active {
+}
+
+.navbar.active {
 	visibility: visible;
 	transform: translateX(-100%);
 	transition: 0.5s cubic-bezier(0.33, 0.85, 0.56, 1.02);
-	}
-	
-	.navbar-link {
+}
+
+.navbar-link {
 	color: colors.$independence;
 	font-family: typography.$ff-nunito;
 	font-size: typography.$fs-6;
 	padding-block: 5px;
 	margin-bottom: 15px;
-	}
-	
-	.navbar-link:is(:hover, :focus) { color: colors.$carolina-blue; }
-	
-	.overlay {
+}
+
+.navbar-link:is(:hover, :focus) { color: colors.$carolina-blue; }
+
+.overlay {
 	position: fixed;
 	top: 70px;
 	background: hsl(216, 38%, 95%);
@@ -121,13 +121,13 @@
 		opacity: 0.7;
 		pointer-events: all;
 		}
-	}
+}
 	
-	/**
-	 * responsive for large than 580px screen
-	 */
-	
-	@media (min-width: 580px) {
+/**
+* responsive for large than 580px screen
+*/
+
+@media (min-width: 580px) {
 	/**
 	 * HEADER
 	 */
@@ -140,17 +140,17 @@
 	
 	.header-actions .btn:first-of-type ion-icon { display: none; }
 	
-	}
+}
 	
 	
 	
 	
 	
-	/**
-	 * responsive for large than 768px screen
-	 */
-	
-	@media (min-width: 768px) {
+/**
+* responsive for large than 768px screen
+*/
+
+@media (min-width: 768px) {
 	/**
 	 * HEADER
 	 */
@@ -175,18 +175,18 @@
 		color: colors.$independence;
 		font-size: typography.$fs-7;
 	}
-	}
+}
 	
 	
 	
 	
 	
 	
-	/**
-	 * responsive for large than 1200px screen
-	 */
-	
-	@media (min-width: 1200px) {
+/**
+* responsive for large than 1200px screen
+*/
+
+@media (min-width: 1200px) {
 	/**
 	 * HEADER
 	 */
@@ -206,4 +206,4 @@
 		display: flex;
 		gap: 50px;
 	}
-	}
+}

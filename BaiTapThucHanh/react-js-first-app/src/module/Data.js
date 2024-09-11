@@ -15,6 +15,7 @@ export const DriverInfo = [
 		ZaloName: "DriverA_Zalo",
 		BankNumber: "0123456789",
 		BankName: "Techcombank - DriverA",
+		ImageQRBank: "Bank_Driver1.jpg",
 	},
 	{
 		Type: TypeOfCar.BAY_CHO,
@@ -31,6 +32,7 @@ export const DriverInfo = [
 		ZaloName: "DriverB_Zalo",
 		BankNumber: "9876543210",
 		BankName: "MB bank - DriverB",
+		ImageQRBank: "Bank_Driver2.jpg",
 	},
 	{
 		Type: TypeOfCar.XE_TAI,
@@ -47,6 +49,7 @@ export const DriverInfo = [
 		ZaloName: "DriverC_Zalo",
 		BankNumber: "88886666",
 		BankName: "Vietcombank - DriverC",
+		ImageQRBank: "Bank_Driver3.jpg",
 	}
 ]
 	
@@ -96,18 +99,18 @@ const Holiday = [
  */
 export const CheckHoliday = (dayCheck) => {
 	if(dayCheck) {
-	return Holiday.find((item) => item.ngay === dayCheck);
+		return Holiday.find((item) => item.ngay === dayCheck);
 	}
 	else {
-	const now = new Date();
+		const now = new Date();
 
-	// Lấy ngày, tháng và năm hiện tại
-	const ngay = String(now.getDate()).padStart(2, '0'); // Đảm bảo ngày có 2 chữ số
-	const thang = String(now.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0 nên cần cộng thêm 1
-	const nam = now.getFullYear();
-	// Định dạng theo dd/mm/yyyy
-	const formattedDate = `${ngay}/${thang}/${nam}`;
-	return Holiday.find((item) => item.ngay === formattedDate);
+		// Lấy ngày, tháng và năm hiện tại
+		const ngay = String(now.getDate()).padStart(2, '0'); // Đảm bảo ngày có 2 chữ số
+		const thang = String(now.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0 nên cần cộng thêm 1
+		const nam = now.getFullYear();
+		// Định dạng theo dd/mm/yyyy
+		const formattedDate = `${ngay}/${thang}/${nam}`;
+		return Holiday.find((item) => item.ngay === formattedDate);
 	}
 }
 

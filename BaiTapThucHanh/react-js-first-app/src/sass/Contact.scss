@@ -30,8 +30,8 @@
 }
 
 .get-start-card .card-icon {
-	background: var(--icon-card-bg, colors.$columbia-blue);
-	color: var(--icon-card-color, colors.$carolina-blue);
+	background: colors.$columbia-blue;
+	color: colors.$carolina-blue;
 	height: 50px;
 	width: 50px;
 	display: grid;

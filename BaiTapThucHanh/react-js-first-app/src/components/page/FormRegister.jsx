@@ -37,7 +37,7 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
 					price = 0;
 			}
 		} else {
-			if(typeofCar === TypeOfCar.XE_TAI){
+			if(typeofCar === TypeOfCar.XE_TAI) {
 				return "!Liên hệ để biết giá!";
 			}
 			price = numberOfGuest * (holiday ? PricePerSeat.HOLIDAY : PricePerSeat.NORMAL);
@@ -65,12 +65,11 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
 			numberOfGuestElement.disabled = true;
 			numberOfGuestElement.style.backgroundColor = "lightgrey";
 		} else {
-			if(typeofCar === TypeOfCar.XE_TAI){
+			if(typeofCar === TypeOfCar.XE_TAI) {
 				numberOfGuestElement.value = 0;
 				numberOfGuestElement.disabled = true;
 				numberOfGuestElement.style.backgroundColor = "lightgrey";
-			}
-			else{
+			} else {
 				numberOfGuestElement.value = numberOfGuest;
 				numberOfGuestElement.disabled = false;
 				numberOfGuestElement.style.backgroundColor = "";
@@ -90,7 +89,6 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
 			 <>
 				<span className="price" id='price'></span>
 				<form action="" className="hero-form">
-
 					<div className="input-wrapper">
 						<label htmlFor="input-1" className="input-label">Chọn loại xe</label>
 						<div className="container_radio">
@@ -106,49 +104,38 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
 						<div className="container-checkbox">
 							<div className="row">
 								<section>
-								Bao xe
-								</section>
-								
-								<section>
-								<div className="btn-wrap">
-									<input type="checkbox" name="checkbox" onChange={handleAllSeatCheck}/>
-								</div>
+									Bao xe
+									</section>
+									<section>
+									<div className="btn-wrap">
+										<input type="checkbox" name="checkbox" onChange={handleAllSeatCheck}/>
+									</div>
 								</section>
 							</div>
 						</div>
 					</div>
-
 					<div className="input-wrapper">
 						<label htmlFor="input-2" className="input-label">Ngày giờ đón</label>
-
 						<input type="datetime-local" name="monthly-pay" id="input-2" className="input-field" placeholder="Nhập tên tại đây..." />
 						<label	className="input-label">----------------------------</label>
 						<label htmlFor="input-3" className="input-label">Số lượng khách</label>
-
 						<input type="number" name="NumberOfGuest" id="input-3" className="input-field" min={1} max={typeofCar === TypeOfCar.NAM_CHO ? 4 : 6} value={numberOfGuest}
 							placeholder="Nhập số khách tại đây..." onChange={(e) => handleUpdateNumberOfGuest(e.target.value)} />
 					</div>
-
 					<div className="input-wrapper">
 						<label htmlFor="input-4" className="input-label">Điểm đón</label>
-
 						<input type="text" name="year" id="input-4" className="input-field" placeholder="Nhập điểm đón tại đây..." />
 						<label	className="input-label">----------------------------</label>
 						<label htmlFor="input-4" className="input-label">Điểm trả</label>
-
 						<input type="text" name="year" id="input-4" className="input-field" placeholder="Nhập điểm trả tại đây..." />
 					</div>
-
 					<div className="input-wrapper">
 						<label htmlFor="input-5" className="input-label" style={{ color: "brown" }}>Số điện thoại *(Bắt buộc)</label>
-
 						<input type="number" name="year" id="inputPhoneNumber" className="input-field" placeholder="Nhập SDT tại đây..." />
 						<label	className="input-label">----------------</label>
 						<input type="text" name="year" id="input-4" className="input-field" placeholder="Ghi chú thêm ..." />
 					</div>
-
 					<button id="show-message" className="btn">Thực hiện Đặt xe</button>
-
 				</form>
 			</>
 	)
