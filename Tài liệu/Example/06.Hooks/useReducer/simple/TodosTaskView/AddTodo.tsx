@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { TODO_TYPE } from './constant';
 
 interface AddTodoProps {
-  dispatch: React.Dispatch<any>;
+	dispatch: React.Dispatch<any>;
 }
 
 /**
@@ -12,29 +12,29 @@ interface AddTodoProps {
  * @returns Cấu trúc jsx của Component dành cho việc add mới
  */
 const AddTodo: React.FC<AddTodoProps> = ({ dispatch }) => {
-  const [text, setText] = useState('');
-  const navigate = useNavigate();
+	const [text, setText] = useState('');
+	const navigate = useNavigate();
 
-  const handleAdd = () => {
-    if (text.trim()) {
-      // Khi click button add và có thông tin task thì đưa vào tham số truyền trong dispatch tới reducer
-      dispatch({ type: TODO_TYPE.ADD_TODO, payload: text });
-      navigate('/');
-    }
-  };
+	const handleAdd = () => {
+	if (text.trim()) {
+		// Khi click button add và có thông tin task thì đưa vào tham số truyền trong dispatch tới reducer
+		dispatch({ type: TODO_TYPE.ADD_TODO, payload: text });
+		navigate('/');
+	}
+	};
 
-  return (
-    <div>
-      <h1>Add Todo</h1>
-      <input
-        type="text"
-        value={text}
-        onChange={e => setText(e.target.value)}
-        placeholder="Enter todo"
-      />
-      <button onClick={handleAdd}>Add</button>
-    </div>
-  );
+	return (
+	<div>
+		<h1>Add Todo</h1>
+		<input
+		type="text"
+		value={text}
+		onChange={e => setText(e.target.value)}
+		placeholder="Enter todo"
+		/>
+		<button onClick={handleAdd}>Add</button>
+	</div>
+	);
 };
 
 export default AddTodo;

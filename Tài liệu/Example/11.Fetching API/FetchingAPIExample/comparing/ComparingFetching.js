@@ -2,7 +2,7 @@ import axios from "axios";
 
 // I. So sánh giữa axios và fetch API về request - response như sau:
 // 1. cấu hình một thông tin HTTP request. Bao gồm:
-// - config:  fetch API thì cần tạo config bao gồm thông method, body, các thông tin khác
+// - config:	fetch API thì cần tạo config bao gồm thông method, body, các thông tin khác
 // như headers,... Còn axios, vì có alias method nên chỉ cần cấu hình các thông tin như headers,...
 // - data: Trong fetch API, data request được lưu trong attr `body`. Ngoài ra, data cần
 // được convert về dạng json. axios thì tự động được convert
@@ -17,53 +17,53 @@ import axios from "axios";
 const urlToDoCreate = '/todos/create';
 
 const todoData = {
-  name: 'Task A',
-  description: 'This is task A',
-  completed: false,
-  startDate: '2024/06/24',
-  endDate: '2024/06/25',
-  userId: 1
+	name: 'Task A',
+	description: 'This is task A',
+	completed: false,
+	startDate: '2024/06/24',
+	endDate: '2024/06/25',
+	userId: 1
 }
 
 // Fetch API
 const optionsFetchAPI = {
-  method: 'POST',
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json;charset=UTF-8',
-    'Authorization': '',
-  },
-  body: JSON.stringify(todoData),
+	method: 'POST',
+	headers: {
+	'Accept': 'application/json',
+	'Content-Type': 'application/json;charset=UTF-8',
+	'Authorization': '',
+	},
+	body: JSON.stringify(todoData),
 }
 
 fetch(urlToDoCreate, optionsFetchAPI)
-  .then(response => {
-    if (response.ok)
-      return response.json();
-    return {}
-  })
-  .then(data => {
-    console.log(`Add task success. Task name: ${data.name}`);
-  })
-  .catch(error => console.error(error.message));
+	.then(response => {
+	if (response.ok)
+		return response.json();
+	return {}
+	})
+	.then(data => {
+	console.log(`Add task success. Task name: ${data.name}`);
+	})
+	.catch(error => console.error(error.message));
 
 // Axios
 axios.post(urlToDoCreate, todoData, {
-  headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json;charset=UTF-8',
-    'Authorization': '',
-  }
+	headers: {
+	'Accept': 'application/json',
+	'Content-Type': 'application/json;charset=UTF-8',
+	'Authorization': '',
+	}
 }).then(({ data }) => {
-  console.log(`Add task success. Task name: ${data.name}`);
+	console.log(`Add task success. Task name: ${data.name}`);
 }).catch(error => {
-  if (error.response) {
-    console.error(`HTTP error: ${error.response.status}`);
-  } else if (error.request) {
-    console.error("Request error: No response received");
-  } else {
-    console.error("Error:", error.message);
-  }
+	if (error.response) {
+	console.error(`HTTP error: ${error.response.status}`);
+	} else if (error.request) {
+	console.error("Request error: No response received");
+	} else {
+	console.error("Error:", error.message);
+	}
 });
 
 
@@ -81,38 +81,38 @@ const urltodoList = '/todos/list';
 // Tạo một request interceptors thực hiện ghi log mỗi khi có một request gửi tới endpoint
 // Log được thực hiện trước khi request được gửi
 axios.interceptors.request.use((request) => {
-  console.log(`Request has been sent to endpoint ${request.url}`);
+	console.log(`Request has been sent to endpoint ${request.url}`);
 
-  // giả định chúng ta cần add thông tin token cố định vào request
-  const newToken = 'Bearer abc';
-  const newHeaders = {
-    ...request.headers,
-    Authorization: newToken,
-  };
+	// giả định chúng ta cần add thông tin token cố định vào request
+	const newToken = 'Bearer abc';
+	const newHeaders = {
+	...request.headers,
+	Authorization: newToken,
+	};
 
-  const tokenRequest = {
-    ...request, headers: newHeaders
-  }
+	const tokenRequest = {
+	...request, headers: newHeaders
+	}
 
-  return tokenRequest;
+	return tokenRequest;
 }, (error) => {
-  return Promise.reject(error);
+	return Promise.reject(error);
 })
 
 axios.interceptors.response.use((response) => {
-  // Xử lý response trả về. Ví dụ khi chúng ta chỉ cần lấy thông tin về data response, không quan tâm đến các thông tin khác (status code, request,...)
-  const data = response.data;
+	// Xử lý response trả về. Ví dụ khi chúng ta chỉ cần lấy thông tin về data response, không quan tâm đến các thông tin khác (status code, request,...)
+	const data = response.data;
 
-  return { data };
+	return { data };
 })
 
 axios.get(urltodoList)
-  .then(({data}) => {
-    console.log("Data received:", data);
-  })
-  .catch((error) => {
-    console.error("Error:", error.message);
-  });
+	.then(({data}) => {
+	console.log("Data received:", data);
+	})
+	.catch((error) => {
+	console.error("Error:", error.message);
+	});
 
 
 // III. Cấu hình thông tin timeout khi quá thời gian phản hồi
@@ -124,12 +124,12 @@ const timeout = 5000;
 // Axios
 
 axios.get(urltodoList, { timeout: timeout })
-  .then(({data}) => {
-    console.log("Data received:", data);
-  })
-  .catch((error) => {
-    console.error("Error:", error.message);
-  });
+	.then(({data}) => {
+	console.log("Data received:", data);
+	})
+	.catch((error) => {
+	console.error("Error:", error.message);
+	});
 
 
 // Fetch
@@ -140,31 +140,31 @@ const controller = new AbortController();
 const signal = controller.signal;
 
 const timeoutId = setTimeout(() => {
-  controller.signal;
+	controller.signal;
 }, timeout);
 
 fetch(urltodoList, { signal })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log('Data received:', data);
-  })
-  .catch(error => {
-    // Kiểm tra xem lỗi trả về có phải là lỗi timeout hay không (thông qua đối tượng AbortError)
-    if (error.name === 'AbortError') {
-      console.error('Request timed out');
-    } else {
-      console.error('Error fetching data:', error.message);
-    }
-  })
-  .finally(() => {
-    // Clear đối tượng timeout. Đối tượng này là không tự giải phóng được nên cần phải clear
-    clearTimeout(timeoutId);
-  });
+	.then(response => {
+	if (!response.ok) {
+		throw new Error('Network response was not ok');
+	}
+	return response.json();
+	})
+	.then(data => {
+	console.log('Data received:', data);
+	})
+	.catch(error => {
+	// Kiểm tra xem lỗi trả về có phải là lỗi timeout hay không (thông qua đối tượng AbortError)
+	if (error.name === 'AbortError') {
+		console.error('Request timed out');
+	} else {
+		console.error('Error fetching data:', error.message);
+	}
+	})
+	.finally(() => {
+	// Clear đối tượng timeout. Đối tượng này là không tự giải phóng được nên cần phải clear
+	clearTimeout(timeoutId);
+	});
 
 // IV. Parallel requests: Trong axios, có hỗ trợ việc thực hiện việc gọi nhiều HTTP request đồng thời
 // Trong khi đó fetch chưa hỗ trợ built-in function dành cho triển khai nhiều HTTP request đồng thời
@@ -180,25 +180,25 @@ const urlCountDoneTodos = '/todos/countDone?date=today';
 const urlGetCurrentTodo = '/todos/current';
 
 const urls = [
-  urlCountDoneTodos,
-  urlGetCurrentTodo,
+	urlCountDoneTodos,
+	urlGetCurrentTodo,
 ]
 
 // Axios
 const axiosRequests = urls.map(url => axios.get(url));
 axios.all(axiosRequests)
 .then(axios.spread(...responses => {
-  responses.array.forEach((response, index) => {
-    if (index == 0) {
-      // Action for urlCountDoneTodos response
-    }
-    if (index == 1) {
-      // Action for urlGetCurrentTodo response
-    }
-  });
+	responses.array.forEach((response, index) => {
+	if (index == 0) {
+		// Action for urlCountDoneTodos response
+	}
+	if (index == 1) {
+		// Action for urlGetCurrentTodo response
+	}
+	});
 }))
 .catch(error => {
-  console.error('Error fetching data:', error.message);
+	console.error('Error fetching data:', error.message);
 });
 
 // Fetch
@@ -206,20 +206,20 @@ const fetchRequests = urls.map((url) => fetch(url));
 
 Promise.all(fetchRequests)
 .then((responses) => {
-  responses.array.forEach((response, index) => {
-    if (response.ok) {
-      if (index == 0) {
-        // Action for urlCountDoneTodos response
-      }
-      if (index == 1) {
-        // Action for urlGetCurrentTodo response
-      }
-      response.json().then((data) => {
-        // Process data
-      })
-    }
-  });
+	responses.array.forEach((response, index) => {
+	if (response.ok) {
+		if (index == 0) {
+		// Action for urlCountDoneTodos response
+		}
+		if (index == 1) {
+		// Action for urlGetCurrentTodo response
+		}
+		response.json().then((data) => {
+		// Process data
+		})
+	}
+	});
 })
 .catch((error) => {
-  console.error("Error fetching data:", error.message);
+	console.error("Error fetching data:", error.message);
 })

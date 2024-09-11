@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import { TODO_TYPE } from './constant';
 
 interface Todo {
-  id: number;
-  text: string;
-  completed: boolean;
+	id: number;
+	text: string;
+	completed: boolean;
 }
 
 interface TodoListProps {
-  todos: Todo[];
-  dispatch: React.Dispatch<any>;
+	todos: Todo[];
+	dispatch: React.Dispatch<any>;
 }
 /**
  * Component này thể hiện một danh sách các Todo task dưới dạng ul-li
@@ -23,25 +23,25 @@ interface TodoListProps {
  * @returns Trả về cấu trúc jsx của Component danh sách Todo
  */
 const TodoList: React.FC<TodoListProps> = ({ todos, dispatch }) => {
-  return (
-    <div>
-      <h1>Todo List</h1>
-      <Link to="/add">Add New Todo</Link>
-      <ul>
-        {todos.map(todo => (
-          <li key={todo.id}>
-            <span
-              style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
-              onClick={() => dispatch({ type: TODO_TYPE.TOGGLE_TODO, payload: todo.id })}
-            >
-              {todo.text}
-            </span>
-            <button onClick={() => dispatch({ type: TODO_TYPE.DELETE_TODO, payload: todo.id })}>Delete</button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+	return (
+	<div>
+		<h1>Todo List</h1>
+		<Link to="/add">Add New Todo</Link>
+		<ul>
+		{todos.map(todo => (
+			<li key={todo.id}>
+			<span
+				style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
+				onClick={() => dispatch({ type: TODO_TYPE.TOGGLE_TODO, payload: todo.id })}
+			>
+				{todo.text}
+			</span>
+			<button onClick={() => dispatch({ type: TODO_TYPE.DELETE_TODO, payload: todo.id })}>Delete</button>
+			</li>
+		))}
+		</ul>
+	</div>
+	);
 };
 
 export default TodoList;

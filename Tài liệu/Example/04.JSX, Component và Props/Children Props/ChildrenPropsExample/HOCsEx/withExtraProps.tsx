@@ -5,7 +5,7 @@ import OriginalComponent from "./OriginalComponent";
  * Khởi tạo HOC
  */
 const withExtraProps = (Component: React.ComponentType) => {
-  // Trả về Component có bổ sung thêm một số props
+	// Trả về Component có bổ sung thêm một số props
 	return (props: any) => <Component {...props} extraProp="extraValue" />;
 };
 

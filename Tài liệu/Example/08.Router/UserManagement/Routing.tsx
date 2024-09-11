@@ -17,11 +17,11 @@ import EditUser from './components/EditUser';
  * @returns 
  */
 const RequireAuth: React.FC<{ children: JSX.Element }> = ({ children }) => {
-  const { user } = useAuth();
-  if (!user) {
-    return <Login />;
-  }
-  return children;
+	const { user } = useAuth();
+	if (!user) {
+	return <Login />;
+	}
+	return children;
 };
 
 /**
@@ -30,37 +30,37 @@ const RequireAuth: React.FC<{ children: JSX.Element }> = ({ children }) => {
  * @returns Cấu trúc routing cho tất cả các đối tượng Component
  */
 const Routing: React.FC = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        /** Kết cấu Route bọc lấy các Route khác */
-        <Route
-          path="/"
-          element={
-            <RequireAuth>
-              <Dashboard />
-            </RequireAuth>
-          }
-        >
-          <Route path="dashboard" element={<Dashboard />} />
-          /** Quản lý các route liên quan đến users trong một Outlet */
-          <Route path="users" element={<Outlet />}>
-            <Route index element={<Users />} />
-            <Route path="add" element={<AddUser />} />
-            <Route path="edit/:id" element={<EditUser />} />
-          </Route>
-          /** Quản lý các route liên quan đến departs trong một Outlet */
-          <Route path="departs" element={<Outlet />}>
-            <Route index element={<Departs />} />
-            <Route path="add" element={<AddDepart />} />
-            <Route path="edit/:id" element={<EditDepart />} />
-          </Route>
-          <Route path="profile" element={<Profile />} />
-        </Route>
-      </Routes>
-    </Router>
-  );
+	return (
+	<Router>
+		<Routes>
+		<Route path="/login" element={<Login />} />
+		/** Kết cấu Route bọc lấy các Route khác */
+		<Route
+			path="/"
+			element={
+			<RequireAuth>
+				<Dashboard />
+			</RequireAuth>
+			}
+		>
+			<Route path="dashboard" element={<Dashboard />} />
+			/** Quản lý các route liên quan đến users trong một Outlet */
+			<Route path="users" element={<Outlet />}>
+			<Route index element={<Users />} />
+			<Route path="add" element={<AddUser />} />
+			<Route path="edit/:id" element={<EditUser />} />
+			</Route>
+			/** Quản lý các route liên quan đến departs trong một Outlet */
+			<Route path="departs" element={<Outlet />}>
+			<Route index element={<Departs />} />
+			<Route path="add" element={<AddDepart />} />
+			<Route path="edit/:id" element={<EditDepart />} />
+			</Route>
+			<Route path="profile" element={<Profile />} />
+		</Route>
+		</Routes>
+	</Router>
+	);
 };
 
 export default Routing;

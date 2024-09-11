@@ -1,7 +1,7 @@
 const OriginalComponent = () => {
-  return (
-    <></>
-  )
+	return (
+	<></>
+	)
 }
 
 export default OriginalComponent;

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 
 interface ProductData {
-  id: string;
-  name: string;
-  lot: string;
-  price: number;
+	id: string;
+	name: string;
+	lot: string;
+	price: number;
 }
 
 interface ProductListData {
-  products: ProductData[];
+	products: ProductData[];
 }
 
 /**
@@ -16,14 +16,14 @@ interface ProductListData {
  * Nếu props không có thay đổi gì so với lần render trước thì lấy kết quả render trước đó để trả về
  */
 const ProductList: React.FC<ProductListData> = React.memo<ProductListData>(({ products }) => {
-  console.log('UserList rendered');
-  return (
-    <ul>
-      {products.map((product) => (
-        <li key={product.id}>{product.name}</li>
-      ))}
-    </ul>
-  );
+	console.log('UserList rendered');
+	return (
+	<ul>
+		{products.map((product) => (
+		<li key={product.id}>{product.name}</li>
+		))}
+	</ul>
+	);
 });
 
 /**
@@ -33,21 +33,21 @@ const ProductList: React.FC<ProductListData> = React.memo<ProductListData>(({ pr
  * @returns 
  */
 const ProductsQuantityInput = () => {
-  const [quantity, setQuantity] = useState(0);
-  const [products] = useState<ProductData[]>([
-    { id: 'ID01', name: 'Computer', lot: '1000', price: 1000 },
-    { id: 'ID02', name: 'Keyboard', lot: '1001', price: 20 },
-    { id: 'ID03', name: 'Mouse', lot: '1002', price: 15 },
-  ]);
+	const [quantity, setQuantity] = useState(0);
+	const [products] = useState<ProductData[]>([
+	{ id: 'ID01', name: 'Computer', lot: '1000', price: 1000 },
+	{ id: 'ID02', name: 'Keyboard', lot: '1001', price: 20 },
+	{ id: 'ID03', name: 'Mouse', lot: '1002', price: 15 },
+	]);
 
-  return (
-    <div>
-      <h1>Số lượng: <input type='number' value={quantity} onChange={(e) => setQuantity(Number.parseInt(e.currentTarget.value))}/></h1>
-      <button onClick={() => setQuantity(quantity + 1)}>Tăng</button>
-      <button onClick={() => setQuantity(quantity - 1)}>Giảm</button>
-      <ProductList products={products}/>
-    </div>
-  );
+	return (
+	<div>
+		<h1>Số lượng: <input type='number' value={quantity} onChange={(e) => setQuantity(Number.parseInt(e.currentTarget.value))}/></h1>
+		<button onClick={() => setQuantity(quantity + 1)}>Tăng</button>
+		<button onClick={() => setQuantity(quantity - 1)}>Giảm</button>
+		<ProductList products={products}/>
+	</div>
+	);
 };
 
 export default ProductsQuantityInput;

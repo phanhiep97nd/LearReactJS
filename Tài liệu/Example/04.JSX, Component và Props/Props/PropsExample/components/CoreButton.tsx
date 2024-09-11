@@ -15,7 +15,7 @@ const createStyle = (style: React.CSSProperties | undefined, buttonType?: number
 		color: "black"			
 	}
 	if (buttonType) {				
-		var backgroundColorSet  = { backgroundColor: "grey" };			
+		var backgroundColorSet	= { backgroundColor: "grey" };			
 		switch (buttonType) {			
 			case BUTTON_TYPE.INFO_BUTTON:		
 				backgroundColorSet = { backgroundColor: "white" }	

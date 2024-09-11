@@ -1,17 +1,17 @@
 .button {
-  width: 200px;
-  height: 40px;
-  font-size: 14pt;
-  font-family: "Times New Roman", Times, serif;
-  font-weight: bold;
+	width: 200px;
+	height: 40px;
+	font-size: 14pt;
+	font-family: "Times New Roman", Times, serif;
+	font-weight: bold;
 }
 .button .button-danger {
-  color: red;
-  background-color: aliceblue;
+	color: red;
+	background-color: aliceblue;
 }
 .button .button-danger .button-danger:hover {
-  transform: scale(1.25, 1.25);
-  transition: 1s;
+	transform: scale(1.25, 1.25);
+	transition: 1s;
 }
 
 /*# sourceMappingURL=button1.css.map */

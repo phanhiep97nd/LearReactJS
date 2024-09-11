@@ -42,22 +42,22 @@ var departs = [
 // var age = 20;				
 				
 // const obj = {				
-//      name: name,		// key là `name` - là định nghĩa thuộc tính `name` của đối tượng obj, value là `name` - là tham chiếu đến biến `name` có giá trị là 'A'		
-//      age: age,		// với age cũng tương tự. Chỗ này cần phân biệt rõ kẻo dễ nhầm lẫn		
-//      getName() {				
-//           return this.name;				
-//      }				
+//		name: name,		// key là `name` - là định nghĩa thuộc tính `name` của đối tượng obj, value là `name` - là tham chiếu đến biến `name` có giá trị là 'A'		
+//		age: age,		// với age cũng tương tự. Chỗ này cần phân biệt rõ kẻo dễ nhầm lẫn		
+//		getName() {				
+//			 return this.name;				
+//		}				
 // }				
 
 // var name = 'A';		
 // var age = 20;		
 		
 // function obj() {		
-//      this.name = name;		
-//      this.age = age;		
-//      function getName() {		
-//           return obj.name;		
-//      }		
+//		this.name = name;		
+//		this.age = age;		
+//		function getName() {		
+//			 return obj.name;		
+//		}		
 // }		
 
 /**
@@ -78,8 +78,8 @@ var filedName = 'name'
 var fieldAge = 'age'			
 			
 const obj = {			
-     [filedName]: 'A',			
-     [fieldAge]: 20,			
+	 [filedName]: 'A',			
+	 [fieldAge]: 20,			
 }			
 			
 console.log(obj)			// Lúc này giá trị của obj là {name: 'A', age: 20}

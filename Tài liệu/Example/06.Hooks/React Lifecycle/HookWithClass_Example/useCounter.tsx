@@ -6,13 +6,13 @@ import { useState, useCallback } from 'react';
  * @returns state biểu thị value và hàm logic đếm
  */
 const useCounter = (initialValue: number = 0) => {
-  const [count, setCount] = useState(initialValue);
+	const [count, setCount] = useState(initialValue);
 
-  const increment = useCallback(() => {
-    setCount((prevCount) => prevCount + 1);
-  }, []);
+	const increment = useCallback(() => {
+	setCount((prevCount) => prevCount + 1);
+	}, []);
 
-  return { count, increment };
+	return { count, increment };
 };
 
 export default useCounter;

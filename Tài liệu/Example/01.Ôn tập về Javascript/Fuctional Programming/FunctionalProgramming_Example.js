@@ -8,10 +8,10 @@
 // 2. Việc tính toán của calculateTwoValue không làm thay đổi giá trị của bất cứ tham số nào nằm ngoài nó
 var gAExp = '';
 function calculateTwoValue(a, b) {
-    if (typeof(a) === 'number' && typeof(b) === 'number') {
-        return a + b;
-    }
-    return -1;
+	if (typeof(a) === 'number' && typeof(b) === 'number') {
+		return a + b;
+	}
+	return -1;
 }
 
 console.log(calculateTwoValue(1, 2));
@@ -37,9 +37,9 @@ console.log(arr2);
 // Khi sử dụng const đối với một object thì thực chất tính bất biến áp dụng cho các attribute của object đó chứ không phải áp dụng cho giá trị tham chiếu
 // Do đó, mặc dù đối tượng là const nhưng thuộc tính ref có thể thay đổi giá trị
 const firstUser = {
-    name: '',
-    age: 20,
-    gender: 'Male'
+	name: '',
+	age: 20,
+	gender: 'Male'
 }
 
 firstUser.age = 25
@@ -55,28 +55,28 @@ firstUser.age = 25
 // Ghi chú: first-class functions có một dạng nhỏ hơn, được sử dụng thường xuyên là callback function. Đây là các function
 // mà sẽ được gọi như một tham số của function khác, tại một thời điểm cụ thể nào đó
 function getRegexMatch(codeId) {
-    switch (codeId) {
-        case 'A':
-            return '[A-Z]{1,}';
-        case 'B':
-            return '[0-9]{1,}'
-        case 'C':
-            return '[a-z]{1,}'
-        default:
-            return '*';
-    }
+	switch (codeId) {
+		case 'A':
+			return '[A-Z]{1,}';
+		case 'B':
+			return '[0-9]{1,}'
+		case 'C':
+			return '[a-z]{1,}'
+		default:
+			return '*';
+	}
 }
 
 function mapInput(input, codeId, regexFormat) {
-    const regex = new RegExp(regexFormat(codeId), 'g');
-    console.log(regex.test(input)? 'Match' : 'Not match');
+	const regex = new RegExp(regexFormat(codeId), 'g');
+	console.log(regex.test(input)? 'Match' : 'Not match');
 }
 
 mapInput('abc', 'B', getRegexMatch);
 
 function isNumberString(input, regexFormat) {
-    if (typeof(input) === 'string')
-        return input.match(regexFormat('B'));
+	if (typeof(input) === 'string')
+		return input.match(regexFormat('B'));
 }
 
 console.log(isNumberString('99', getRegexMatch));
@@ -92,35 +92,35 @@ console.log(isNumberString('99', getRegexMatch));
 // Ví dụ: map, filter, reduce, forEach, every, some, find, findIndex, includes, indexOf, lastIndexOf, join,...
 // Tại xử lý tính toán arr3, hàm map() - built-in function của mảng, nhận tham số input là một callbackFn
 function square(input) {
-    if (typeof(input) === 'number')
-        return input * input;
-    return -1;
+	if (typeof(input) === 'number')
+		return input * input;
+	return -1;
 }
 
 const arr3 = arr1.map(function(item) {
-    return square(item);
+	return square(item);
 })
 
 // Function calculator có thể coi là một higher-order function. Ở đây, nó vừa nhận tham số là một function và đồng thời cũng trả về một function
 function calculator(fn) {
-    let currentValue = 0;
+	let currentValue = 0;
 
-    const enhancedFunction = function(...args) {
-        const result = fn(...args);
-        currentValue += result;
-        return currentValue;
-    };
+	const enhancedFunction = function(...args) {
+		const result = fn(...args);
+		currentValue += result;
+		return currentValue;
+	};
 
-    enhancedFunction.reset = function() {
-        currentValue = 0;
-    };
+	enhancedFunction.reset = function() {
+		currentValue = 0;
+	};
 
-    return enhancedFunction;
+	return enhancedFunction;
 }
 
 // Hàm tính toán
 function add(input) {
-    return input;
+	return input;
 }
 
 const enhancedAdd = calculator(add);
@@ -160,25 +160,25 @@ const arr5 = arr1.filter(item => (typeof(item) === 'number' && item % 2 == 0));
 
 // Đối với những yêu cầu phức tạp hơn (ví dụ: tính tổng các phần tử là số chẵn trong một mảng), việc sử dụng declarative linh hoạt giúp cho code ngắn gọn và dễ theo dõi hơn
 const sum = arr1
-                .filter(item => (typeof(item) === 'number' && item % 2 == 0))   // Filter đối tượng
-                .reduce((acc, item) => acc + item, 0);                          // Tính tổng
+				.filter(item => (typeof(item) === 'number' && item % 2 == 0))	 // Filter đối tượng
+				.reduce((acc, item) => acc + item, 0);							// Tính tổng
 
 // Một ví dụ khác về cách thức khai báo declarative code với hàm fetching dữ liệu (thư viện axios). Bằng cách thức triển khai này, hoạt động lấy dữ liệu trở nên dễ đọc và dễ theo dõi hơn
 const axios = require('axios');
 
 // Fetching dũ liệu
 const fetchData = async () => {
-  try {
-    const { data } = await axios.get('https://api.example.com/data');
-    processData(data);
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
+	try {
+	const { data } = await axios.get('https://api.example.com/data');
+	processData(data);
+	} catch (error) {
+	console.error('Error fetching data:', error);
+	}
 };
 
 // Function thực thi từng đối tượng trong data
 const processData = (data) => {
-  data.forEach(item => console.log(item));
+	data.forEach(item => console.log(item));
 };
 
 // Gọi function
@@ -213,19 +213,19 @@ console.log(discountedPrice2);
 // Sử dụng Lazy Evaluation trong những trường hợp chúng ta chỉ mong muốn gọi đến logic tính toán khi đảm bảo một điều kiện nào đó 
 // Việc này liên quan nhiều tới tối ưu khi tiết kiệm tài nguyên tính toán.
 function* lazyRange(start, end) {
-    for (let i = start; i < end; i++) {
-      yield i;
-    }
-  }
-  
-  const range = lazyRange(1, 5);
-  // console.log là hàm callback. Nếu không áp dụng lazy evaluation ở đây thì mỗi lần gọi sẽ thực hiện loop giá trị sau đó lấy giá trị tương ứng gây tốn tài nguyên
-  // Nhờ từ khóa yeild, sau khi lấy kết quả hàm sẽ dừng xử lý cho tới khi nào gặp hàm next() kế tiếp
-  console.log(range.next().value); // 1
-  console.log(range.next().value); // 2
-  console.log(range.next().value); // 3
-  console.log(range.next().value); // 4
-  
+	for (let i = start; i < end; i++) {
+		yield i;
+	}
+	}
+	
+	const range = lazyRange(1, 5);
+	// console.log là hàm callback. Nếu không áp dụng lazy evaluation ở đây thì mỗi lần gọi sẽ thực hiện loop giá trị sau đó lấy giá trị tương ứng gây tốn tài nguyên
+	// Nhờ từ khóa yeild, sau khi lấy kết quả hàm sẽ dừng xử lý cho tới khi nào gặp hàm next() kế tiếp
+	console.log(range.next().value); // 1
+	console.log(range.next().value); // 2
+	console.log(range.next().value); // 3
+	console.log(range.next().value); // 4
+	
 
 
 ///////////////////////////////////////////////////////////////////////////////////////
@@ -238,12 +238,12 @@ function* lazyRange(start, end) {
 
 // Ví dụ khi muốn tính toán tổng các phần tử của một mảng
 const sumArray = (arr) => {
-    if (arr.length === 0) {
-      return 0;
-    }
-    const [first, ...rest] = arr;
-    return first + sumArray(rest);
-  };
-  
+	if (arr.length === 0) {
+		return 0;
+	}
+	const [first, ...rest] = arr;
+	return first + sumArray(rest);
+	};
+	
 console.log(sumArray([1, 2, 3, 4, 5]));
-  
+	

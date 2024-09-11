@@ -3,23 +3,23 @@ import React, { Component } from 'react';
 import withCounter from './withCounter';
 
 interface CounterProps {
-  counter: {
-    count: number;
-    increment: () => void;
-  };
+	counter: {
+	count: number;
+	increment: () => void;
+	};
 }
 
 class CounterClassComponent extends Component<CounterProps> {
-  render() {
-    const { count, increment } = this.props.counter;
+	render() {
+	const { count, increment } = this.props.counter;
 
-    return (
-      <div>
-        <p>Count: {count}</p>
-        <button onClick={increment}>Increment</button>
-      </div>
-    );
-  }
+	return (
+		<div>
+		<p>Count: {count}</p>
+		<button onClick={increment}>Increment</button>
+		</div>
+	);
+	}
 }
 
 // Ở đây, thông qua HOCs, giá trị từ hook được truyền vào cho CounterClassComponent như là một tham số props

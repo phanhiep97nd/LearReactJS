@@ -3,8 +3,8 @@ import CustomTextbox from "./CustomTextbox";
 import CustomRadio from "./CusomRadio";
 
 const fakeChoices: {value: string, name: string}[] = [
-  {value: "1", name: "Test choice 1"},
-  {value: "2", name: "Test choice 2"},
+	{value: "1", name: "Test choice 1"},
+	{value: "2", name: "Test choice 2"},
 ]
 
 /**
@@ -12,21 +12,21 @@ const fakeChoices: {value: string, name: string}[] = [
  * @returns 
  */
 const CustomComponent = () => {
-  const [text, setText] = useTextbox("");
-  const [radios, checkedRadio, attributes] = useRadio(fakeChoices.map(x => x.value));
+	const [text, setText] = useTextbox("");
+	const [radios, checkedRadio, attributes] = useRadio(fakeChoices.map(x => x.value));
 
-  return (
-    <>
-      <CustomTextbox value={text} id="textTest" placeholder="" />
-      {
-        radios.map(item => {
-          return (
-            <CustomRadio labelProps={{}} radioProps={{value: item, name: attributes(item).name!, checked: item == checkedRadio}} />
-          )
-        })
-      }
-    </>
-  )
+	return (
+	<>
+		<CustomTextbox value={text} id="textTest" placeholder="" />
+		{
+		radios.map(item => {
+			return (
+			<CustomRadio labelProps={{}} radioProps={{value: item, name: attributes(item).name!, checked: item == checkedRadio}} />
+			)
+		})
+		}
+	</>
+	)
 }
 
 export default CustomComponent;

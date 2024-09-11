@@ -4,13 +4,13 @@ import styles from './App.module.css';
 import Routing from './Routing';
 
 const App: React.FC = () => {
-  return (
-    <AuthProvider>
-      <div className={styles.container}>
-        <Routing />
-      </div>
-    </AuthProvider>
-  );
+	return (
+	<AuthProvider>
+		<div className={styles.container}>
+		<Routing />
+		</div>
+	</AuthProvider>
+	);
 };
 
 export default App;

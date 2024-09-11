@@ -3,7 +3,7 @@ import CoreButton from './CoreButton'
 import { BUTTON_TYPE } from '../constance'	
 
 interface Props {
-  style: React.CSSProperties | undefined,
+	style: React.CSSProperties | undefined,
 	label: string,
 	handlerClick: React.MouseEventHandler<HTMLButtonElement> | undefined
 }

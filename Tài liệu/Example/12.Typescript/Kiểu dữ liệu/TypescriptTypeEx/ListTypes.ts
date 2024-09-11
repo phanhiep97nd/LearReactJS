@@ -56,14 +56,14 @@ action = 'Insert';
  * Một function mẫu sử dụng Literal type
  */
 function handlingAction(action: ('Insert' | 'Update' | 'Delete')) {
-  switch (action) {
-    case "Insert":
-      return 1;
-    case "Update":
-      return 2;
-    case "Delete":
-      return 3;
-  }
+	switch (action) {
+	case "Insert":
+		return 1;
+	case "Update":
+		return 2;
+	case "Delete":
+		return 3;
+	}
 }
 
 handlingAction('Insert');
@@ -79,44 +79,44 @@ handlingAction('Insert');
 
 // Không cần từ khóa new... vì cú pháp đã tương đương với một object rồi
 let myInfo: {
-  name: string,
-  age: number,
-  gender: 'Male' | 'Female',
+	name: string,
+	age: number,
+	gender: 'Male' | 'Female',
 }
 
 // Không cần khai báo key `note` do nó cho phép undefined
 let myNewInfo: {
-  name: string,
-  age: number,
-  gender: 'Male' | 'Female',
-  note?: string
+	name: string,
+	age: number,
+	gender: 'Male' | 'Female',
+	note?: string
 } = {
-  name: 'Nguyen',
-  age: 20,
-  gender: 'Male'
+	name: 'Nguyen',
+	age: 20,
+	gender: 'Male'
 }
 
 // Key address có type là một Object
 let myOtherInfo: {
-  name: string
-  age: number,
-  gender: 'Male' | 'Female',
-  address: {
-    city: string,
-    district: string,
-    ward: string,
-    detailAddress?: string
-  }
-  note?: string
+	name: string
+	age: number,
+	gender: 'Male' | 'Female',
+	address: {
+	city: string,
+	district: string,
+	ward: string,
+	detailAddress?: string
+	}
+	note?: string
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// enum
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 enum Gender {
-  MALE,
-  FEMALE,
-  OTHER
+	MALE,
+	FEMALE,
+	OTHER
 }
 
 let myGender: Gender = Gender.MALE;
@@ -139,8 +139,8 @@ let onChangeData: () => void
 let onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 
 onClick = (event) => {
-  event.preventDefault();
-  console.log(event.currentTarget.value);
+	event.preventDefault();
+	console.log(event.currentTarget.value);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -149,16 +149,16 @@ onClick = (event) => {
 
 // Định nghĩa UserInfo - Type Alias
 type UserInfo = {
-  name: string
-  age: number,
-  gender: Gender,
-  address: {
-    city: string,
-    district: string,
-    ward: string,
-    detailAddress?: string
-  }
-  note?: string
+	name: string
+	age: number,
+	gender: Gender,
+	address: {
+	city: string,
+	district: string,
+	ward: string,
+	detailAddress?: string
+	}
+	note?: string
 }
 
 // Sử dụng type cho việc khai báo biến
@@ -170,43 +170,43 @@ let newUser: UserInfo
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 interface Vehicle {
-  name: string;
-  modelName: string;
-  type: 'Bicycle' | 'Motor' | 'Car';
-  color: string;
-  hasEgine: boolean;
-  numberOfWheel: number;
+	name: string;
+	modelName: string;
+	type: 'Bicycle' | 'Motor' | 'Car';
+	color: string;
+	hasEgine: boolean;
+	numberOfWheel: number;
 }
 // Mở rộng thêm thuộc tính cho vehicle
 interface Vehicle {
-  isAccepted?: boolean;
+	isAccepted?: boolean;
 }
 
 let myVehicle: Vehicle;
 
 // interface kế thừa interface
 interface Car extends Vehicle {
-  numberOfDoors: number;
-  isElectric: boolean;
+	numberOfDoors: number;
+	isElectric: boolean;
 }
 // Type Alias kế thừa interface
 type Motor = Vehicle & {
-  numberOfDoors: number;
+	numberOfDoors: number;
 }
 
 let myCar: Car = {
-  name: 'My car',
-  modelName: 'Volvo Type ABC',
-  type: 'Car',
-  color: 'Red',
-  hasEgine: true,
-  numberOfWheel: 4,
-  numberOfDoors: 4,
-  isElectric: false,
-  getPrice: (modelName) => modelName === "Volvo"? 1000 : 2000,
-  getOtherPrice: function(modelName) {
-    return modelName === "Volvo"? 1000 : 2000;
-  }
+	name: 'My car',
+	modelName: 'Volvo Type ABC',
+	type: 'Car',
+	color: 'Red',
+	hasEgine: true,
+	numberOfWheel: 4,
+	numberOfDoors: 4,
+	isElectric: false,
+	getPrice: (modelName) => modelName === "Volvo"? 1000 : 2000,
+	getOtherPrice: function(modelName) {
+	return modelName === "Volvo"? 1000 : 2000;
+	}
 }
 
 myCar.name = 'A2'
@@ -215,8 +215,8 @@ myCar.modelName = 'A'
 // Các cách khai báo key là một function
 // Với cách khai báo thứ hai thì không thể thiết lập key là undefined
 interface Car {
-  getPrice?: (modelName: string) => number; 
-  getOtherPrice(modelName: string): number;
+	getPrice?: (modelName: string) => number; 
+	getOtherPrice(modelName: string): number;
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -224,21 +224,21 @@ interface Car {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 type Action = {
-  doLogging<T>(act: T): void;
+	doLogging<T>(act: T): void;
 }
 
 const actionTmp: Action = {
-  doLogging: function<T>(act: T) {
-    switch(typeof(act)){
-      case 'number':
-        console.log(`Number: ${act.toString()}`);
-        return;
-      case 'string':
-        console.log(`String: ${act.toString()}`);
-        return;
-      default:
-        console.log(`Unknown value`);
-        return;
-    }
-  }
+	doLogging: function<T>(act: T) {
+	switch(typeof(act)){
+		case 'number':
+		console.log(`Number: ${act.toString()}`);
+		return;
+		case 'string':
+		console.log(`String: ${act.toString()}`);
+		return;
+		default:
+		console.log(`Unknown value`);
+		return;
+	}
+	}
 }

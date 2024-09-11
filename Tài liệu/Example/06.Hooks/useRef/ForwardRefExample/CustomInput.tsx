@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 
 interface MyInputProps {
-  placeholder?: string;
+	placeholder?: string;
 }
 
 /**
@@ -9,7 +9,7 @@ interface MyInputProps {
  * Khi đó cần quản lý qua ref => sử dụng forward ref để reference sang control này
  */
 const CustomInput: React.ForwardRefExoticComponent<MyInputProps & React.RefAttributes<HTMLInputElement>> = forwardRef<HTMLInputElement, MyInputProps>(({ placeholder }, ref) => {
-  return <input ref={ref} placeholder={placeholder} />;
+	return <input ref={ref} placeholder={placeholder} />;
 });
 
 export default CustomInput;

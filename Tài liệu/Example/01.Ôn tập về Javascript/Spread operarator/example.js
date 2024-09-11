@@ -4,13 +4,13 @@
 
 // // Đối với Array
 // var arr1 = ['a', 'b', 'g', 'h'];
-// var arr2 = [...arr1];   // Giá trị trả về là arr2 = ['a', 'b', 'g', 'h']
+// var arr2 = [...arr1];	 // Giá trị trả về là arr2 = ['a', 'b', 'g', 'h']
 
 // // Đối với Object
 // var obj1 = {	
-//   name: 'Nguyễn Văn A',
-//   age: 30,
-//   country: 'Việt Nam',
+//	 name: 'Nguyễn Văn A',
+//	 age: 30,
+//	 country: 'Việt Nam',
 // }	
 
 // var obj2 = {...obj1}	
@@ -24,22 +24,22 @@
 // // Với Object
 
 // var obj1 = {			
-//   name: 'Nguyễn Văn A',			
-//   age: 30,			
-//   country: 'Việt Nam',			
+//	 name: 'Nguyễn Văn A',			
+//	 age: 30,			
+//	 country: 'Việt Nam',			
 // }			
-   
+	 
 // var obj2 = {...obj1}			
-   
+	 
 // var obj1 = {			
-//   name: 'Nguyễn Văn A',			
-//   age: 30,			
-//   country: 'Việt Nam',			
+//	 name: 'Nguyễn Văn A',			
+//	 age: 30,			
+//	 country: 'Việt Nam',			
 // }			
-   
-// var obj2 = {			        // obj2 được sao chép và thay đổi từ obj1. Ở đây chúng ta cần lưu ý: dù là
-//   ...obj1,		            // đang gán 2 lần thuộc tính  name trong obj tuy nhiên không có lỗi do thuộc
-//   name: 'Nguyễn Văn B',		// tính được lấy theo giá trị set sau. Về bản chất obj vẫn chỉ có 1 thuộc tính name
+	 
+// var obj2 = {					// obj2 được sao chép và thay đổi từ obj1. Ở đây chúng ta cần lưu ý: dù là
+//	 ...obj1,					// đang gán 2 lần thuộc tính	name trong obj tuy nhiên không có lỗi do thuộc
+//	 name: 'Nguyễn Văn B',		// tính được lấy theo giá trị set sau. Về bản chất obj vẫn chỉ có 1 thuộc tính name
 // }	
 
 /**
@@ -52,16 +52,16 @@
 
 // // Với Object
 // var initEmp = {			
-//   name: '',
-//   age: 0,
-//   country: 'Việt Nam',
+//	 name: '',
+//	 age: 0,
+//	 country: 'Việt Nam',
 // }
-   
+	 
 // var firstEmp = {			// emp2 được mở rộng từ initEmp
-//   ...initEmp,
-//   name: 'Nguyễn Văn B',
-//   age: 30,
-//   dev: 'DEV6'
+//	 ...initEmp,
+//	 name: 'Nguyễn Văn B',
+//	 age: 30,
+//	 dev: 'DEV6'
 // }
 
 /**
@@ -75,16 +75,16 @@ var arr2 = [...arr1, ...arr2]
 
 // Với Object
 var info = {
-  id: 'I01',
-  name: 'Name 1',
-  age: 20,
-  gender: 'Male'
+	id: 'I01',
+	name: 'Name 1',
+	age: 20,
+	gender: 'Male'
 }
 
 var address = {
-  city: 'city',
-  district: 'district',
-  ward: 'ward',
+	city: 'city',
+	district: 'district',
+	ward: 'ward',
 }
 
 var profile = {...info, ...address}
@@ -94,7 +94,7 @@ var profile = {...info, ...address}
  */
 
 function sumPrice(priceProd, tax, other) {	
-  return (priceProd + tax + other);	
+	return (priceProd + tax + other);	
 }	
 
 let phonePrices = [100, 10, 2]	
@@ -106,15 +106,15 @@ console.log(sum(...addressphonePrices))
  * Ví dụ 6: Sử dụng Spread Operator làm tham số
  */
 function checkData(...args) {
-  let queryString = '?';
-  if (args.name) {
-    queryString = `${queryString}name=${args.name}&`;
-  }
-  if (args.age) {
-    queryString = `${queryString}age=${args.age}&`;
-  }
-  //...
-  return queryString;
+	let queryString = '?';
+	if (args.name) {
+	queryString = `${queryString}name=${args.name}&`;
+	}
+	if (args.age) {
+	queryString = `${queryString}age=${args.age}&`;
+	}
+	//...
+	return queryString;
 }
 
 let qr = checkData({name: '2', age: 23, address: 'abc'})

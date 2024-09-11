@@ -4,11 +4,11 @@ import './App.css';
 import WrappedUserComponent from './WrappedUserComponent';
 
 const App: React.FC = () => {
-  return (
-    <AppProvider>
-      <WrappedUserComponent />
-    </AppProvider>
-  );
+	return (
+	<AppProvider>
+		<WrappedUserComponent />
+	</AppProvider>
+	);
 };
 
 export default App;

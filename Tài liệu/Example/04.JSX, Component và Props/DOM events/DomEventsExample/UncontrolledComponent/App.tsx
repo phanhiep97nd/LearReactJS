@@ -5,8 +5,8 @@ function App() {
 	const inputRef = useRef<HTMLInputElement | null>(null);
 
 	function handleSubmit() {
-    if (inputRef.current)
-		  alert(`Name: ${inputRef.current!.value}`);
+	if (inputRef.current)
+			alert(`Name: ${inputRef.current!.value}`);
 	}
 
 	return (

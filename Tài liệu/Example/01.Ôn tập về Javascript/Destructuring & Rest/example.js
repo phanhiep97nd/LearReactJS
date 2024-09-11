@@ -42,9 +42,9 @@
 
 // // TH2: Tạo object với các key mới và value tương ứng với value trong initialObj
 // let {a:keyG, b:keyH, c:keyI} = initialObj
-// console.log(keyG);  // 1
-// console.log(keyH);  // 3
-// console.log(keyI);  // 6
+// console.log(keyG);	// 1
+// console.log(keyH);	// 3
+// console.log(keyI);	// 6
 
 
 /**
@@ -69,7 +69,7 @@ let {x, ...rest} = initialObj;			// x = 1, rest = {y: 2, z: 3}
 console.log(rest)
 
 let newObj = {x}
-console.log(newObj)    // newObj = {x: 1}
+console.log(newObj)	// newObj = {x: 1}
 
 /**
  * Ví dụ: Áp dụng Destructuring & Rest trong vòng lặp từng phần tử của Array
@@ -78,59 +78,59 @@ console.log(newObj)    // newObj = {x: 1}
  */
 
 const departs = [
-  {
-    depart_code: 'D1',
-    depart_name: 'Depart 1',
-    employees: [
-      {
-        emp_code: 'E1',
-        emp_name: 'Empl 1',
-        role: 'Member'
-      },
-      {
-        emp_code: 'E2',
-        emp_name: 'Empl 2',
-        role: 'Member'
-      },
-      {
-        emp_code: 'E3',
-        emp_name: 'Empl 3',
-        role: 'Member'
-      },
-    ]
-  },
-  {
-    depart_code: 'D2',
-    depart_name: 'Depart 2',
-    employees: [
-      {
-        emp_code: 'E4',
-        emp_name: 'Empl 4',
-        role: 'Member'
-      },
-      {
-        emp_code: 'E5',
-        emp_name: 'Empl 5',
-        role: 'Member'
-      },
-      {
-        emp_code: 'E6',
-        emp_name: 'Empl 6',
-        role: 'Member'
-      },
-    ]
-  }
+	{
+	depart_code: 'D1',
+	depart_name: 'Depart 1',
+	employees: [
+		{
+		emp_code: 'E1',
+		emp_name: 'Empl 1',
+		role: 'Member'
+		},
+		{
+		emp_code: 'E2',
+		emp_name: 'Empl 2',
+		role: 'Member'
+		},
+		{
+		emp_code: 'E3',
+		emp_name: 'Empl 3',
+		role: 'Member'
+		},
+	]
+	},
+	{
+	depart_code: 'D2',
+	depart_name: 'Depart 2',
+	employees: [
+		{
+		emp_code: 'E4',
+		emp_name: 'Empl 4',
+		role: 'Member'
+		},
+		{
+		emp_code: 'E5',
+		emp_name: 'Empl 5',
+		role: 'Member'
+		},
+		{
+		emp_code: 'E6',
+		emp_name: 'Empl 6',
+		role: 'Member'
+		},
+	]
+	}
 ]
 
 // TH 1: Xử lý như thông thường
 for (let i = 1; i < departs.length; i++)	// Để loop thì phải khai báo qua biến i
 {	
-  let employees = departs[i].employees;	
-  //… xử lý employees	
+	let employees = departs[i].employees;	
+	//… xử lý employees	
 }
 
 // TH 2: Sử dụng Destructuring
 for (let {employees} of departments)	
 {	
-  //… xử lý employees	
+	//… xử lý employees	
 }	

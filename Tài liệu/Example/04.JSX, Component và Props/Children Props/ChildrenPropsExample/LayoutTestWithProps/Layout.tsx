@@ -2,8 +2,8 @@ import React from 'react';
 import './Layout.css'; // CSS cho layout
 
 interface Props {
-  sidebar: React.ReactNode;
-  children: React.ReactNode;
+	sidebar: React.ReactNode;
+	children: React.ReactNode;
 }
 
 /**
