@@ -5,9 +5,9 @@ import WrappedUserComponent from './WrappedUserComponent';
 
 const App: React.FC = () => {
   return (
-		<AppProvider>
-		  <WrappedUserComponent />
-		</AppProvider>
+    <AppProvider>
+      <WrappedUserComponent />
+    </AppProvider>
   );
 };
 

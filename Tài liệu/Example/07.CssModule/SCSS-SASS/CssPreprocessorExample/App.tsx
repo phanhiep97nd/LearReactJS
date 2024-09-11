@@ -3,11 +3,11 @@ import './button.scss'
 
 const App:React.FC = () => {
   return (
-		<>
-		  <button className="button-danger">
-				Click
-		  </button>
-		</>
+    <>
+      <button className="button-danger">
+        Click
+      </button>
+    </>
   )
 }
 

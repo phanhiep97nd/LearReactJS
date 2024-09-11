@@ -1,9 +1,9 @@
 import React from "react";
 
 const HomeComponent = () => {
-		return (
-				<></>
-		)
+    return (
+        <></>
+    )
 }
 
 export default HomeComponent;

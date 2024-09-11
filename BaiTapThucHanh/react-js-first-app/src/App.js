@@ -9,39 +9,39 @@ import ListCar from './components/page/ListCar';
 import Contact from "./components/page/Contact";
 
 export const ShowPhoneNumber = (phoneNumber) => {
-/tif (phoneNumber && typeof phoneNumber === 'string' && phoneNumber.length === 10) {
-	return phoneNumber.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
-/t} else {
-	return phoneNumber;
-/t}
+  if (phoneNumber && typeof phoneNumber === 'string' && phoneNumber.length === 10) {
+    return phoneNumber.replace(/(\d{4})(\d{3})(\d{3})/, '$1 $2 $3');
+  } else {
+    return phoneNumber;
+  }
 }
 
 function App() {
-/tconst [Driver, setUpdateDriver] = useState(DriverInfo[0]);
-/tconst [checkHoliday] = useState(CheckHoliday('03/02/2025'));
+  const [Driver, setUpdateDriver] = useState(DriverInfo[0]);
+  const [checkHoliday] = useState(CheckHoliday('03/02/2025'));
 
-/tconst handleUpdateDriver = (Type) => {
-	setUpdateDriver(DriverInfo.find(item => item.Type === Type));
-/t}
+  const handleUpdateDriver = (Type) => {
+    setUpdateDriver(DriverInfo.find(item => item.Type === Type));
+  }
 
-/treturn (
-	<>
-	/t<Header DriverName={Driver.DriverName} PhoneNumber={Driver.PhoneNumber} />
-	/t<main>
-		<article>
-		/t<Hero UpdateDriver={handleUpdateDriver} Type={Driver.Type} />
-		/t<ListCar
-			UpdateDriver={handleUpdateDriver}
-			DriverInfo={DriverInfo}
-			CheckHoliday={checkHoliday}
-		/t/>
-		/t<Contact DriverInfo={Driver}/>
-		</article>
-	/t</main>
-	/t<div style={{ height: "1000px" }}></div>
-	/t<Footer DriverName={Driver.DriverName} />
-	</>
-/t);
+  return (
+    <>
+      <Header DriverName={Driver.DriverName} PhoneNumber={Driver.PhoneNumber} />
+      <main>
+        <article>
+          <Hero UpdateDriver={handleUpdateDriver} Type={Driver.Type} />
+          <ListCar
+            UpdateDriver={handleUpdateDriver}
+            DriverInfo={DriverInfo}
+            CheckHoliday={checkHoliday}
+          />
+          <Contact DriverInfo={Driver}/>
+        </article>
+      </main>
+      <div style={{ height: "1000px" }}></div>
+      <Footer DriverName={Driver.DriverName} />
+    </>
+  );
 }
 
 export default App;

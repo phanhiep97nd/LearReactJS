@@ -1,180 +1,180 @@
 {
   "openapi": "3.0.0",
   "info": {
-		"title": "TMDb API",
-		"version": "1.0.0",
-		"description": "This is an API documentation for The Movie Database (TMDb) APIs."
+    "title": "TMDb API",
+    "version": "1.0.0",
+    "description": "This is an API documentation for The Movie Database (TMDb) APIs."
   },
   "servers": [
-		{
-		  "url": "https://api.themoviedb.org/3"
-		}
+    {
+      "url": "https://api.themoviedb.org/3"
+    }
   ],
   "paths": {
-		"/genre/movie/list": {
-		  "get": {
-				"summary": "Get Movie Genres",
-				"description": "Fetch the list of movie genres.",
-				"parameters": [
-				  {
-						"name": "language",
-						"in": "query",
-						"required": false,
-						"schema": {
-						  "type": "string",
-						  "example": "en"
-						}
-				  }
-				],
-				"responses": {
-				  "200": {
-						"description": "A list of movie genres.",
-						"content": {
-						  "application/json": {
-								"schema": {
-								  "type": "object",
-								  "properties": {
-										"genres": {
-										  "type": "array",
-										  "items": {
-												"type": "object",
-												"properties": {
-												  "id": {
-														"type": "integer",
-														"example": 28
-												  },
-												  "name": {
-														"type": "string",
-														"example": "Action"
-												  }
-												}
-										  }
-										}
-								  }
-								}
-						  }
-						}
-				  },
-				  "default": {
-						"description": "An error occurred.",
-						"content": {
-						  "application/json": {
-								"schema": {
-								  "type": "object",
-								  "properties": {
-										"status_code": {
-										  "type": "integer",
-										  "example": 34
-										},
-										"status_message": {
-										  "type": "string",
-										  "example": "The resource you requested could not be found."
-										}
-								  }
-								}
-						  }
-						}
-				  }
-				}
-		  }
-		},
-		"/list": {
-		  "post": {
-				"summary": "Create a Movie List",
-				"description": "Create a new movie list.",
-				"parameters": [
-				  {
-						"name": "api_key",
-						"in": "query",
-						"required": true,
-						"schema": {
-						  "type": "string"
-						}
-				  },
-				  {
-						"name": "session_id",
-						"in": "query",
-						"required": true,
-						"schema": {
-						  "type": "string"
-						}
-				  }
-				],
-				"requestBody": {
-				  "required": true,
-				  "content": {
-						"application/json": {
-						  "schema": {
-								"type": "object",
-								"properties": {
-								  "name": {
-										"type": "string",
-										"example": "My Favorite Movies"
-								  },
-								  "description": {
-										"type": "string",
-										"example": "A list of my favorite movies"
-								  },
-								  "language": {
-										"type": "string",
-										"example": "en"
-								  }
-								},
-								"required": ["name", "description", "language"]
-						  }
-						}
-				  }
-				},
-				"responses": {
-				  "201": {
-						"description": "Movie list created successfully.",
-						"content": {
-						  "application/json": {
-								"schema": {
-								  "type": "object",
-								  "properties": {
-										"status_message": {
-										  "type": "string",
-										  "example": "The list was created successfully."
-										},
-										"success": {
-										  "type": "boolean",
-										  "example": true
-										},
-										"list_id": {
-										  "type": "integer",
-										  "example": 1234
-										}
-								  }
-								}
-						  }
-						}
-				  },
-				  "default": {
-						"description": "An error occurred.",
-						"content": {
-						  "application/json": {
-								"schema": {
-								  "type": "object",
-								  "properties": {
-										"status_code": {
-										  "type": "integer",
-										  "example": 7
-										},
-										"status_message": {
-										  "type": "string",
-										  "example": "Invalid API key: You must be granted a valid key."
-										}
-								  }
-								}
-						  }
-						}
-				  }
-				}
-		  }
-		}
+    "/genre/movie/list": {
+      "get": {
+        "summary": "Get Movie Genres",
+        "description": "Fetch the list of movie genres.",
+        "parameters": [
+          {
+            "name": "language",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "example": "en"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of movie genres.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "genres": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 28
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Action"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": {
+                      "type": "integer",
+                      "example": 34
+                    },
+                    "status_message": {
+                      "type": "string",
+                      "example": "The resource you requested could not be found."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/list": {
+      "post": {
+        "summary": "Create a Movie List",
+        "description": "Create a new movie list.",
+        "parameters": [
+          {
+            "name": "api_key",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "session_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "My Favorite Movies"
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "A list of my favorite movies"
+                  },
+                  "language": {
+                    "type": "string",
+                    "example": "en"
+                  }
+                },
+                "required": ["name", "description", "language"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Movie list created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_message": {
+                      "type": "string",
+                      "example": "The list was created successfully."
+                    },
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "list_id": {
+                      "type": "integer",
+                      "example": 1234
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "An error occurred.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status_code": {
+                      "type": "integer",
+                      "example": 7
+                    },
+                    "status_message": {
+                      "type": "string",
+                      "example": "Invalid API key: You must be granted a valid key."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   },
   "components": {
-		"schemas": {}
+    "schemas": {}
   }
 }

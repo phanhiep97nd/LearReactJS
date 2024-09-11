@@ -6,10 +6,10 @@ interface Props {
 
 const Button: React.FC<Props> = (props) => {
   const defaultOnClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-		if (props.onClick)
-		  props.onClick(event);
-		event.preventDefault();
+    if (props.onClick)
+      props.onClick(event);
+    event.preventDefault();
   }
 
-		return <button onClick={defaultOnClick}>Click me</button>;
+	return <button onClick={defaultOnClick}>Click me</button>;
 };

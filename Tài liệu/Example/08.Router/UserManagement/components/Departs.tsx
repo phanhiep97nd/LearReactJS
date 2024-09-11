@@ -16,7 +16,7 @@ const Departs: React.FC = () => {
    * Chuyển hướng sang Component add phòng ban
    */
   const handleAdd = () => {
-		navigate('/departs/add');
+    navigate('/departs/add');
   };
 
   /**
@@ -24,44 +24,44 @@ const Departs: React.FC = () => {
    * @param id 
    */
   const handleEdit = (id: number) => {
-		navigate(`/departs/edit/${id}`);
+    navigate(`/departs/edit/${id}`);
   };
 
   const handleDelete = (id: number) => {
-		if (window.confirm('Are you sure you want to delete this department?')) {
-		  // Call API
-		}
+    if (window.confirm('Are you sure you want to delete this department?')) {
+      // Call API
+    }
   };
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading departments</div>;
 
   const filteredDeparts = departs? departs.filter(depart => 
-		depart.name.toLowerCase().includes(searchTerm.toLowerCase())
+    depart.name.toLowerCase().includes(searchTerm.toLowerCase())
   ) : [];
 
   return (
-		<div className={styles.container}>
-		  <h2 className={styles.header}>Departments</h2>
-		  <input 
-				type="text" 
-				placeholder="Search..." 
-				value={searchTerm}
-				onChange={(e) => setSearchTerm(e.target.value)}
-				className={styles.input} 
-		  />
-		  <button className={styles.button}>Search</button>
-		  <button className={styles.button} onClick={handleAdd}>Add Department</button>
-		  <div className={styles.results}>
-				{filteredDeparts.map(depart => (
-				  <div key={depart.id} className={styles.departItem}>
-						<span>{depart.name}</span>
-						<button className={styles.button} onClick={() => handleEdit(depart.id)}>Edit</button>
-						<button className={styles.button} onClick={() => handleDelete(depart.id)}>Delete</button>
-				  </div>
-				))}
-		  </div>
-		</div>
+    <div className={styles.container}>
+      <h2 className={styles.header}>Departments</h2>
+      <input 
+        type="text" 
+        placeholder="Search..." 
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        className={styles.input} 
+      />
+      <button className={styles.button}>Search</button>
+      <button className={styles.button} onClick={handleAdd}>Add Department</button>
+      <div className={styles.results}>
+        {filteredDeparts.map(depart => (
+          <div key={depart.id} className={styles.departItem}>
+            <span>{depart.name}</span>
+            <button className={styles.button} onClick={() => handleEdit(depart.id)}>Edit</button>
+            <button className={styles.button} onClick={() => handleDelete(depart.id)}>Delete</button>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

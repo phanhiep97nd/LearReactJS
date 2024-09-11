@@ -10,9 +10,9 @@ const UserProvider: React.FC<{ children: ReactNode, userInfo?: UserInfo }> = ({ 
 
   // Thay đổi userInitial theo giá trị context được thiết lập (xử lý side effect)
   useEffect(() => {
-		if (userContext) {
-		  setUserInitial(userContext);
-		}
+    if (userContext) {
+      setUserInitial(userContext);
+    }
   }, [userContext])
 
   /**
@@ -21,13 +21,13 @@ const UserProvider: React.FC<{ children: ReactNode, userInfo?: UserInfo }> = ({ 
    * @param newUserInfo thông tin user mới với các thông tin user cần update vào context
    */
   const saveContext = (newUserInfo: UserInfo) => {
-		setUserInitial(newUserInfo);
+    setUserInitial(newUserInfo);
   }
 
   return (
-		<UserContext.Provider value={{...userInitial, setUser: saveContext}}>
-		  {children}
-		</UserContext.Provider>
+    <UserContext.Provider value={{...userInitial, setUser: saveContext}}>
+      {children}
+    </UserContext.Provider>
   );
 };
 

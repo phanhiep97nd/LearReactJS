@@ -4,8 +4,8 @@ import styles from './styles/Loading.module.css'
 
 export const Loading: React.FC = () => {
   return (
-		<div className={styles.content}>
-		  <Spinner/>
-		</div>
+    <div className={styles.content}>
+      <Spinner/>
+    </div>
   );
 };

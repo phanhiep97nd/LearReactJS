@@ -4,7 +4,7 @@ import {faSpinner} from '@fortawesome/free-solid-svg-icons';
 
 export const Spinner: React.FC = () => {
   return (
-		<FontAwesomeIcon icon={faSpinner} size={'6x'} spin={true} />
+    <FontAwesomeIcon icon={faSpinner} size={'6x'} spin={true} />
   );
 };
 

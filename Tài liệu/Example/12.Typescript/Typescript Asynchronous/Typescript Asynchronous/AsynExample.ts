@@ -4,7 +4,7 @@
 
 function fetchData(callback: (data: string) => void) {
   setTimeout(() => {
-		callback("Data received");
+    callback("Data received");
   }, 1000);
 }
 
@@ -17,18 +17,18 @@ fetchData((data: string) => {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function fetchDataPromise(): Promise<string> {
   return new Promise((resolve, reject) => {
-		setTimeout(() => {
-		  resolve("Data received");
-		}, 1000);
+    setTimeout(() => {
+      resolve("Data received");
+    }, 1000);
   });
 }
 
 fetchDataPromise()
   .then((data) => {
-		console.log(data); // Output: Data received
+    console.log(data); // Output: Data received
   })
   .catch((error) => {
-		console.error(error);
+    console.error(error);
   });
 
 
@@ -48,11 +48,11 @@ interface Todo {
 // Định nghĩa hàm async để fetch data
 async function fetchTodo(): Promise<void> {
   try {
-		const response = await axios.get<Todo>('https://localhost:1234/todos/1');
-		const todo = response.data;
-		console.log('Todo received:', todo);
+    const response = await axios.get<Todo>('https://localhost:1234/todos/1');
+    const todo = response.data;
+    console.log('Todo received:', todo);
   } catch (error) {
-		console.error('Error fetching todo:', error);
+    console.error('Error fetching todo:', error);
   }
 }
 

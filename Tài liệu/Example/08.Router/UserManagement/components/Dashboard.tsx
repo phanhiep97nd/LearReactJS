@@ -16,28 +16,28 @@ const Dashboard: React.FC = () => {
    * Chuyển hướng sang Component list user
    */
   const handleUsersClick = () => {
-		navigate('/users');
+    navigate('/users');
   };
 
   /**
    * Chuyển hướng sang Component list user với tham số input
    */
   const handleStatsClick = () => {
-		const { startDate, endDate } = getStartAndEndDate();
-		navigate(`/users?from=${startDate}&to=${endDate}`);
+    const { startDate, endDate } = getStartAndEndDate();
+    navigate(`/users?from=${startDate}&to=${endDate}`);
   };
 
   return (
-		<div>
-		  <h2>Dashboard</h2>
-		  <p>Logged in as: {user?.role}</p>
-		  <p>
-				Number of users: {user?.role !== 'member'? <span onClick={handleUsersClick}>{countUsers}</span> : <span>{countUsers}</span>}
-		  </p>
-		  <p>
-				Users managed this month: {user?.role !== 'member'? <span onClick={handleStatsClick}>{countUsersWithDate}</span> : <span>{countUsersWithDate}</span>}
-		  </p>
-		</div>
+    <div>
+      <h2>Dashboard</h2>
+      <p>Logged in as: {user?.role}</p>
+      <p>
+        Number of users: {user?.role !== 'member'? <span onClick={handleUsersClick}>{countUsers}</span> : <span>{countUsers}</span>}
+      </p>
+      <p>
+        Users managed this month: {user?.role !== 'member'? <span onClick={handleStatsClick}>{countUsersWithDate}</span> : <span>{countUsersWithDate}</span>}
+      </p>
+    </div>
   );
 };
 

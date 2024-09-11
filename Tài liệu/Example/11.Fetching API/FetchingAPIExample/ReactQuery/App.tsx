@@ -6,9 +6,9 @@ const App: React.FC = () => {
   const queryClient = new QueryClient();
 
   return (
-		<QueryClientProvider client={queryClient}>
-		  <ListFilm />
-		</QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <ListFilm />
+    </QueryClientProvider>
   );
 };
 

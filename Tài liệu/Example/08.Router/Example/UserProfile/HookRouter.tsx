@@ -6,7 +6,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-		navigate('/dashboard');
+    navigate('/dashboard');
   };
 
   return <button onClick={handleLogin}>Login</button>;
@@ -31,9 +31,9 @@ const HighlightLink: React.FC<{to: string, children: React.ReactNode}> = ({ to, 
   const match = useMatch(to);
 
   return (
-		<Link to={to} style={{ fontWeight: match ? 'bold' : 'normal' }}>
-		  {children}
-		</Link>
+    <Link to={to} style={{ fontWeight: match ? 'bold' : 'normal' }}>
+      {children}
+    </Link>
   );
 }
 
@@ -42,14 +42,14 @@ const DashboardLayout = () => {
   const outlet = useOutlet();
 
   return (
-		<div>
-		  <h1>Dashboard</h1>
-		  <nav>
-				<HighlightLink to="/dashboard/profile">Profile</HighlightLink>
-				<HighlightLink to="/dashboard/settings">Settings</HighlightLink>
-		  </nav>
-		  <div>{outlet}</div>
-		</div>
+    <div>
+      <h1>Dashboard</h1>
+      <nav>
+        <HighlightLink to="/dashboard/profile">Profile</HighlightLink>
+        <HighlightLink to="/dashboard/settings">Settings</HighlightLink>
+      </nav>
+      <div>{outlet}</div>
+    </div>
   );
 }
 
@@ -64,23 +64,23 @@ const Settings = () => {
 // Component App chứa cấu hình Router và các Route
 const App = () => {
   return (
-		<Router>
-		  <div>
-				<nav>
-				  <Link to="/login">Login</Link>
-				  <Link to="/dashboard">Dashboard</Link>
-				  <LocationDisplay />
-				</nav>
-				<Routes>
-				  <Route path="/login" element={<Login />} />
-				  <Route path="/dashboard" element={<DashboardLayout />}>
-						<Route path="profile" element={<Profile />} />
-						<Route path="settings" element={<Settings />} />
-				  </Route>
-				  <Route path="/users/:userId" element={<UserProfile />} />
-				</Routes>
-		  </div>
-		</Router>
+    <Router>
+      <div>
+        <nav>
+          <Link to="/login">Login</Link>
+          <Link to="/dashboard">Dashboard</Link>
+          <LocationDisplay />
+        </nav>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<DashboardLayout />}>
+            <Route path="profile" element={<Profile />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
+          <Route path="/users/:userId" element={<UserProfile />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

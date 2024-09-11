@@ -22,38 +22,38 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   // Call login API
   const { mutate: login } = useMutation(loginUser, {
-		onSuccess: async () => {
-		  const profile = await queryClient.fetchQuery('profile', fetchProfile);
-		  setUser(profile);
-		  navigate('/dashboard');
-		},
-		onError: (error) => {
-		  console.error('Login failed:', error);
-		}
+    onSuccess: async () => {
+      const profile = await queryClient.fetchQuery('profile', fetchProfile);
+      setUser(profile);
+      navigate('/dashboard');
+    },
+    onError: (error) => {
+      console.error('Login failed:', error);
+    }
   })
 
   const logout = () => {
-		setUser(null);
-		navigate('/login');
+    setUser(null);
+    navigate('/login');
   };
 
   const defaultAuthContext: AuthContextType = {
-		login,
-		logout,
-		user
+    login,
+    logout,
+    user
   }
 
   return (
-		<AuthContext.Provider value={defaultAuthContext}>
-		  {children}
-		</AuthContext.Provider>
+    <AuthContext.Provider value={defaultAuthContext}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-		throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 };

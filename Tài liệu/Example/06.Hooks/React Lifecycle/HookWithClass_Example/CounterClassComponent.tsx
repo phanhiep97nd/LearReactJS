@@ -4,21 +4,21 @@ import withCounter from './withCounter';
 
 interface CounterProps {
   counter: {
-		count: number;
-		increment: () => void;
+    count: number;
+    increment: () => void;
   };
 }
 
 class CounterClassComponent extends Component<CounterProps> {
   render() {
-		const { count, increment } = this.props.counter;
+    const { count, increment } = this.props.counter;
 
-		return (
-		  <div>
-				<p>Count: {count}</p>
-				<button onClick={increment}>Increment</button>
-		  </div>
-		);
+    return (
+      <div>
+        <p>Count: {count}</p>
+        <button onClick={increment}>Increment</button>
+      </div>
+    );
   }
 }
 

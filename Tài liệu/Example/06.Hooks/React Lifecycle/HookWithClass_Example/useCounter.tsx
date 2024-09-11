@@ -9,7 +9,7 @@ const useCounter = (initialValue: number = 0) => {
   const [count, setCount] = useState(initialValue);
 
   const increment = useCallback(() => {
-		setCount((prevCount) => prevCount + 1);
+    setCount((prevCount) => prevCount + 1);
   }, []);
 
   return { count, increment };

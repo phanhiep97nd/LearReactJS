@@ -1,5 +1,5 @@
 /*-----------------------------------*\
-/t#style.css
+  #style.css
 \*-----------------------------------*/
 
 /**
@@ -14,196 +14,196 @@
  @use './shadow';
  @use './transition';
 
-/t/*-----------------------------------*\
-		#HEADER
-/t\*-----------------------------------*/
-/t
-/t.header-contact { display: none; }
-/t
-/t.header {
-		background: colors.$alice-blue-1;
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		transition: transition.$transition;
-		z-index: 4;
-/t}
-/t
-/t.header.active { box-shadow: shadow.$shadow-1; }
-/t
-/t.header .container {
-		height: 70px;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-/t}
-/t
-/t.header-actions {
-		display: flex;
-		align-items: center;
-		gap: 20px;
-/t}
-/t
-/t.header-actions .btn span { display: none; }
-/t
-/t.user-btn {
-		--color: colors.$independence;
-		--background: colors.$white;
-		--shadow-2: shadow.$shadow-1;
-		box-shadow: shadow.$shadow-1;
-/t}
-/t
-/t.nav-toggle-btn span {
-		background: colors.$independence;
-		width: 22px;
-		height: 2px;
-		border-radius: 2px;
-		margin-block: 8px;
-		transform-origin: right;
-		transition: transition.$transition;
-/t}
-/t
-/t.nav-toggle-btn span.two { transform: scaleX(0.7); }
-/t
-/t.nav-toggle-btn span.three { transform: scaleX(0.4); }
-/t
-/t.nav-toggle-btn:is(:hover, :focus) span { background: colors.$carolina-blue; }
-/t
-/t.nav-toggle-btn.active span {
-		transform: scaleX(1);
-		background: colors.$carolina-blue;
-/t}
-/t
-/t.navbar {
-		background: colors.$alice-blue-1;
-		position: fixed;
-		top: 70px;
-		bottom: 0;
-		right: -260px;
-		max-width: 260px;
-		width: 100%;
-		padding: 20px 25px;
-		border: 1px solid colors.$white;
-		box-shadow: shadow.$shadow-1;
-		visibility: hidden;
-		transition: 0.25s cubic-bezier(0.51, 0.03, 0.64, 0.28);
-/t}
-/t
-/t.navbar.active {
-		visibility: visible;
-		transform: translateX(-100%);
-		transition: 0.5s cubic-bezier(0.33, 0.85, 0.56, 1.02);
-/t}
-/t
-/t.navbar-link {
-		color: colors.$independence;
-		font-family: typography.$ff-nunito;
-		font-size: typography.$fs-6;
-		padding-block: 5px;
-		margin-bottom: 15px;
-/t}
-/t
-/t.navbar-link:is(:hover, :focus) { color: colors.$carolina-blue; }
-/t
-/t.overlay {
-		position: fixed;
-		top: 70px;
-		background: hsl(216, 38%, 95%);
-		left: 0;
-		right: 0;
-		bottom: 0;
-		opacity: 0;
-		pointer-events: none;
-		transition: transition.$transition;
+  /*-----------------------------------*\
+	#HEADER
+  \*-----------------------------------*/
+  
+  .header-contact { display: none; }
+  
+  .header {
+	background: colors.$alice-blue-1;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	transition: transition.$transition;
+	z-index: 4;
+  }
+  
+  .header.active { box-shadow: shadow.$shadow-1; }
+  
+  .header .container {
+	height: 70px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+  }
+  
+  .header-actions {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+  }
+  
+  .header-actions .btn span { display: none; }
+  
+  .user-btn {
+	--color: colors.$independence;
+	--background: colors.$white;
+	--shadow-2: shadow.$shadow-1;
+	box-shadow: shadow.$shadow-1;
+  }
+  
+  .nav-toggle-btn span {
+	background: colors.$independence;
+	width: 22px;
+	height: 2px;
+	border-radius: 2px;
+	margin-block: 8px;
+	transform-origin: right;
+	transition: transition.$transition;
+  }
+  
+  .nav-toggle-btn span.two { transform: scaleX(0.7); }
+  
+  .nav-toggle-btn span.three { transform: scaleX(0.4); }
+  
+  .nav-toggle-btn:is(:hover, :focus) span { background: colors.$carolina-blue; }
+  
+  .nav-toggle-btn.active span {
+	transform: scaleX(1);
+	background: colors.$carolina-blue;
+  }
+  
+  .navbar {
+	background: colors.$alice-blue-1;
+	position: fixed;
+	top: 70px;
+	bottom: 0;
+	right: -260px;
+	max-width: 260px;
+	width: 100%;
+	padding: 20px 25px;
+	border: 1px solid colors.$white;
+	box-shadow: shadow.$shadow-1;
+	visibility: hidden;
+	transition: 0.25s cubic-bezier(0.51, 0.03, 0.64, 0.28);
+  }
+  
+  .navbar.active {
+	visibility: visible;
+	transform: translateX(-100%);
+	transition: 0.5s cubic-bezier(0.33, 0.85, 0.56, 1.02);
+  }
+  
+  .navbar-link {
+	color: colors.$independence;
+	font-family: typography.$ff-nunito;
+	font-size: typography.$fs-6;
+	padding-block: 5px;
+	margin-bottom: 15px;
+  }
+  
+  .navbar-link:is(:hover, :focus) { color: colors.$carolina-blue; }
+  
+  .overlay {
+	position: fixed;
+	top: 70px;
+	background: hsl(216, 38%, 95%);
+	left: 0;
+	right: 0;
+	bottom: 0;
+	opacity: 0;
+	pointer-events: none;
+	transition: transition.$transition;
 
-		.active {
-				opacity: 0.7;
-				pointer-events: all;
-		/t}
-/t}
-/t
-/t/**
-/t * responsive for large than 580px screen
-/t */
-/t
-/t@media (min-width: 580px) {
-		/**
-		 * HEADER
-		 */
-/t
-		.header-actions .btn span {
-		/tdisplay: block;
-		/tfont-weight: typography.$fw-400;
-		/tpadding-inline: 15px;
-		}
-/t
-		.header-actions .btn:first-of-type ion-icon { display: none; }
-/t
-/t}
-/t
-/t
-/t
-/t
-/t
-/t/**
-/t * responsive for large than 768px screen
-/t */
-/t
-/t@media (min-width: 768px) {
-		/**
-		 * HEADER
-		 */
-/t
-		.header-actions { gap: 30px; }
-/t
-		.header-contact {
-		/tdisplay: block;
-		/ttext-align: center;
-		}
-/t
-		.header-contact .contact-link {
-		/tcolor: colors.$space-cadet;
-		/tfont-family: typography.$ff-nunito;
-		/tfont-size: typography.$fs-5;
-		/tline-height: 1.3;
-		}
-/t
-		.header-contact .contact-link:is(:hover, :focus) { color: colors.$carolina-blue; }
-/t
-		.header-contact .contact-time {
-		/tcolor: colors.$independence;
-		/tfont-size: typography.$fs-7;
-		}
-/t}
-/t
-/t
-/t
-/t
-/t
-/t
-/t/**
-/t * responsive for large than 1200px screen
-/t */
-/t
-/t@media (min-width: 1200px) {
-		/**
-		 * HEADER
-		 */
-/t
-		.overlay,
-		.nav-toggle-btn { display: none; }
-/t
-		.navbar,
-		.navbar.active { all: unset; }
-/t
-		.navbar-link {
-		/tmargin-bottom: 0;
-		/tfont-weight: typography.$fw-600;
-		}
-/t
-		.navbar-list {
-		/tdisplay: flex;
-		/tgap: 50px;
-		}
-/t}
+	.active {
+		opacity: 0.7;
+		pointer-events: all;
+	  }
+  }
+  
+  /**
+   * responsive for large than 580px screen
+   */
+  
+  @media (min-width: 580px) {
+	/**
+	 * HEADER
+	 */
+  
+	.header-actions .btn span {
+	  display: block;
+	  font-weight: typography.$fw-400;
+	  padding-inline: 15px;
+	}
+  
+	.header-actions .btn:first-of-type ion-icon { display: none; }
+  
+  }
+  
+  
+  
+  
+  
+  /**
+   * responsive for large than 768px screen
+   */
+  
+  @media (min-width: 768px) {
+	/**
+	 * HEADER
+	 */
+  
+	.header-actions { gap: 30px; }
+  
+	.header-contact {
+	  display: block;
+	  text-align: center;
+	}
+  
+	.header-contact .contact-link {
+	  color: colors.$space-cadet;
+	  font-family: typography.$ff-nunito;
+	  font-size: typography.$fs-5;
+	  line-height: 1.3;
+	}
+  
+	.header-contact .contact-link:is(:hover, :focus) { color: colors.$carolina-blue; }
+  
+	.header-contact .contact-time {
+	  color: colors.$independence;
+	  font-size: typography.$fs-7;
+	}
+  }
+  
+  
+  
+  
+  
+  
+  /**
+   * responsive for large than 1200px screen
+   */
+  
+  @media (min-width: 1200px) {
+	/**
+	 * HEADER
+	 */
+  
+	.overlay,
+	.nav-toggle-btn { display: none; }
+  
+	.navbar,
+	.navbar.active { all: unset; }
+  
+	.navbar-link {
+	  margin-bottom: 0;
+	  font-weight: typography.$fw-600;
+	}
+  
+	.navbar-list {
+	  display: flex;
+	  gap: 50px;
+	}
+  }

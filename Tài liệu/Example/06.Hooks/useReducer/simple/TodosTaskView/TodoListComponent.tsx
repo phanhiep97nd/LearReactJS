@@ -24,23 +24,23 @@ interface TodoListProps {
  */
 const TodoList: React.FC<TodoListProps> = ({ todos, dispatch }) => {
   return (
-		<div>
-		  <h1>Todo List</h1>
-		  <Link to="/add">Add New Todo</Link>
-		  <ul>
-				{todos.map(todo => (
-				  <li key={todo.id}>
-						<span
-						  style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
-						  onClick={() => dispatch({ type: TODO_TYPE.TOGGLE_TODO, payload: todo.id })}
-						>
-						  {todo.text}
-						</span>
-						<button onClick={() => dispatch({ type: TODO_TYPE.DELETE_TODO, payload: todo.id })}>Delete</button>
-				  </li>
-				))}
-		  </ul>
-		</div>
+    <div>
+      <h1>Todo List</h1>
+      <Link to="/add">Add New Todo</Link>
+      <ul>
+        {todos.map(todo => (
+          <li key={todo.id}>
+            <span
+              style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
+              onClick={() => dispatch({ type: TODO_TYPE.TOGGLE_TODO, payload: todo.id })}
+            >
+              {todo.text}
+            </span>
+            <button onClick={() => dispatch({ type: TODO_TYPE.DELETE_TODO, payload: todo.id })}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 

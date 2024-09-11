@@ -16,16 +16,16 @@ const CustomComponent = () => {
   const [radios, checkedRadio, attributes] = useRadio(fakeChoices.map(x => x.value));
 
   return (
-		<>
-		  <CustomTextbox value={text} id="textTest" placeholder="" />
-		  {
-				radios.map(item => {
-				  return (
-						<CustomRadio labelProps={{}} radioProps={{value: item, name: attributes(item).name!, checked: item == checkedRadio}} />
-				  )
-				})
-		  }
-		</>
+    <>
+      <CustomTextbox value={text} id="textTest" placeholder="" />
+      {
+        radios.map(item => {
+          return (
+            <CustomRadio labelProps={{}} radioProps={{value: item, name: attributes(item).name!, checked: item == checkedRadio}} />
+          )
+        })
+      }
+    </>
   )
 }
 

@@ -6,18 +6,18 @@ const ListFilm: React.FC = () => {
   const { data: genres, error, isLoading, isError } = useGenres();
 
   return (
-		<div className="list-film-container">
-		  <h2>List of Movie Genres</h2>
-		  {isLoading && <p>Loading...</p>}
-		  {isError && <p className="error-message">{error?.message}</p>}
-		  <select className="genre-select">
-				{genres && genres?.map((item) => (
-				  <option key={item.id} value={item.id}>
-						{item.name}
-				  </option>
-				))}
-		  </select>
-		</div>
+    <div className="list-film-container">
+      <h2>List of Movie Genres</h2>
+      {isLoading && <p>Loading...</p>}
+      {isError && <p className="error-message">{error?.message}</p>}
+      <select className="genre-select">
+        {genres && genres?.map((item) => (
+          <option key={item.id} value={item.id}>
+            {item.name}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 };
 

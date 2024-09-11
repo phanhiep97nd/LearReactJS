@@ -6,89 +6,89 @@
 @use './transition';
 
 /*-----------------------------------*\
-/t#GET START
+  #GET START
 \*-----------------------------------*/
 
 .get-start .section-title { margin-bottom: 25px; }
 
 .get-start-list {
-/tdisplay: grid;
-/tgap: 20px;
+  display: grid;
+  gap: 20px;
 }
 
 .get-start-card {
-/tbackground: colors.$white;
-/tpadding: 20px;
-/tborder-radius: radius.$radius-18;
-/tborder: 1px solid colors.$white;
-/ttransition: transition.$transition;
+  background: colors.$white;
+  padding: 20px;
+  border-radius: radius.$radius-18;
+  border: 1px solid colors.$white;
+  transition: transition.$transition;
 }
 
 .get-start-card:hover {
-/tbackground: colors.$alice-blue-2;
-/tbox-shadow: shadow.$shadow-1;
+  background: colors.$alice-blue-2;
+  box-shadow: shadow.$shadow-1;
 }
 
 .get-start-card .card-icon {
-/tbackground: var(--icon-card-bg, colors.$columbia-blue);
-/tcolor: var(--icon-card-color, colors.$carolina-blue);
-/theight: 50px;
-/twidth: 50px;
-/tdisplay: grid;
-/tplace-items: center;
-/tborder-radius: radius.$radius-14;
-/tmargin-bottom: 20px;
+  background: var(--icon-card-bg, colors.$columbia-blue);
+  color: var(--icon-card-color, colors.$carolina-blue);
+  height: 50px;
+  width: 50px;
+  display: grid;
+  place-items: center;
+  border-radius: radius.$radius-14;
+  margin-bottom: 20px;
 }
 
 .get-start-card .card-icon ion-icon {
-/tfont-size: 26px;
-/t--ionicon-stroke-width: 45px;
+  font-size: 26px;
+  --ionicon-stroke-width: 45px;
 }
 
 .get-start-card .icon-1 {
-/t--icon-card-bg: colors.$mimi-pink;
-/t--icon-card-color: colors.$deep-cerise;
+  --icon-card-bg: colors.$mimi-pink;
+  --icon-card-color: colors.$deep-cerise;
 }
 
 .get-start-card .icon-2 {
-/t--icon-card-bg: colors.$columbia-blue;
-/t--icon-card-color: colors.$carolina-blue;
+  --icon-card-bg: colors.$columbia-blue;
+  --icon-card-color: colors.$carolina-blue;
 }
 
 .get-start-card .icon-3 {
-/t--icon-card-bg: colors.$honey-dew;
-/t--icon-card-color: colors.$medium-sea-green;
+  --icon-card-bg: colors.$honey-dew;
+  --icon-card-color: colors.$medium-sea-green;
 }
 
 .get-start-card .icon-4 {
-/t--icon-card-bg: colors.$pale-purple-pantone;
-/t--icon-card-color: colors.$slate-blue;
+  --icon-card-bg: colors.$pale-purple-pantone;
+  --icon-card-color: colors.$slate-blue;
 }
 
 .get-start-card .card-title {
-/tcolor: colors.$space-cadet;
-/tfont-family: typography.$ff-nunito;
-/tfont-weight: typography.$fw-400;
-/tmargin-bottom: 15px;
+  color: colors.$space-cadet;
+  font-family: typography.$ff-nunito;
+  font-weight: typography.$fw-400;
+  margin-bottom: 15px;
 }
 
 .get-start-card .card-text { color: colors.$independence; }
 
 .get-start-card .card-link {
-/tposition: relative;
-/tcolor: colors.$carolina-blue;
-/twidth: max-content;
+  position: relative;
+  color: colors.$carolina-blue;
+  width: max-content;
 }
 
 .get-start-card .card-link::before {
-/tcontent: "";
-/tposition: absolute;
-/tbottom: 0;
-/tleft: 0;
-/twidth: 0;
-/theight: 2px;
-/tbackground: colors.$carolina-blue;
-/ttransition: transition.$transition;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: colors.$carolina-blue;
+  transition: transition.$transition;
 }
 
 .get-start-card .card-link:is(:hover, :focus)::before { width: 100%; }
@@ -98,11 +98,11 @@
  */
 
  @media (min-width: 768px) {
-	/**
-/t * GET START
-/t */
+    /**
+   * GET START
+   */
 
-/t.get-start-list { grid-template-columns: 1fr 1fr; }
+  .get-start-list { grid-template-columns: 1fr 1fr; }
  }
 
 
@@ -111,9 +111,9 @@
  */
 
 @media (min-width: 1200px) {
-	/**
-/t * GET START
-/t */
+    /**
+   * GET START
+   */
 
-/t .get-start-list { grid-template-columns: repeat(4, 1fr); }
+   .get-start-list { grid-template-columns: repeat(4, 1fr); }
 }

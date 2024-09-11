@@ -18,11 +18,11 @@ interface ProductListData {
 const ProductList: React.FC<ProductListData> = React.memo<ProductListData>(({ products }) => {
   console.log('UserList rendered');
   return (
-		<ul>
-		  {products.map((product) => (
-				<li key={product.id}>{product.name}</li>
-		  ))}
-		</ul>
+    <ul>
+      {products.map((product) => (
+        <li key={product.id}>{product.name}</li>
+      ))}
+    </ul>
   );
 });
 
@@ -35,18 +35,18 @@ const ProductList: React.FC<ProductListData> = React.memo<ProductListData>(({ pr
 const ProductsQuantityInput = () => {
   const [quantity, setQuantity] = useState(0);
   const [products] = useState<ProductData[]>([
-		{ id: 'ID01', name: 'Computer', lot: '1000', price: 1000 },
-		{ id: 'ID02', name: 'Keyboard', lot: '1001', price: 20 },
-		{ id: 'ID03', name: 'Mouse', lot: '1002', price: 15 },
+    { id: 'ID01', name: 'Computer', lot: '1000', price: 1000 },
+    { id: 'ID02', name: 'Keyboard', lot: '1001', price: 20 },
+    { id: 'ID03', name: 'Mouse', lot: '1002', price: 15 },
   ]);
 
   return (
-		<div>
-		  <h1>Số lượng: <input type='number' value={quantity} onChange={(e) => setQuantity(Number.parseInt(e.currentTarget.value))}/></h1>
-		  <button onClick={() => setQuantity(quantity + 1)}>Tăng</button>
-		  <button onClick={() => setQuantity(quantity - 1)}>Giảm</button>
-		  <ProductList products={products}/>
-		</div>
+    <div>
+      <h1>Số lượng: <input type='number' value={quantity} onChange={(e) => setQuantity(Number.parseInt(e.currentTarget.value))}/></h1>
+      <button onClick={() => setQuantity(quantity + 1)}>Tăng</button>
+      <button onClick={() => setQuantity(quantity - 1)}>Giảm</button>
+      <ProductList products={products}/>
+    </div>
   );
 };
 

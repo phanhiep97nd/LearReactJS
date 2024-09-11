@@ -14,13 +14,13 @@ $initWidth: 100;
   font-weight: bold;
   @include borderLayout(5, dashed);
   .button-danger {
-		color: red;
-		background-color: aliceblue;
-		@include borderLayout(10, dotted);
-		&:hover {
-		  transform: scale(1.25,1.25);
-		  transition: 1s;
-		}
+    color: red;
+    background-color: aliceblue;
+    @include borderLayout(10, dotted);
+    &:hover {
+      transform: scale(1.25,1.25);
+      transition: 1s;
+    }
   }
 }
 

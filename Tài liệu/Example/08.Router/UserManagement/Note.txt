@@ -7,30 +7,30 @@ Bao gồm một số trang web như sau:
   Trang này quản lý user trong một phòng ban
   Gồm các trang có url path sau: login, dashboard, users, departs, profile
   Khi vào trang: kiểm tra trạng thái user login (lưu vào context)
-		Nếu chưa login: điều hướng tới trang login của user
-		Sau khi login: mặc định vào dashboard
+    Nếu chưa login: điều hướng tới trang login của user
+    Sau khi login: mặc định vào dashboard
   Với dashboard: hiển thị thống kê số lượng user tới thời điểm hiện tại, số lượng user quản lý trong tháng (chia ra 4 tuần gần nhất)
-		Khi click vào link số lượng users: vào trang users với trạng thái không có param search
-		Khi click vào link thống kê user theo tuần: vào trang users với trạng thái có param search create Date From/create Date to
+    Khi click vào link số lượng users: vào trang users với trạng thái không có param search
+    Khi click vào link thống kê user theo tuần: vào trang users với trạng thái có param search create Date From/create Date to
   Với users (path /users): có search box để tìm kiếm, button Add, vùng chi tiết kết quả tìm kiếm và button Edit, Delete
-		Click tìm kiếm => hiển thị vùng chi tiết kết quả
-		Button Add: Chỉ user Admin được thấy và thao tác. Chuyển sang màn hình users/add
-		Button Edit: Chỉ user quản lý phòng ban được thấy. Chuyển sang màn hình users/edit/{id}
-		Button Delete: Chỉ user quản lý phòng ban được thấy. Gọi đến route users/delete/{id}, gọi popup xác nhận xóa
-		Với user member thì chỉ được tìm kiếm
-		Với user trưởng phòng có thể tìm kiếm, thêm, sửa, xóa thành viên
-		Với user Admin có thể tìm kiếm, thêm, sửa, xóa thành viên
+    Click tìm kiếm => hiển thị vùng chi tiết kết quả
+    Button Add: Chỉ user Admin được thấy và thao tác. Chuyển sang màn hình users/add
+    Button Edit: Chỉ user quản lý phòng ban được thấy. Chuyển sang màn hình users/edit/{id}
+    Button Delete: Chỉ user quản lý phòng ban được thấy. Gọi đến route users/delete/{id}, gọi popup xác nhận xóa
+    Với user member thì chỉ được tìm kiếm
+    Với user trưởng phòng có thể tìm kiếm, thêm, sửa, xóa thành viên
+    Với user Admin có thể tìm kiếm, thêm, sửa, xóa thành viên
   Với departs (path /departs): có search box để tìm kiếm, button Add, vùng chi tiết kết quả tìm kiếm và button Edit, Delete
-		Click tìm kiếm => hiển thị vùng chi tiết kết quả
-		Button Add: Chỉ user Admin được thấy và thao tác. Chuyển sang màn hình departs/add
-		Button Edit: Chỉ user Admin phòng ban được thấy. Chuyển sang màn hình departs/edit/{id}
-		Button Delete: Chỉ user Admin phòng ban được thấy. Gọi đến route departs/delete/{id}, gọi popup xác nhận xóa
-		Chỉ user Admin được vào màn hình này
+    Click tìm kiếm => hiển thị vùng chi tiết kết quả
+    Button Add: Chỉ user Admin được thấy và thao tác. Chuyển sang màn hình departs/add
+    Button Edit: Chỉ user Admin phòng ban được thấy. Chuyển sang màn hình departs/edit/{id}
+    Button Delete: Chỉ user Admin phòng ban được thấy. Gọi đến route departs/delete/{id}, gọi popup xác nhận xóa
+    Chỉ user Admin được vào màn hình này
   Với profile (route /profile):
-		Hiển thị thông tin cá nhân của từng user
-		Hiển thị authorization role của user (Admin/ trưởng phòng/member)
-		Với admin: có đường dẫn sang /departs và /users
-		Với trưởng phòng: có đường dẫn sang /users?depart={id}
+    Hiển thị thông tin cá nhân của từng user
+    Hiển thị authorization role của user (Admin/ trưởng phòng/member)
+    Với admin: có đường dẫn sang /departs và /users
+    Với trưởng phòng: có đường dẫn sang /users?depart={id}
 
 II. Yêu Cầu
 

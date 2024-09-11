@@ -2,29 +2,29 @@ import { useEffect, useState } from "react"
 // Data giả định
 const prodData = [
   {
-		id: 'T01',
-		prodName: 'Ti vi 01',
-		inventory: false
+    id: 'T01',
+    prodName: 'Ti vi 01',
+    inventory: false
   },
   {
-		id: 'T02',
-		prodName: 'Ti vi 02',
-		inventory: false
+    id: 'T02',
+    prodName: 'Ti vi 02',
+    inventory: false
   },
   {
-		id: 'T03',
-		prodName: 'Ti vi 03',
-		inventory: true
+    id: 'T03',
+    prodName: 'Ti vi 03',
+    inventory: true
   },
   {
-		id: 'T04',
-		prodName: 'Ti vi 04',
-		inventory: true
+    id: 'T04',
+    prodName: 'Ti vi 04',
+    inventory: true
   },
   {
-		id: 'T05',
-		prodName: 'Ti vi 05',
-		inventory: false
+    id: 'T05',
+    prodName: 'Ti vi 05',
+    inventory: false
   },
 ]
 
@@ -39,24 +39,24 @@ const FilterProdGrid = () => {
   const [filterProdData, setFilterProdData] = useState(prodData);
   
   useEffect(() => {
-		// Filter theo trạng thái tồn kho
-		setFilterProdData(inventory? prodData : prodData.filter(item => item.inventory));
+    // Filter theo trạng thái tồn kho
+    setFilterProdData(inventory? prodData : prodData.filter(item => item.inventory));
   }, [inventory])
 
   return (
-		<>
-		  <ul>
-				{
-				  /** render danh sách đối tượng đã được filter */
-				  filterProdData.map(item => <li key={item.id}>{item.prodName}</li>)
-				}
-		  </ul>
-		  <span>
-				<input id="checkFil" type="checkbox" checked={inventory} 
-				  onChange={(e) => setInventory(e.currentTarget.getAttribute('checked'))} />
-				<label htmlFor="checkFil">Hiển thị danh sách tồn kho</label>
-		  </span>
-		</>
+    <>
+      <ul>
+        {
+          /** render danh sách đối tượng đã được filter */
+          filterProdData.map(item => <li key={item.id}>{item.prodName}</li>)
+        }
+      </ul>
+      <span>
+        <input id="checkFil" type="checkbox" checked={inventory} 
+          onChange={(e) => setInventory(e.currentTarget.getAttribute('checked'))} />
+        <label htmlFor="checkFil">Hiển thị danh sách tồn kho</label>
+      </span>
+    </>
   )
 }
 
