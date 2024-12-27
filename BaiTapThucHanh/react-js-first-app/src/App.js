@@ -1,5 +1,5 @@
 //import logo from './logo.svg';
-import React, { useState } from'react';
+import React, { useEffect, useState } from'react';
 import './App.scss';
 import Header from './components/base/Header';
 import Footer from './components/base/Footer';
@@ -8,6 +8,7 @@ import { DriverInfo, CheckHoliday } from './module/Data';
 import ListCar from './components/page/ListCar';
 import Contact from "./components/page/Contact";
 import ExtraInfo from "./components/page/ExtraInfo";
+import axios from 'axios';
 
 export const ShowPhoneNumber = (phoneNumber) => {
 	if (phoneNumber && typeof phoneNumber === 'string' && phoneNumber.length === 10) {
@@ -24,6 +25,19 @@ function App() {
 	const handleUpdateDriver = (Type) => {
 	setUpdateDriver(DriverInfo.find(item => item.Type === Type));
 	}
+
+	useEffect(() => {
+		const fetchItems = async () => {
+		  try {
+			const response = await axios.get('http://localhost:3000/api/items');
+			console.log(response.data);
+		  } catch (err) {
+			console.error(err);
+		  }
+		};
+	
+		fetchItems();
+	  }, []);
 
 	return (
 	<>

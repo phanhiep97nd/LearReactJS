@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon --inspect app.js",
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,9 +12,12 @@
   "description": "",
   "dependencies": {
     "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.20.0",
-    "mongoose": "^4.13.21",
-    "mongoose-auto-increment": "^5.0.1"
+    "mongodb": "^6.12.0",
+    "mongoose": "^8.9.2",
+    "mongoose-auto-increment": "^3.0.1"
   },
   "devDependencies": {
     "morgan": "^1.10.0",
