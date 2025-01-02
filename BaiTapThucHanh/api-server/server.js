@@ -1,26 +1,33 @@
-const express = require('express');
+// filepath: /e:/LearnReactJS/GitCaNhan/LearReactJS/BaiTapThucHanh/api-server/app.js
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const bodyParser = require('body-parser');
 const cors = require('cors');
-const itemRoutes = require('./routes/itemRoutes');
+require('dotenv').config();
 
-dotenv.config();
+const mongoURI = process.env.MONGO_URI;
+
+mongoose.connect(mongoURI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log('MongoDB connected');
+}).catch((err) => {
+  console.error('MongoDB connection error:', err);
+});
+
+const express = require('express');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const port = 5000;
 
 const app = express();
 
-// Middleware
+app.use(morgan("combined"));
 app.use(bodyParser.json());
 app.use(cors());
 
-// Routes
-app.use('/api/items', itemRoutes);
+const itemRoutes = require('./routes/itemRoutes');
+app.use('/car_info', itemRoutes);
 
-// MongoDB connection
-mongoose
-  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.log('MongoDB connection error:', err));
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on portt ${PORT}`));
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});

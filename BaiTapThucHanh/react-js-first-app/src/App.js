@@ -1,10 +1,10 @@
 //import logo from './logo.svg';
-import React, { useEffect, useState } from'react';
+import React, { useState, useEffect } from'react';
 import './App.scss';
 import Header from './components/base/Header';
 import Footer from './components/base/Footer';
 import Hero from './components/page/Hero';
-import { DriverInfo, CheckHoliday } from './module/Data';
+import {CheckHoliday } from './module/Data';
 import ListCar from './components/page/ListCar';
 import Contact from "./components/page/Contact";
 import ExtraInfo from "./components/page/ExtraInfo";
@@ -18,7 +18,18 @@ export const ShowPhoneNumber = (phoneNumber) => {
 	}
 }
 
+export const fetchCarInfo = async () => {
+	try {
+	  const response = await axios.get('http://localhost:5000/car_info');
+	  return response.data;
+	} catch (err) {
+	  console.error(err);
+	  return [];
+	}
+  };
+
 function App() {
+	const [DriverInfo, setDriverInfo] = useState([]);
 	const [Driver, setUpdateDriver] = useState(DriverInfo[0]);
 	const [checkHoliday] = useState(CheckHoliday());
 
@@ -27,17 +38,19 @@ function App() {
 	}
 
 	useEffect(() => {
-		const fetchItems = async () => {
-		  try {
-			const response = await axios.get('http://localhost:3000/api/items');
-			console.log(response.data);
-		  } catch (err) {
-			console.error(err);
-		  }
+		const fetchData = async () => {
+		console.log('fetch');
+		const data = await fetchCarInfo();
+		setDriverInfo(data);
+		setUpdateDriver(data[0]); // Set the first driver as default
 		};
 	
-		fetchItems();
+		fetchData();
 	  }, []);
+	
+	  if (!Driver) {
+		return <div>Loading...</div>;
+	  }
 
 	return (
 	<>
