@@ -28,6 +28,9 @@ app.use(cors());
 const itemRoutes = require('./routes/itemRoutes');
 app.use('/car_info', itemRoutes);
 
+const bookingRoutes = require('./routes/bookingRoutes');
+app.use('/booking', bookingRoutes);
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

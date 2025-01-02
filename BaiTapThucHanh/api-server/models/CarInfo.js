@@ -19,4 +19,4 @@ const carInfoSchema = new mongoose.Schema({
   ImageQRBank: String
 });
 
-module.exports = mongoose.model('CarInfo', carInfoSchema, 'car_info');
+module.exports = mongoose.model('CarInfo', carInfoSchema, 'driver_info');

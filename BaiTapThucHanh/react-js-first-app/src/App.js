@@ -20,7 +20,7 @@ export const ShowPhoneNumber = (phoneNumber) => {
 
 export const fetchCarInfo = async () => {
 	try {
-	  const response = await axios.get('http://localhost:5000/car_info');
+	  const response = await axios.get('http://localhost:5000/car_info/getCarInfo');
 	  return response.data;
 	} catch (err) {
 	  console.error(err);

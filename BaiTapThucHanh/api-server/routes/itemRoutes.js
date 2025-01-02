@@ -5,7 +5,7 @@ const CarInfo = require('../models/CarInfo');
 const router = express.Router();
 
 // Get all car info
-router.get('/', async (req, res) => {
+router.get('/getCarInfo', async (req, res) => {
   try {
     const carInfos = await CarInfo.find();
     res.json(carInfos);

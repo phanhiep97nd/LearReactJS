@@ -9,7 +9,7 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
 	const [numberOfGuest, setNumberOfGuest] = React.useState(1);
 	const [holiday] = React.useState(true);
 	const [formData, setFormData] = React.useState({
-        type: '',
+        type: TypeOfCar.NAM_CHO,
         date: '',
         numberOfGuest: 1,
         pickupFrom: '',
@@ -26,18 +26,27 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
         });
     };
 
+	useEffect(() => {
+		console.log('Form Data:', formData);
+	}, [formData]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 		if (!formData.phoneNumber) {
 			alert('Số điện thoại không được để trống!');
 			return;
 		}
+		const data = {
+			...formData,
+			numberOfGuest: parseInt(formData.numberOfGuest, 10) // Ensure numberOfGuest is a number
+		  };
+		console.log('data:', data);
         try {
-            await axios.post('http://localhost:3000/api/drivers', formData);
-            console.log('Form Data:', formData);
-        } catch (error) {
-            console.error('Error saving data:', error);
-        }
+			const response = await axios.post('http://localhost:5000/booking/RegisterBooking', data);
+			console.log('Form Data Insert:', response.data);
+		} catch (error) {
+			console.error('Error saving data:', error.response ? error.response.data : error.message);
+		}
     };
 
 	const handleUpdateTypeofCar = (typeofCarInput) => {
