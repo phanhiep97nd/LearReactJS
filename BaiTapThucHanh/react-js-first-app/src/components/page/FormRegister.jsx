@@ -1,24 +1,61 @@
 import React, { useEffect } from 'react';
 import '../../sass/FormRegister.scss';
 import { TypeOfCar,PriceAllSeatHoliday, PriceAllSeatNormal, PricePerSeat } from '../../module/Constants';
+import axios from 'axios';
 
 const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
 	const [typeofCar, settypeofCar] = React.useState(TypeOfCar.NAM_CHO);
 	const [allSeatCheck, setAllSeatCheck] = React.useState(false);
 	const [numberOfGuest, setNumberOfGuest] = React.useState(1);
 	const [holiday] = React.useState(true);
+	const [formData, setFormData] = React.useState({
+        type: '',
+        date: '',
+        numberOfGuest: 1,
+        pickupFrom: '',
+        destination: '',
+        phoneNumber: '',
+        note: ''
+    });
+
+	const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+		if (!formData.phoneNumber) {
+			alert('Số điện thoại không được để trống!');
+			return;
+		}
+        try {
+            await axios.post('http://localhost:3000/api/drivers', formData);
+            console.log('Form Data:', formData);
+        } catch (error) {
+            console.error('Error saving data:', error);
+        }
+    };
 
 	const handleUpdateTypeofCar = (typeofCarInput) => {
 		settypeofCar(typeofCarInput);
 		UpdateTypeofCar(typeofCarInput);
+		setFormData({
+            ...formData,
+            type: typeofCarInput
+        });
 	};
 
 	const handleAllSeatCheck = () => {
 		setAllSeatCheck(!allSeatCheck);
 	}
 
-	const handleUpdateNumberOfGuest = (numberOfGuestInput) => {
-		setNumberOfGuest(numberOfGuestInput);
+	const handleUpdateNumberOfGuest = (e) => {
+		setNumberOfGuest(e.target.value);
+		handleChange(e);
 	}
 
 	const getPrice = () => {
@@ -88,7 +125,7 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
 	return (
 			 <>
 				<span className="price" id='price'></span>
-				<form action="" className="hero-form">
+				<form action="" className="hero-form" onSubmit={handleSubmit}>
 					<div className="input-wrapper">
 						<label htmlFor="input-1" className="input-label">Chọn loại xe</label>
 						<div className="container_radio">
@@ -116,26 +153,26 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
 					</div>
 					<div className="input-wrapper">
 						<label htmlFor="input-2" className="input-label">Ngày giờ đón</label>
-						<input type="datetime-local" name="monthly-pay" id="input-2" className="input-field" placeholder="Nhập tên tại đây..." />
+						<input type="datetime-local" name="date" id="input-2" className="input-field" value={formData.date} onChange={handleChange}/>
 						<label	className="input-label">----------------------------</label>
 						<label htmlFor="input-3" className="input-label">Số lượng khách</label>
-						<input type="number" name="NumberOfGuest" id="input-3" className="input-field" min={1} max={typeofCar === TypeOfCar.NAM_CHO ? 4 : 6} value={numberOfGuest}
-							placeholder="Nhập số khách tại đây..." onChange={(e) => handleUpdateNumberOfGuest(e.target.value)} />
+						<input type="number" name="numberOfGuest" id="input-3" className="input-field" min={1} max={typeofCar === TypeOfCar.NAM_CHO ? 4 : 6} value={numberOfGuest}
+							placeholder="Nhập số khách tại đây..." onChange={(e) => handleUpdateNumberOfGuest(e)} />
 					</div>
 					<div className="input-wrapper">
 						<label htmlFor="input-4" className="input-label">Điểm đón</label>
-						<input type="text" name="year" id="input-4" className="input-field" placeholder="Nhập điểm đón tại đây..." />
+						<input type="text" name="pickupFrom" id="PickupFrom" className="input-field" placeholder="Nhập điểm đón tại đây..." onChange={handleChange}/>
 						<label	className="input-label">----------------------------</label>
 						<label htmlFor="input-4" className="input-label">Điểm trả</label>
-						<input type="text" name="year" id="input-4" className="input-field" placeholder="Nhập điểm trả tại đây..." />
+						<input type="text" name="destination" id="Destination" className="input-field" placeholder="Nhập điểm trả tại đây..." value={formData.destination} onChange={handleChange}/>
 					</div>
 					<div className="input-wrapper">
 						<label htmlFor="input-5" className="input-label" style={{ color: "brown" }}>Số điện thoại *(Bắt buộc)</label>
-						<input type="number" name="year" id="inputPhoneNumber" className="input-field" placeholder="Nhập SDT tại đây..." />
+						<input type="number" name="phoneNumber" id="inputPhoneNumber" className="input-field" placeholder="Nhập SDT tại đây..." value={formData.phoneNumber} onChange={handleChange}/>
 						<label	className="input-label">----------------</label>
-						<input type="text" name="year" id="input-4" className="input-field" placeholder="Ghi chú thêm ..." />
+						<input type="text" name="note" id="input-4" className="input-field" placeholder="Ghi chú thêm ..." value={formData.note} onChange={handleChange}/>
 					</div>
-					<button id="show-message" className="btn">Thực hiện Đặt xe</button>
+					<button id="submit" className="btn">Đặt xe</button>
 				</form>
 			</>
 	)
