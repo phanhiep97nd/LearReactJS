@@ -87,7 +87,7 @@ const ListCar = ({ UpdateDriver, DriverInfo, CheckHoliday}) => {
 									<li className="card-list-item">
 										<ion-icon name="trending-up-outline"></ion-icon>
 										{/* <span style={{ color: "red" }} className="card-item-text"></span> */}
-										<span style={{color: "red"}} className="card-item-text">Giá thay đổi với ngày lễ { CheckHoliday.tenLe }</span>
+										<span style={{color: "red"}} className="card-item-text">Giá thay đổi trong ngày lễ { CheckHoliday.tenLe }</span>
 									</li>
 								</ul>}
 								<div className="card-price-wrapper">

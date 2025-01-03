@@ -2,12 +2,17 @@ import React, { useEffect } from 'react';
 import '../../sass/FormRegister.scss';
 import { TypeOfCar,PriceAllSeatHoliday, PriceAllSeatNormal, PricePerSeat } from '../../module/Constants';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Table from 'react-bootstrap/Table';
 
-const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
+// Modal.setAppElement('#root');
+
+const FormRegister = ({ UpdateTypeofCar, TypeChecked, CheckHoliday , UpdateDate}) => {
 	const [typeofCar, settypeofCar] = React.useState(TypeOfCar.NAM_CHO);
 	const [allSeatCheck, setAllSeatCheck] = React.useState(false);
 	const [numberOfGuest, setNumberOfGuest] = React.useState(1);
-	const [holiday] = React.useState(true);
+	const [isModalOpen, setIsModalOpen] = React.useState(false);
 	const [formData, setFormData] = React.useState({
         type: TypeOfCar.NAM_CHO,
         date: '',
@@ -24,29 +29,36 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
             ...formData,
             [name]: value
         });
+		if(name === "date"){
+			UpdateDate(value);
+		}
     };
-
-	useEffect(() => {
-		console.log('Form Data:', formData);
-	}, [formData]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-		if (!formData.phoneNumber) {
-			alert('Số điện thoại không được để trống!');
-			return;
-		}
-		const data = {
-			...formData,
-			numberOfGuest: parseInt(formData.numberOfGuest, 10) // Ensure numberOfGuest is a number
-		  };
-		console.log('data:', data);
+        if (!formData.phoneNumber) {
+            alert('Số điện thoại không được để trống!');
+            return;
+        }
+        setIsModalOpen(true);
+    };
+
+    const handleConfirm = async () => {
+        const data = {
+            ...formData,
+            numberOfGuest: parseInt(formData.numberOfGuest, 10) // Ensure numberOfGuest is a number
+        };
         try {
-			const response = await axios.post('http://localhost:5000/booking/RegisterBooking', data);
-			console.log('Form Data Insert:', response.data);
-		} catch (error) {
-			console.error('Error saving data:', error.response ? error.response.data : error.message);
-		}
+            await axios.post('https://learreactjs.onrender.com/booking/RegisterBooking', data);
+            setIsModalOpen(false);
+			alert('Đăng ký thành công! Chúng tôi sẽ liên hệ lại với bạn sớm nhất.');
+        } catch (error) {
+            alert('Đăng ký thất bại. Vui lòng thử lại.');
+        }
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
     };
 
 	const handleUpdateTypeofCar = (typeofCarInput) => {
@@ -72,10 +84,10 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
 		if (allSeatCheck) {
 			switch (typeofCar) {
 				case TypeOfCar.NAM_CHO:
-					price = holiday ? PriceAllSeatHoliday.NAM_CHO : PriceAllSeatNormal.NAM_CHO;
+					price = CheckHoliday ? PriceAllSeatHoliday.NAM_CHO : PriceAllSeatNormal.NAM_CHO;
 					break;
 				case TypeOfCar.BAY_CHO:
-					price = holiday ? PriceAllSeatHoliday.BAY_CHO : PriceAllSeatNormal.BAY_CHO;
+					price = CheckHoliday ? PriceAllSeatHoliday.BAY_CHO : PriceAllSeatNormal.BAY_CHO;
 					break;
 				case TypeOfCar.XE_TAI:
 					return "!Liên hệ để biết giá!";
@@ -86,7 +98,7 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
 			if(typeofCar === TypeOfCar.XE_TAI) {
 				return "!Liên hệ để biết giá!";
 			}
-			price = numberOfGuest * (holiday ? PricePerSeat.HOLIDAY : PricePerSeat.NORMAL);
+			price = numberOfGuest * (CheckHoliday ? PricePerSeat.HOLIDAY : PricePerSeat.NORMAL);
 		}
 		return `Giá tiền(Tham khảo) ước tính là: ${price.toLocaleString()} VND`;
 	};
@@ -126,7 +138,7 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
 	useEffect(() => {
 		const priceElement = document.getElementById("price");
 		priceElement.innerHTML = getPrice();
-	}, [numberOfGuest])// eslint-disable-line react-hooks/exhaustive-deps
+	}, [numberOfGuest, CheckHoliday])// eslint-disable-line react-hooks/exhaustive-deps
 
 	useEffect(() => {
 		settypeofCar(TypeChecked);
@@ -179,10 +191,85 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked }) => {
 						<label htmlFor="input-5" className="input-label" style={{ color: "brown" }}>Số điện thoại *(Bắt buộc)</label>
 						<input type="number" name="phoneNumber" id="inputPhoneNumber" className="input-field" placeholder="Nhập SDT tại đây..." value={formData.phoneNumber} onChange={handleChange}/>
 						<label	className="input-label">----------------</label>
-						<input type="text" name="note" id="input-4" className="input-field" placeholder="Ghi chú thêm ..." value={formData.note} onChange={handleChange}/>
+						<input type="text" multiple name="note" id="input-4" className="input-field" placeholder="Ghi chú thêm ..." value={formData.note} onChange={handleChange}/>
 					</div>
 					<button id="submit" className="btn">Đặt xe</button>
 				</form>
+				{/* <Modal
+                isOpen={isModalOpen}
+                onRequestClose={handleCancel}
+                contentLabel="Confirm Modal"
+                className="Modal"
+                overlayClassName="Overlay"
+            >
+                <h2>Xác nhận thông tin đăng ký</h2>
+                <p>Tên: {formData.name}</p>
+                <p>Email: {formData.email}</p>
+                <p>Số điện thoại: {formData.phoneNumber}</p>
+                <p>Địa chỉ: {formData.address}</p>
+                <p>Ngày giờ đón: {formData.date}</p>
+                <p>Số lượng khách: {formData.numberOfGuest}</p>
+                <p>Điểm đón: {formData.pickupFrom}</p>
+                <p>Loại xe: {formData.typeofCar}</p>
+                <p>Giá dự kiến: {getPrice()} VND</p>
+                <button onClick={handleConfirm}>Xác nhận</button>
+                <button onClick={handleCancel}>Hủy</button>
+            </Modal> */}
+				<Modal show={isModalOpen} onHide={handleCancel}>
+				<Modal.Header closeButton>
+				<Modal.Title>Xác nhận thông tin</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+				<Table>
+                    <tbody>
+						<tr>
+                            <td>Loại xe:</td>
+                            <td>{
+									formData.type === TypeOfCar.NAM_CHO ? "5 chỗ" :
+									formData.type === TypeOfCar.BAY_CHO ? "7 chỗ" :
+									formData.type === TypeOfCar.XE_TAI ? "Xe tải" : ""
+								}
+							</td>
+                        </tr>
+                        <tr>
+                            <td>Số điện thoại:</td>
+							<td style={{ color: 'red' }}>{formData.phoneNumber}</td>
+                        </tr>
+                        <tr>
+                            <td>Ngày giờ đón:</td>
+                            <td>{formData.date}</td>
+                        </tr>
+                        <tr>
+                            <td>Số lượng khách:</td>
+                            <td>{formData.numberOfGuest}</td>
+                        </tr>
+                        <tr>
+                            <td>Điểm đón:</td>
+                            <td>{formData.pickupFrom}</td>
+                        </tr>
+						<tr>
+                            <td>Điểm trả:</td>
+                            <td>{formData.destination}</td>
+                        </tr>
+						<tr>
+                            <td>Ghi chú:</td>
+                            <td>{formData.note}</td>
+                        </tr>
+                        <tr className="price">
+							<td>{getPrice()}</td>
+                        </tr>
+                    </tbody>
+				</Table>
+				</Modal.Body>
+				<Modal.Footer>
+				<Button variant="primary" onClick={handleConfirm}>
+					Xác nhận
+				</Button>
+				<Button variant="secondary" onClick={handleCancel}>
+					Hủy
+				</Button>
+				</Modal.Footer>
+				</Modal>
 			</>
 	)
 }

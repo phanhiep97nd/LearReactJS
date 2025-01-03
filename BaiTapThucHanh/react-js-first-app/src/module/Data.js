@@ -1,4 +1,5 @@
 import { TypeOfCar } from './Constants';
+import { parseISO, format } from 'date-fns';
 export const DriverInfo = [
 	{
 		Type: TypeOfCar.NAM_CHO,
@@ -78,7 +79,8 @@ const Holiday = [
 	{ tenLe: "Ngày Quốc Khánh (nghỉ bù)", ngay: "03/09/2024" }, // Nghỉ bù 3 tháng 9, 2024
 
 	// Tết Dương Lịch 2025
-	{ tenLe: "Ngày Quốc tế Lao động", ngay: "01/01/2025" }, // 1 tháng 5, 2024
+	{ tenLe: "Tết Dương Lịch 2025", ngay: "01/01/2025" }, // 1 tháng 5, 2024
+	{ tenLe: "Tết Dương Lịch 2025", ngay: "03/01/2025" }, // 1 tháng 5, 2024
 
 	// Tết Nguyên Đán 2025(âm lịch, thường được nghỉ nhiều ngày)
 	{ tenLe: "Tết Nguyên Đán 2025", ngay: '27/01/2025' }, // 27 tháng 1, 2025 (mùng 28/12 Tết)
@@ -99,6 +101,7 @@ const Holiday = [
  */
 export const CheckHoliday = (dayCheck) => {
 	if(dayCheck) {
+		dayCheck = format(parseISO(dayCheck), 'dd/MM/yyyy');
 		return Holiday.find((item) => item.ngay === dayCheck);
 	}
 	else {

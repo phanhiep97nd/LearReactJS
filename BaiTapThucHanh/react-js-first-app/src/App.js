@@ -20,7 +20,7 @@ export const ShowPhoneNumber = (phoneNumber) => {
 
 export const fetchCarInfo = async () => {
 	try {
-	  const response = await axios.get('http://localhost:5000/car_info/getCarInfo');
+	  const response = await axios.get('https://learreactjs.onrender.com/car_info/getCarInfo');
 	  return response.data;
 	} catch (err) {
 	  console.error(err);
@@ -31,15 +31,18 @@ export const fetchCarInfo = async () => {
 function App() {
 	const [DriverInfo, setDriverInfo] = useState([]);
 	const [Driver, setUpdateDriver] = useState(DriverInfo[0]);
-	const [checkHoliday] = useState(CheckHoliday());
+	const [checkHoliday, setCheckHoliday] = useState(CheckHoliday());
 
 	const handleUpdateDriver = (Type) => {
 	setUpdateDriver(DriverInfo.find(item => item.Type === Type));
 	}
 
+	const handleUpdateCheckHoliday = (dayCheck) => {
+		setCheckHoliday(CheckHoliday(dayCheck));
+	};
+
 	useEffect(() => {
 		const fetchData = async () => {
-		console.log('fetch');
 		const data = await fetchCarInfo();
 		setDriverInfo(data);
 		setUpdateDriver(data[0]); // Set the first driver as default
@@ -57,7 +60,7 @@ function App() {
 		<Header DriverName={Driver.DriverName} PhoneNumber={Driver.PhoneNumber} />
 		<main>
 			<article>
-				<Hero UpdateDriver={handleUpdateDriver} Type={Driver.Type} />
+				<Hero UpdateDriver={handleUpdateDriver} Type={Driver.Type} UpdateDate={handleUpdateCheckHoliday} CheckHoliday={checkHoliday}/>
 				<ListCar
 				UpdateDriver={handleUpdateDriver}
 				DriverInfo={DriverInfo}

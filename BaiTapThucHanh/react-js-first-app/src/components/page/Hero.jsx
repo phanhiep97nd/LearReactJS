@@ -3,7 +3,7 @@ import FormRegister from '../page/FormRegister';
 import '../../sass/hero.scss';
 import { TypeOfCar, HeroBackgroundImage } from '../../module/Constants';
 
-const Hero = ({UpdateDriver, Type}) => {
+const Hero = ({UpdateDriver, Type, CheckHoliday, UpdateDate}) => {
 	const [typeofCar, settypeofCar] = useState(TypeOfCar.NAM_CHO);
 
 	useEffect(() => {
@@ -38,7 +38,7 @@ const Hero = ({UpdateDriver, Type}) => {
 				</p>
 			</div>
 			<div className="hero-banner" id="BannerImg"></div>
-				<FormRegister UpdateTypeofCar={handleUpdateTypeofCar} TypeChecked={Type} />
+				<FormRegister UpdateTypeofCar={handleUpdateTypeofCar} TypeChecked={Type} CheckHoliday={CheckHoliday} UpdateDate={UpdateDate}/>
 			</div>
 		</section>
 	)
