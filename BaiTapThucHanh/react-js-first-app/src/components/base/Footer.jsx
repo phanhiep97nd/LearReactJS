@@ -8,7 +8,7 @@ const Footer = (props) => {
 					<div className="footer-top">
 						<div className="footer-brand">
 							<a href="www.google.com" className="logo">
-								<h2 style={{ color: "gray" }}>Mr.{ props.DriverName}</h2>
+								<h2 style={{ color: "gray" }}>🚗{ props.DriverName}</h2>
 							</a>
 							<p className="footer-text">
 								Đáp ứng mọi nhu cầu di chuyển, gửi hàng 24/7.

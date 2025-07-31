@@ -34,9 +34,9 @@ const Hero = ({UpdateDriver, Type, CheckHoliday, UpdateDate}) => {
 		<section className="section hero" id="home">
 			<div className="container">
 			<div className="hero-content">
-				<h2 className="h1 hero-title">🚙🚛Dịch vụ xe ghép, xe du lịch, gửi hàng</h2>
+				<h2 className="h1 hero-title">🚙🚛Dịch vụ xe tải gửi hàng, xe ghép</h2>
 				<p className="hero-text">
-				Xuân Trường - Giao Thủy - Hài Hậu - Nam Đinh 🔁 Hà Nội, Nội Bài - Liên Tỉnh!
+				Xuân Trường - Giao Thủy - Hải Hậu - Nam Định 🔁 Hà Nội - Liên Tỉnh!
 				</p>
 			</div>
 			<div className="hero-banner" id="BannerImg"></div>

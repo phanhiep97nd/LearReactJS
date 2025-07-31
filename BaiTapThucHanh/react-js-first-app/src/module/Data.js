@@ -120,31 +120,31 @@ export const CheckHoliday = (dayCheck) => {
 
 export const ExtraInfoData = [
 	{
-		ImageName: "accent.jpg",
-		Title: "Accent - Vios"
-	},
-	{
-		ImageName: "Xpander-Cross.jpg",
-		Title: "Expander Cross"
-	},
-	{
-		ImageName: "xeTai.jpg",
-		Title: "5T-7T"
-	},
-	{
-		ImageName: "blog-4.jpg",
+		ImageName: "about_xetai1.jpg",
 		Title: "Sẵn sàng phục vụ"
 	},
 	{
-		ImageName: "blog-1.jpg",
-		Title: "Blog1"
+		ImageName: "about_xetai2.jpg",
+		Title: "Đội xe chuyên nghiệp"
 	},
 	{
-		ImageName: "blog-2.jpg",
-		Title: "Blog2"
+		ImageName: "about_xetai3.jpg",
+		Title: "Uy tín - Chất lượng"
 	},
 	{
-		ImageName: "blog-3.jpg",
-		Title: "Blog3"
+		ImageName: "about_xetai4.jpg",
+		Title: "Giá cả hợp lý"
+	},
+	{
+		ImageName: "about_xetai5.jpg",
+		Title: "Hàng hóa an toàn"
+	},
+	{
+		ImageName: "accent.jpg",
+		Title: "5 chỗ"
+	},
+	{
+		ImageName: "Xpander-Cross.jpg",
+		Title: "7 chỗ"
 	},
 ]

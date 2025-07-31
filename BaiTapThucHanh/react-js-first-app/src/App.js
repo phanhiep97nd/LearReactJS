@@ -52,7 +52,24 @@ function App() {
 	  }, []);
 	
 	  if (!Driver) {
-		return <div>Loading...</div>;
+		return (
+			<div style={{
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'center',
+				alignItems: 'center',
+				height: '100vh',
+				width: '100vw',
+				position: 'fixed',
+				top: 0,
+				left: 0,
+				background: '#fff',
+				zIndex: 9999
+			}}>
+				<img src="assets/images/Truck loading.gif" alt="Loading..." style={{ width: '120px', height: '120px' }} />
+				<div>Loading...</div>
+			</div>
+		);
 	  }
 
 	return (

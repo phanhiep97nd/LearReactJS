@@ -14,9 +14,9 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked, CheckHoliday , UpdateDate}
 	const [numberOfGuest, setNumberOfGuest] = React.useState(1);
 	const [isModalOpen, setIsModalOpen] = React.useState(false);
 	const [formData, setFormData] = React.useState({
-        type: TypeOfCar.NAM_CHO,
+        type: TypeOfCar.XE_TAI,
         date: '',
-        numberOfGuest: 1,
+        numberOfGuest: 0,
         pickupFrom: '',
         destination: '',
         phoneNumber: '',
@@ -90,13 +90,13 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked, CheckHoliday , UpdateDate}
 					price = CheckHoliday ? PriceAllSeatHoliday.BAY_CHO : PriceAllSeatNormal.BAY_CHO;
 					break;
 				case TypeOfCar.XE_TAI:
-					return "!Liên hệ để biết giá!";
+					return "!Liên hệ báo giá sau!";
 				default:
 					price = 0;
 			}
 		} else {
 			if(typeofCar === TypeOfCar.XE_TAI) {
-				return "!Liên hệ để biết giá!";
+				return "!Liên hệ báo giá sau!";
 			}
 			price = numberOfGuest * (CheckHoliday ? PricePerSeat.HOLIDAY : PricePerSeat.NORMAL);
 		}
@@ -177,7 +177,7 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked, CheckHoliday , UpdateDate}
 						<input type="datetime-local" name="date" id="input-2" className="input-field" value={formData.date} onChange={handleChange}/>
 						<label	className="input-label">----------------------------</label>
 						<label htmlFor="input-3" className="input-label">Số lượng khách</label>
-						<input type="number" name="numberOfGuest" id="input-3" className="input-field" min={1} max={typeofCar === TypeOfCar.NAM_CHO ? 4 : 6} value={numberOfGuest}
+						<input type="number" name="numberOfGuest" id="input-3" className="input-field" min={typeofCar === TypeOfCar.XE_TAI ? 0 : 1} max={typeofCar === TypeOfCar.NAM_CHO ? 4 : 6} value={numberOfGuest}
 							placeholder="Nhập số khách tại đây..." onChange={(e) => handleUpdateNumberOfGuest(e)} />
 					</div>
 					<div className="input-wrapper">
@@ -191,7 +191,7 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked, CheckHoliday , UpdateDate}
 						<label htmlFor="input-5" className="input-label" style={{ color: "brown" }}>Số điện thoại *(Bắt buộc)</label>
 						<input type="number" name="phoneNumber" id="inputPhoneNumber" className="input-field" placeholder="Nhập SDT tại đây..." value={formData.phoneNumber} onChange={handleChange}/>
 						<label	className="input-label">----------------</label>
-						<input type="text" multiple name="note" id="input-4" className="input-field" placeholder="Ghi chú thêm ..." value={formData.note} onChange={handleChange}/>
+						<input type="text" multiple name="note" id="input-4" className="input-field" placeholder={typeofCar === TypeOfCar.XE_TAI ? "Mô tả kích thước hàng..." : "Ghi chú..."} value={formData.note} onChange={handleChange}/>
 					</div>
 					<button id="submit" className="btn">Đặt xe</button>
 				</form>
@@ -241,7 +241,7 @@ const FormRegister = ({ UpdateTypeofCar, TypeChecked, CheckHoliday , UpdateDate}
                         </tr>
                         <tr>
                             <td>Số lượng khách:</td>
-                            <td>{formData.numberOfGuest}</td>
+                            <td>{formData.type === TypeOfCar.XE_TAI ? 0 : formData.numberOfGuest}</td>
                         </tr>
                         <tr>
                             <td>Điểm đón:</td>

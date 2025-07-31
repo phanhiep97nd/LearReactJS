@@ -39,7 +39,7 @@ const Header = (props) => {
 			<div className="container">
 				<div className="overlay" data-overlay></div>
 				<a href="#home" className="logo">
-					<h2 style={{ color: "gray" }}>Mr.{ props.DriverName}</h2>
+					<h2 style={{ color: "gray" }}>🚗{ props.DriverName}</h2>
 				</a>
 				<nav className="navbar" data-navbar>
 					<ul className="navbar-list">
