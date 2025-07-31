@@ -34,7 +34,7 @@ function App() {
 	const [checkHoliday, setCheckHoliday] = useState(CheckHoliday());
 
 	const handleUpdateDriver = (Type) => {
-	setUpdateDriver(DriverInfo.find(item => item.Type === Type));
+		setUpdateDriver(DriverInfo.find(item => item.Type === Type));
 	}
 
 	const handleUpdateCheckHoliday = (dayCheck) => {
@@ -45,7 +45,7 @@ function App() {
 		const fetchData = async () => {
 		const data = await fetchCarInfo();
 		setDriverInfo(data);
-		setUpdateDriver(data[0]); // Set the first driver as default
+		setUpdateDriver(data[2]); // Set the first driver as default
 		};
 	
 		fetchData();

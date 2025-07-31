@@ -23,5 +23,6 @@ export const HeroBackgroundImage = {
 	NAM_CHO: 'Banner-5cho.gif',
 	BAY_CHO: 'Banner-7cho.gif',
 	XE_TAI: 'Banner-xeTai.gif'
+	//XE_TAI: 'Truck (1).gif'
 };
 	

@@ -17,6 +17,8 @@ const Hero = ({UpdateDriver, Type, CheckHoliday, UpdateDate}) => {
 		else{
 			bannerImg.style.background = `url('assets/images/${HeroBackgroundImage.XE_TAI}') no-repeat`;
 		}
+		bannerImg.style.backgroundSize = 'contain';
+		bannerImg.style.backgroundPosition = 'center';
 	}, [typeofCar]);
 	
 	const handleUpdateTypeofCar = (typeofCarInput) => {
