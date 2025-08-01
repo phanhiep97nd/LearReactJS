@@ -28,6 +28,30 @@ const driverSchema = new mongoose.Schema({
 	  note: {
 		type: String,
 		required: false
+	  },
+	  status: {
+		type: String,
+		default: '0',
+		num: ['0', '1', '2', '3'], // 0: pending, 1: called but not successful, 2: confirmed, 3: cancelled
+		required: true
+	  },
+	  confirmNote: {
+		type: String,
+		required: false
+	  },
+	  insertTime: {
+		type: Date,
+		default: Date.now,
+		required: true
+	  },
+	  updateBy: {
+		type: String,
+		required: false
+	  },
+	  updateTime: {
+		type: Date,
+		default: Date.now,
+		required: true
 	  }
 });
 
