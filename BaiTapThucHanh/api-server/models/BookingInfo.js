@@ -42,7 +42,7 @@ const driverSchema = new mongoose.Schema({
 	  },
 	  insertTime: {
 		type: Date,
-		default: moment(Date.now).tz('Asia/Bangkok').format('YYYY-MM-DD HH:mm:ss'),
+		default: () => new Date(Date.now() + 7 * 60 * 60 * 1000),
 		required: true
 	  },
 	  updateBy: {
@@ -51,7 +51,7 @@ const driverSchema = new mongoose.Schema({
 	  },
 	  updateTime: {
 		type: Date,
-		default: moment(Date.now).tz('Asia/Bangkok').format('YYYY-MM-DD HH:mm:ss'),
+		default: () => new Date(Date.now() + 7 * 60 * 60 * 1000),
 		required: true
 	  }
 });
