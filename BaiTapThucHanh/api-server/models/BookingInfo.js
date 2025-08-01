@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const moment = require('moment-timezone');
 
 const driverSchema = new mongoose.Schema({
       type: {
@@ -41,7 +42,7 @@ const driverSchema = new mongoose.Schema({
 	  },
 	  insertTime: {
 		type: Date,
-		default: Date.now,
+		default: moment(Date.now).tz('Asia/Bangkok').format('YYYY-MM-DD HH:mm:ss'),
 		required: true
 	  },
 	  updateBy: {
@@ -50,7 +51,7 @@ const driverSchema = new mongoose.Schema({
 	  },
 	  updateTime: {
 		type: Date,
-		default: Date.now,
+		default: moment(Date.now).tz('Asia/Bangkok').format('YYYY-MM-DD HH:mm:ss'),
 		required: true
 	  }
 });
