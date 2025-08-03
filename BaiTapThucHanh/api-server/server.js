@@ -31,6 +31,11 @@ app.use('/car_info', itemRoutes);
 const bookingRoutes = require('./routes/bookingRoutes');
 app.use('/booking', bookingRoutes);
 
+// Import routes
+const authRoutes = require('./routes/auth');
+app.use('/api/auth', authRoutes);
+
+
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

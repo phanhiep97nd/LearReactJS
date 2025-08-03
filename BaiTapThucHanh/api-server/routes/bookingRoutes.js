@@ -1,5 +1,6 @@
 const express = require('express');
 const BookingInfo = require('../models/BookingInfo');
+const authMiddleware = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -23,4 +24,71 @@ router.post('/RegisterBooking', async (req, res) => {
   }
 });
 
+// Get booking info
+router.get('/SearchBooking', authMiddleware, async (req, res) => {
+	const { id, insertDateFrom, insertDateTo, status, phoneNumber, date } = req.query;
+	let filter = {};
+
+	if (id) {
+		filter._id = id;
+	}
+	if (date) {
+		const startOfDay = new Date(date);
+		const endOfDay = new Date(date);
+		endOfDay.setHours(23, 59, 59, 999);
+		filter.date = {
+			$gte: startOfDay,
+			$lte: endOfDay
+		};
+	}
+	if (insertDateFrom && insertDateTo) {
+		filter.insertTime = { $gte: new Date(insertDateFrom), $lte: new Date(insertDateTo) };
+	} else if (insertDateFrom) {
+		filter.insertTime = { $gte: new Date(insertDateFrom) };
+	} else if (insertDateTo) {
+		filter.insertTime = { $lte: new Date(insertDateTo) };
+	}
+	if (status) {
+		filter.status = status;
+	}
+	if (phoneNumber) {
+		filter.phoneNumber = phoneNumber;
+	}
+
+	try {
+		const bookings = await BookingInfo.find(filter);
+		res.json(bookings);
+	} catch (err) {
+		res.status(500).json({ message: err.message });
+	}
+});
+
+// Update booking info
+router.put('/UpdateBooking', authMiddleware, async (req, res) => {
+	const { id, type, date, numberOfGuest, pickupFrom, destination, phoneNumber, note, status, confirmNote } = req.body;
+
+	try {
+		const booking = await BookingInfo.findById(id);
+		if (!booking) {
+			return res.status(404).json({ message: 'Booking not found' });
+		}
+
+		if (type) booking.type = type;
+		if (date) booking.date = date;
+		if (numberOfGuest) booking.numberOfGuest = numberOfGuest;
+		if (pickupFrom) booking.pickupFrom = pickupFrom;
+		if (destination) booking.destination = destination;
+		if (phoneNumber) booking.phoneNumber = phoneNumber;
+		if (note) booking.note = note;
+		if (status) booking.status = status;
+		if (confirmNote) booking.confirmNote = confirmNote;
+		booking.updateTime = new Date(Date.now() + 7 * 60 * 60 * 1000); // Update time in UTC+7
+		booking.updateBy = req.body.updateBy || 'system'; // Default to 'system' if not provided
+
+		const updatedBooking = await booking.save();
+		res.json(updatedBooking);
+	} catch (err) {
+		res.status(400).json({ message: err.message });
+	}
+});
 module.exports = router;
