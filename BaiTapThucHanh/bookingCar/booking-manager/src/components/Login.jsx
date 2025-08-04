@@ -23,6 +23,7 @@ const Login = () => {
 		// Tạo hash SHA-256
 		const API_URL = process.env.REACT_APP_API_URL;
 		const passHashcode = SHA256(form.password).toString();
+		console.log('Hashcode:', passHashcode, 'Type:', typeof passHashcode);
 		try {
 			const response = await axios.post(`${API_URL}/api/auth/login`, {
 				username: form.userName,
@@ -32,7 +33,7 @@ const Login = () => {
 			// Lưu token
 			localStorage.setItem('token', response.data.token);
 			
-			console.log('Login success:', response.data);
+			console.log('Login success!');
 			navigate('/BookingManager');
 		} catch (error) {
 			const msg = error.response?.data?.message || 'Đăng nhập thất bại!';

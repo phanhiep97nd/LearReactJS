@@ -32,6 +32,7 @@ router.get('/SearchBooking', authMiddleware, async (req, res) => {
 	if (id) {
 		filter._id = id;
 	}
+
 	if (date) {
 		const startOfDay = new Date(date);
 		const endOfDay = new Date(date);
@@ -41,13 +42,27 @@ router.get('/SearchBooking', authMiddleware, async (req, res) => {
 			$lte: endOfDay
 		};
 	}
+
 	if (insertDateFrom && insertDateTo) {
-		filter.insertTime = { $gte: new Date(insertDateFrom), $lte: new Date(insertDateTo) };
+		const from = new Date(insertDateFrom);
+		from.setHours(0, 0, 0, 0);
+
+		const to = new Date(insertDateTo);
+		to.setHours(23, 59, 59, 999);
+
+		filter.insertTime = { $gte: from, $lte: to };
 	} else if (insertDateFrom) {
-		filter.insertTime = { $gte: new Date(insertDateFrom) };
+		const from = new Date(insertDateFrom);
+		from.setHours(0, 0, 0, 0);
+
+		filter.insertTime = { $gte: from };
 	} else if (insertDateTo) {
-		filter.insertTime = { $lte: new Date(insertDateTo) };
+		const to = new Date(insertDateTo);
+		to.setHours(23, 59, 59, 999);
+
+		filter.insertTime = { $lte: to };
 	}
+
 	if (status) {
 		filter.status = status;
 	}
@@ -62,6 +77,7 @@ router.get('/SearchBooking', authMiddleware, async (req, res) => {
 		res.status(500).json({ message: err.message });
 	}
 });
+
 
 // Update booking info
 router.put('/UpdateBooking', authMiddleware, async (req, res) => {
@@ -86,7 +102,7 @@ router.put('/UpdateBooking', authMiddleware, async (req, res) => {
 		booking.updateBy = req.body.updateBy || 'system'; // Default to 'system' if not provided
 
 		const updatedBooking = await booking.save();
-		res.json(updatedBooking);
+		res.json(updatedBooking._id);
 	} catch (err) {
 		res.status(400).json({ message: err.message });
 	}

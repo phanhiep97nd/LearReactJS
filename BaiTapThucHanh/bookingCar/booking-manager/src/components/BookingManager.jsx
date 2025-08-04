@@ -17,9 +17,13 @@ const BookingManager = () => {
   const [modalConfirmOpen, setModalConfirmOpen] = useState(false);
   const [currentBooking, setCurrentBooking] = useState(null);
   const [modalStatus, setModalStatus] = useState('');
-  const [modalNote, setModalNote] = useState('');
+  const [modalConfirmNote, setmodalConfirmNote] = useState('');
   const [sortConfig, setSortConfig] = useState({ column: null, ascending: true });
   const [isSearchOpen, setIsSearchOpen] = useState(true);
+  const [user, setUser] = useState(null);
+  const [alert, setAlert] = useState(null); // alert = { type: 'success' | 'error', message: string }
+
+
 
 
   useEffect( () => {
@@ -31,11 +35,11 @@ const BookingManager = () => {
 		});
 
 		const data = await response.json();
-		console.log(data.user); // Hiển thị tên hoặc role của người dùng
 		if (!response.ok) {
 			navigate('/login'); // Redirect to login if token is invalid or expired
 		} else {
 			console.log('Authenticated as: ' + data.user.username); // Hiển thị tên người dùng
+			setUser(data.user); // Lưu thông tin người dùng vào state
 			fetchBookings(); // Fetch bookings after successful authentication
 		}
 	}
@@ -45,7 +49,6 @@ const BookingManager = () => {
 
   const fetchBookings = async () => {
     try {
-		console.log('Fetching bookings with params:', searchParams);
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/booking/SearchBooking`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         params: searchParams
@@ -66,7 +69,6 @@ const BookingManager = () => {
 		phoneNumberNumber: e.target.phoneNumberNumber.value,
 		date: e.target.date.value
 	});
-    console.log('Search Parameters:', {searchParams });
   };
 
   const handleClearSearch = () => {
@@ -143,32 +145,65 @@ const BookingManager = () => {
     setBookings(sortedBookings);
   };
 
-  const openModal = (booking) => {
-    setCurrentBooking(booking);
-    setModalStatus(booking.status);
-    setModalNote(booking.note);
-    setModalOpen(true);
-  };
+//   const openModal = (booking) => {
+//     setCurrentBooking(booking);
+//     setModalStatus(booking.status);
+//     setmodalConfirmNote(booking.note);
+//     setModalOpen(true);
+//   };
 
   const openModalConfirm = (booking) => {
 	setCurrentBooking(booking);
 	setModalStatus(booking.status);
-	setModalNote(booking.note);
+	setmodalConfirmNote(booking.note);
 	setModalConfirmOpen(true);
 	  };
 
-  const saveModal = () => {
-    if (currentBooking) {
-      const updatedBookings = bookings.map((booking) =>
-        booking.id === currentBooking.id
-          ? { ...booking, status: modalStatus, note: modalNote }
-          : booking
-      );
-      setBookings(updatedBookings);
-      console.log(`Updated booking ID ${currentBooking.id}: Status=${modalStatus}, Note=${modalNote}`);
-      setModalOpen(false);
-      setCurrentBooking(null);
-    }
+  const saveModalConfirm = async () => {
+    if (!currentBooking) return;
+
+	try {
+		console.log(user);
+		const response = await axios.put(`${process.env.REACT_APP_API_URL}/booking/UpdateBooking`, {
+			id: currentBooking._id,
+			status: modalStatus,
+			confirmNote: modalConfirmNote,
+			updateBy: user?.username || 'system',
+		}, {
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem('token')}`
+		}
+		});
+
+		const updatedBookingID = response.data;
+		if (!updatedBookingID) {
+			console.error('❌ Cập nhật booking thất bại');
+			return;
+		}
+
+		// Cập nhật lại danh sách bookings
+		const updatedBookings = bookings.map((booking) =>
+        booking._id === currentBooking._id
+			? { ...booking, status: modalStatus, confirmNote: modalConfirmNote}
+			: booking
+		);
+		setBookings(updatedBookings);
+
+		console.log(`✅ Booking ${updatedBookingID} đã cập nhật:`, convertStatus(modalStatus));
+		setAlert({ type: 'success', message: `✅ Booking ${updatedBookingID} đã cập nhật thành công! Status: ` + convertStatus(modalStatus) }); // Hiển thị thông báo thành công
+
+		// Đóng modal và reset
+		setModalOpen(false);
+		setCurrentBooking(null);
+	} catch (error) {
+		console.error('❌ Lỗi khi cập nhật booking:', error.response?.data?.message || error.message);
+		setAlert({
+			type: 'error',
+			message: '❌ Lỗi khi cập nhật booking: ' + (error.response?.data?.message || error.message),
+		});
+	}
+ 	// Tự động ẩn thông báo sau 5 giây
+  	setTimeout(() => setAlert(null), 5000);
   };
 
   const closeModal = () => {
@@ -180,11 +215,6 @@ const BookingManager = () => {
 	setModalConfirmOpen(false);
 	setCurrentBooking(null);
 	  };
-
-  const handleConfirm = (id) => {
-    console.log('Confirm booking:', id);
-    // Implement confirm functionality
-  };
 
   const convertStatus = (status) => {
 	switch (status) {
@@ -220,6 +250,16 @@ const BookingManager = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col">
+		{alert && (
+			<div
+				className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-4 py-2 text-sm border rounded shadow transition-all duration-300 min-w-[320px] max-w-[90%] w-fit text-center
+				${alert.type === 'success' ? 'text-green-800 bg-green-100 border-green-300' : ''}
+				${alert.type === 'error' ? 'text-red-800 bg-red-100 border-red-300' : ''}
+				`}
+			>
+				{alert.message}
+			</div>
+		)}
       <div className="container mx-auto p-6">
         {/* Search Section */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-6">
@@ -252,6 +292,7 @@ const BookingManager = () => {
                 <input
                   type="date"
                   id="insertDateFrom"
+				  defaultValue={new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]} // Default to 7 days ago
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
               </div>
@@ -260,6 +301,7 @@ const BookingManager = () => {
                 <input
                   type="date"
                   id="insertDateTo"
+				  defaultValue={new Date(Date.now()).toISOString().split('T')[0]} // Default to today
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
               </div>
@@ -309,12 +351,12 @@ const BookingManager = () => {
 
         {/* Booking List Section */}
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold mb-4">Booking List</h2>
+          <h2 className="text-2xl font-bold mb-4">Booking List <span className="text-sm font-normal text-gray-600">({bookings.length} items)</span></h2>
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     <button onClick={() => handleSort('pickupFrom')} className="text-indigo-600 hover:text-indigo-800">
                       Điểm đón <span>{sortConfig.column === 'pickupFrom' ? (sortConfig.ascending ? '↑' : '↓') : ''}</span>
                     </button>
@@ -323,30 +365,33 @@ const BookingManager = () => {
                     <button onClick={() => handleSort('destination')} className="text-indigo-600 hover:text-indigo-800">
                       Điểm trả <span>{sortConfig.column === 'destination' ? (sortConfig.ascending ? '↑' : '↓') : ''}</span>
                     </button>
-                  </th>
+                  </th> */}
+				  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Điểm đón</th>
+				  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Điểm trả</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <button onClick={() => handleSort('date')} className="text-indigo-600 hover:text-indigo-800">
+                    <button onClick={() => handleSort('date')} className="text-indigo-600 hover:text-indigo-800 uppercase">
                       Ngày vận chuyển <span>{sortConfig.column === 'date' ? (sortConfig.ascending ? '↑' : '↓') : ''}</span>
                     </button>
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     <button onClick={() => handleSort('phoneNumber')} className="text-indigo-600 hover:text-indigo-800">
                       SĐT <span>{sortConfig.column === 'phoneNumber' ? (sortConfig.ascending ? '↑' : '↓') : ''}</span>
                     </button>
-                  </th>
+                  </th> */}
+				  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SDT</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <button onClick={() => handleSort('numberOfGuest')} className="text-indigo-600 hover:text-indigo-800">
+                    <button onClick={() => handleSort('numberOfGuest')} className="text-indigo-600 hover:text-indigo-800 uppercase">
                       Số người <span>{sortConfig.column === 'numberOfGuest' ? (sortConfig.ascending ? '↑' : '↓') : ''}</span>
                     </button>
                   </th>
                   {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <button onClick={() => handleSort('id')} className="text-indigo-600 hover:text-indigo-800">
-                      ID <span>{sortConfig.column === 'id' ? (sortConfig.ascending ? '↑' : '↓') : ''}</span>
+                    <button onClick={() => handleSort('_id')} className="text-indigo-600 hover:text-indigo-800">
+                      ID <span>{sortConfig.column === '_id' ? (sortConfig.ascending ? '↑' : '↓') : ''}</span>
                     </button>
                   </th> */}
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ghi chú</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <button onClick={() => handleSort('status')} className="text-indigo-600 hover:text-indigo-800">
+                    <button onClick={() => handleSort('status')} className="text-indigo-600 hover:text-indigo-800 uppercase">
                       Trạng thái <span>{sortConfig.column === 'status' ? (sortConfig.ascending ? '↑' : '↓') : ''}</span>
                     </button>
                   </th>
@@ -356,9 +401,9 @@ const BookingManager = () => {
               <tbody className="divide-y divide-gray-200">
                 {bookings.map((booking) => (
                   <tr
-					key={booking.id}
+					key={booking._id}
 					className={`${
-						booking.status === '0' ? 'bg-blue-50 hover:bg-neutral-100' :
+						booking.status === '0' ? 'bg-blue-10 hover:bg-neutral-100' :
 						booking.status === '1' ? 'bg-yellow-50 hover:bg-yellow-100' :
 						booking.status === '2' ? 'bg-green-50 hover:bg-green-100' :
 						booking.status === '3' ? 'bg-red-50 hover:bg-red-100' :
@@ -370,18 +415,22 @@ const BookingManager = () => {
                     <td className="px-6 py-4 whitespace-nowrap">{booking.destination}</td>
 					
 					<td className="px-6 py-4 whitespace-nowrap">{formatDateTimeVN(booking.date)}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{booking.phoneNumber}</td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+						<a href={`tel:${booking.phoneNumber}`} className="text-blue-600 hover:underline">
+							{booking.phoneNumber}
+						</a>
+					</td>
 					<td className="px-6 py-4 whitespace-nowrap">{booking.numberOfGuest}</td>
-					{/* <td className="px-6 py-4 whitespace-nowrap">{booking.id}</td> */}
+					{/* <td className="px-6 py-4 whitespace-nowrap">{booking._id}</td> */}
 					<td className="px-6 py-4 whitespace-nowrap">{booking.note}</td>
                     <td className="px-6 py-4 whitespace-nowrap">{convertStatus(booking.status)}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <button
+                      {/* <button
                         className="text-indigo-600 hover:text-indigo-900 hover:bg-indigo-100 px-2 py-1 rounded mr-4 transition duration-200"
                         onClick={(e) => { e.stopPropagation(); openModal(booking); }}
                       >
                         Edit
-                      </button>
+                      </button> */}
                       <button
                         className="text-green-600 hover:text-green-900 hover:bg-green-100 px-2 py-1 rounded transition duration-200"
                         onClick={(e) => { e.stopPropagation(); openModalConfirm(booking); }}
@@ -440,11 +489,11 @@ const BookingManager = () => {
               </select>
             </div>
             <div className="mb-4">
-              <label htmlFor="modalNote" className="block text-sm font-medium text-gray-700">Note</label>
+              <label htmlFor="modalConfirmNote" className="block text-sm font-medium text-gray-700">Note</label>
               <textarea
-                id="modalNote"
-                value={modalNote}
-                onChange={(e) => setModalNote(e.target.value)}
+                id="modalConfirmNote"
+                value={modalConfirmNote}
+                onChange={(e) => setmodalConfirmNote(e.target.value)}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 rows="4"
               />
@@ -459,7 +508,7 @@ const BookingManager = () => {
               </button>
               <button
                 type="button"
-                onClick={saveModal}
+                onClick={saveModalConfirm}
                 className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-200"
               >
                 Save
@@ -471,52 +520,108 @@ const BookingManager = () => {
       {/* Modal Dialog */}
       {modalConfirmOpen && currentBooking && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-            <h3 className="text-lg font-bold mb-4">Xác nhận Booking</h3>
+          <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-md">
+            <h3 className="text-lg font-bold mb-3">Xác nhận Booking</h3>
+            <table className="mb-4 min-w-full text-sm text-left text-gray-700 dark:text-gray-300 table-fixed">
+				<tbody>
+					<tr>
+						<th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">Booking ID</th>
+						<td className="py-1 break-words whitespace-normal">{currentBooking._id}</td>
+					</tr>
+					<tr>
+						<th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">Loại</th>
+						<td className="py-1 break-words whitespace-normal">{currentBooking.type}</td>
+					</tr>
+					<tr>
+						<th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">Ngày vận chuyển</th>
+						<td className="py-1 break-words whitespace-normal">{formatDateTimeVN(currentBooking.date)}</td>
+					</tr>
+					<tr>
+						<th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">Địa điểm đón</th>
+						<td className="py-1 break-all whitespace-normal">{currentBooking.pickupFrom}</td>
+					</tr>
+					<tr>
+						<th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">Địa điểm trả</th>
+						<td className="py-1 break-all whitespace-normal">{currentBooking.destination}</td>
+					</tr>
+					<tr>
+						<th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">Số lượng khách</th>
+						<td className="py-1 break-words whitespace-normal">{currentBooking.numberOfGuest}</td>
+					</tr>
+					<tr>
+						<th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">Số điện thoại</th>
+						<td className="py-1 break-words whitespace-normal">
+							<a href={`tel:${currentBooking.phoneNumber}`} className="text-blue-600 hover:underline">
+								{currentBooking.phoneNumber}
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">Ghi chú(người đặt)</th>
+						<td className="py-1 break-all whitespace-normal">{currentBooking.note}</td>
+					</tr>
+					<tr>
+						<th>-------------</th>
+						<td>-------------</td>
+					</tr>
+				</tbody>
+			</table>
+
+
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Booking ID</label>
-              <p className="mt-1 text-sm text-gray-900">{currentBooking.id}</p>
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Departure Date</label>
-              <p className="mt-1 text-sm text-gray-900">{currentBooking.date}</p>
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Pickup Location</label>
-              <p className="mt-1 text-sm text-gray-900">{currentBooking.pickupFrom}</p>
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Drop-off Location</label>
-              <p className="mt-1 text-sm text-gray-900">{currentBooking.destination}</p>
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Number of Guests</label>
-              <p className="mt-1 text-sm text-gray-900">{currentBooking.numberOfGuest}</p>
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Phone Number</label>
-              <p className="mt-1 text-sm text-gray-900">{currentBooking.phoneNumber}</p>
-            </div>
-            <div className="mb-4">
-              <label htmlFor="modalStatus" className="block text-sm font-medium text-gray-700">Status</label>
+              {/* <label htmlFor="modalStatus" className="block text-sm font-medium text-gray-700">Status</label>
               <select
                 id="modalStatus"
-                value={modalStatus}
+                value={convertStatus(currentBooking.status)}
                 onChange={(e) => setModalStatus(e.target.value)}
                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
               >
-                <option value="Pending">Pending</option>
-                <option value="Confirmed">Confirmed</option>
-                <option value="Cancelled">Cancelled</option>
-              </select>
+                  <option value="0">📞Chưa kiểm tra</option>
+                  <option value="1">📵Liên lạc chưa thành công</option>
+                  <option value="2">🆗Đã xác nhận</option>
+                  <option value="3">🚫Đã hủy</option>
+              </select> */}
+				<h3 className="mb-2 text-sm font-medium text-gray-900 dark:text-white">
+					Thay đổi trạng thái xác nhận
+				</h3>
+				<ul className="grid grid-cols-4 gap-2 p-0">
+					{[
+						{ id: "0", label: "📞Chưa kiểm tra", bg: "peer-checked:bg-blue-100 peer-checked:hover:bg-neutral-150" },
+						{ id: "1", label: "📵Liên lạc chưa thành công", bg: "peer-checked:bg-yellow-100 peer-checked:hover:bg-yellow-150" },
+						{ id: "2", label: "🆗Đã xác nhận", bg: "peer-checked:bg-green-100 peer-checked:hover:bg-green-150" },
+						{ id: "3", label: "🚫Đã hủy", bg: "peer-checked:bg-red-100 peer-checked:hover:bg-red-150" },
+					].map((item) => (
+						<li key={item.id}>
+						<input
+							type="radio"
+							id={`status-${item.id}`}
+							name="status"
+							value={item.id}
+							className="hidden peer"
+							checked={modalStatus === item.id}
+							onChange={() => setModalStatus(item.id)}
+						/>
+						<label
+							htmlFor={`status-${item.id}`}
+							className={`inline-flex items-center justify-center w-full min-h-[64px] px-2 py-1 text-xs text-center text-gray-500 border border-gray-200 rounded cursor-pointer
+							bg-gray-100 hover:bg-gray-200
+							dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-400
+							peer-checked:border-blue-600 peer-checked:text-blue-600 dark:peer-checked:text-blue-500
+							${item.bg}`}
+						>
+							<span className="text-sm font-semibold break-words">{item.label}</span>
+						</label>
+						</li>
+					))}
+				</ul>
             </div>
             <div className="mb-4">
-              <label htmlFor="modalNote" className="block text-sm font-medium text-gray-700">Confirm Note</label>
+              <label htmlFor="modalConfirmNote" className="block text-sm font-medium text-gray-700">Ghi chú đơn hàng</label>
               <textarea
-                id="modalNote"
-                value={modalNote}
-                onChange={(e) => setModalNote(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                id="modalConfirmNote"
+                value={currentBooking.confirmNote}
+                onChange={(e) => setmodalConfirmNote(e.target.value)}
+                className="mt-0 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 rows="4"
               />
             </div>
@@ -530,7 +635,7 @@ const BookingManager = () => {
               </button>
               <button
                 type="button"
-                onClick={saveModal}
+                onClick={saveModalConfirm}
                 className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-200"
               >
                 Save
