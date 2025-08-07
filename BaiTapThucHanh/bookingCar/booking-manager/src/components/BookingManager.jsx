@@ -13,7 +13,6 @@ const BookingManager = () => {
     phoneNumberNumber: '',
     date: ''
   });
-  const [modalOpen, setModalOpen] = useState(false);
   const [modalConfirmOpen, setModalConfirmOpen] = useState(false);
   const [currentBooking, setCurrentBooking] = useState(null);
   const [modalStatus, setModalStatus] = useState('');
@@ -155,7 +154,7 @@ const BookingManager = () => {
   const openModalConfirm = (booking) => {
 	setCurrentBooking(booking);
 	setModalStatus(booking.status);
-	setmodalConfirmNote(booking.note);
+	setmodalConfirmNote(booking.confirmNote || '');
 	setModalConfirmOpen(true);
 	  };
 
@@ -188,12 +187,13 @@ const BookingManager = () => {
 			: booking
 		);
 		setBookings(updatedBookings);
+		console.log('✅ Cập nhật booking thành công:', bookings);
 
 		console.log(`✅ Booking ${updatedBookingID} đã cập nhật:`, convertStatus(modalStatus));
 		setAlert({ type: 'success', message: `✅ Booking ${updatedBookingID} đã cập nhật thành công! Status: ` + convertStatus(modalStatus) }); // Hiển thị thông báo thành công
 
 		// Đóng modal và reset
-		setModalOpen(false);
+		closeModalConfirm(false);
 		setCurrentBooking(null);
 	} catch (error) {
 		console.error('❌ Lỗi khi cập nhật booking:', error.response?.data?.message || error.message);
@@ -204,11 +204,6 @@ const BookingManager = () => {
 	}
  	// Tự động ẩn thông báo sau 5 giây
   	setTimeout(() => setAlert(null), 5000);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-    setCurrentBooking(null);
   };
 
   const closeModalConfirm = () => {
@@ -447,77 +442,6 @@ const BookingManager = () => {
       </div>
 
       {/* Modal Dialog */}
-      {modalOpen && currentBooking && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-            <h3 className="text-lg font-bold mb-4">Edit Booking</h3>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Pickup Location</label>
-              <p className="mt-1 text-sm text-gray-900">{currentBooking.pickupFrom}</p>
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Drop-off Location</label>
-              <p className="mt-1 text-sm text-gray-900">{currentBooking.destination}</p>
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">phoneNumber Number</label>
-              <p className="mt-1 text-sm text-gray-900">{currentBooking.phoneNumber}</p>
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Number of Guests</label>
-              <p className="mt-1 text-sm text-gray-900">{currentBooking.numberOfGuest}</p>
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Departure Date</label>
-              <p className="mt-1 text-sm text-gray-900">{currentBooking.date}</p>
-            </div>
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700">Booking ID</label>
-              <p className="mt-1 text-sm text-gray-900">{currentBooking.id}</p>
-            </div>
-            <div className="mb-4">
-              <label htmlFor="modalStatus" className="block text-sm font-medium text-gray-700">Status</label>
-              <select
-                id="modalStatus"
-                value={modalStatus}
-                onChange={(e) => setModalStatus(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              >
-                <option value="Pending">Pending</option>
-                <option value="Confirmed">Confirmed</option>
-                <option value="Cancelled">Cancelled</option>
-              </select>
-            </div>
-            <div className="mb-4">
-              <label htmlFor="modalConfirmNote" className="block text-sm font-medium text-gray-700">Note</label>
-              <textarea
-                id="modalConfirmNote"
-                value={modalConfirmNote}
-                onChange={(e) => setmodalConfirmNote(e.target.value)}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                rows="4"
-              />
-            </div>
-            <div className="flex justify-end space-x-4">
-              <button
-                type="button"
-                onClick={closeModal}
-                className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 transition duration-200"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={saveModalConfirm}
-                className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-200"
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-      {/* Modal Dialog */}
       {modalConfirmOpen && currentBooking && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-md">
@@ -619,7 +543,7 @@ const BookingManager = () => {
               <label htmlFor="modalConfirmNote" className="block text-sm font-medium text-gray-700">Ghi chú đơn hàng</label>
               <textarea
                 id="modalConfirmNote"
-                value={currentBooking.confirmNote}
+                value={modalConfirmNote}
                 onChange={(e) => setmodalConfirmNote(e.target.value)}
                 className="mt-0 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 rows="4"
