@@ -39,6 +39,7 @@ const TransportsManager = () => {
       }
     }
     checkAuth();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [navigate, searchParams]);
 
   const fetchTransports = async () => {

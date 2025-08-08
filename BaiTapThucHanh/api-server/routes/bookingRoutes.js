@@ -44,22 +44,14 @@ router.get('/SearchBooking', authMiddleware, async (req, res) => {
 	}
 
 	if (insertDateFrom && insertDateTo) {
-		const from = new Date(insertDateFrom);
-		from.setHours(0, 0, 0, 0);
-
-		const to = new Date(insertDateTo);
-		to.setHours(23, 59, 59, 999);
-
+		const from = new Date(`${insertDateFrom}T00:00:00.000Z`);
+		const to = new Date(`${insertDateTo}T23:59:59.999Z`);
 		filter.insertTime = { $gte: from, $lte: to };
 	} else if (insertDateFrom) {
-		const from = new Date(insertDateFrom);
-		from.setHours(0, 0, 0, 0);
-
+		const from = new Date(`${insertDateFrom}T00:00:00.000Z`);
 		filter.insertTime = { $gte: from };
 	} else if (insertDateTo) {
-		const to = new Date(insertDateTo);
-		to.setHours(23, 59, 59, 999);
-
+		const to = new Date(`${insertDateTo}T23:59:59.999Z`);
 		filter.insertTime = { $lte: to };
 	}
 
@@ -81,7 +73,7 @@ router.get('/SearchBooking', authMiddleware, async (req, res) => {
 
 // Update booking info
 router.put('/UpdateBooking', authMiddleware, async (req, res) => {
-	const { id, type, date, numberOfGuest, pickupFrom, destination, phoneNumber, note, status, confirmNote } = req.body;
+	const { id, type, date, numberOfGuest, pickupFrom, destination, phoneNumber, note, status, confirmNote, insertTransportFlg } = req.body;
 
 	try {
 		const booking = await BookingInfo.findById(id);
@@ -98,6 +90,7 @@ router.put('/UpdateBooking', authMiddleware, async (req, res) => {
 		if (note) booking.note = note;
 		if (status) booking.status = status;
 		if (confirmNote) booking.confirmNote = confirmNote;
+		if (insertTransportFlg) booking.insertTransportFlg = insertTransportFlg;
 		booking.updateTime = new Date(Date.now() + 7 * 60 * 60 * 1000); // Update time in UTC+7
 		booking.updateBy = req.body.updateBy || 'system'; // Default to 'system' if not provided
 

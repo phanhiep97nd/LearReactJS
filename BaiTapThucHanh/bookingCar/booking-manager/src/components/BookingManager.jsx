@@ -50,6 +50,7 @@ const BookingManager = () => {
         params: searchParams
       });
       setBookings(response.data);
+	  console.log('Bookings fetched:', response.data);
     } catch (err) {
       console.error('Fetch failed:', err);
       navigate('/login');
@@ -169,18 +170,44 @@ const BookingManager = () => {
         return;
       }
 
-      const updatedBookings = bookings.map((booking) =>
+      let updatedBookings = bookings.map((booking) =>
         booking._id === currentBooking._id
           ? { ...booking, status: modalStatus, confirmNote: modalConfirmNote}
           : booking
       );
-      setBookings(updatedBookings);
       console.log('✅ Cập nhật booking thành công:', bookings);
-      console.log(`✅ Booking ${updatedBookingID} đã cập nhật:`, convertStatus(modalStatus));
-      setAlert({ type: 'success', message: `✅ Booking ${updatedBookingID} đã cập nhật thành công! Status: ` + convertStatus(modalStatus) });
+	  let message = `✅ Booking ${updatedBookingID} đã cập nhật thành công! Trạng thái: ` + convertStatus(modalStatus);
 
+	  if(modalStatus === '2' && currentBooking.insertTransportFlg !== '1') {
+		const insertTransportFlg = await insertTransport(currentBooking);
+		console.log('✅ Thêm vận chuyển:', insertTransportFlg);
+		if (insertTransportFlg === 1) {
+			// Handle successful transport insertion
+			message += `\nĐã thêm vào danh sách vận chuyển.`;
+			const responseUpdateInsertTransport = await axios.put(`${process.env.REACT_APP_API_URL}/booking/UpdateBooking`, {
+				id: currentBooking._id,
+				insertTransportFlg: '1', // Đánh dấu đã thêm vận chuyển
+			}, {
+				headers: {
+				Authorization: `Bearer ${localStorage.getItem('token')}`
+				}
+			});
+
+			if (responseUpdateInsertTransport.data) {
+				console.log('✅ Cập nhật booking để đánh dấu đã thêm vận chuyển thành công:', responseUpdateInsertTransport.data);
+				updatedBookings = updatedBookings.map((booking) =>
+					booking._id === currentBooking._id
+						? { ...booking, insertTransportFlg: '1' }
+						: booking
+				);
+			}
+		}
+	  }
+
+	  setBookings(updatedBookings);
       closeModalConfirm(false);
       setCurrentBooking(null);
+	  setAlert({ type: 'success', message });
     } catch (error) {
       console.error('❌ Lỗi khi cập nhật booking:', error.response?.data?.message || error.message);
       setAlert({
@@ -211,19 +238,48 @@ const BookingManager = () => {
     }
   };
 
-  const formatDateTimeVN = (dateInput) => {
-    const date = new Date(dateInput);
-    const options = {
-      weekday: 'long',
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-      timeZone: 'Asia/Ho_Chi_Minh'
-    };
-    return date.toLocaleString('vi-VN', options);
+const formatDateTimeVN = (dateInput) => {
+  const raw = new Date(dateInput);
+  const vnHours = raw.getUTCHours(); // dùng UTC để lấy đúng giá trị lưu
+  const vnMinutes = raw.getUTCMinutes();
+  const date = raw.getUTCDate();
+  const month = raw.getUTCMonth() + 1;
+  const year = raw.getUTCFullYear();
+
+  return `Thứ ${raw.getUTCDay() + 1}, ${String(date).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year} ${String(vnHours).padStart(2, '0')}:${String(vnMinutes).padStart(2, '0')}`;
+};
+
+
+
+
+  const insertTransport = async (booking) => {
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/transport/RegisterTransport`, {
+        bookingId: booking._id,
+		transportDate: booking.date,
+		phoneNumber: booking.phoneNumber,
+		pickupLocation: booking.pickupFrom,
+		dropoffLocation: booking.destination,
+		status: '0', // Chưa lấy hàng
+		amount: 0, // Default amount, you can change this as needed
+        note: booking.confirmNote || ''
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      const newTransport = response.data;
+      if (!newTransport) {
+        console.error('❌ Thêm vận chuyển thất bại');
+        return 0;
+      }
+
+	  return 1; // Success
+    } catch (error) {
+      console.error('❌ Lỗi khi thêm vận chuyển:', error.response?.data?.message || error.message);
+      return 0; // Failure
+    }
   };
 
   return (
@@ -233,6 +289,7 @@ const BookingManager = () => {
           className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 px-4 py-2 text-sm border rounded shadow transition-all duration-300 min-w-[320px] max-w-[90%] w-fit text-center
           ${alert.type === 'success' ? 'text-green-800 bg-green-100 border-green-300' : ''}
           ${alert.type === 'error' ? 'text-red-800 bg-red-100 border-red-300' : ''}`}
+		  style={{ whiteSpace: 'pre-line' }}
         >
           {alert.message}
         </div>
@@ -486,6 +543,7 @@ const BookingManager = () => {
                       className="hidden peer"
                       checked={modalStatus === item.id}
                       onChange={() => setModalStatus(item.id)}
+					  disabled={currentBooking.insertTransportFlg === '1'}
                     />
                     <label
                       htmlFor={`status-${item.id}`}
@@ -509,6 +567,7 @@ const BookingManager = () => {
                 onChange={(e) => setmodalConfirmNote(e.target.value)}
                 className="mt-0 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 rows="4"
+				disabled={currentBooking.insertTransportFlg === '1'}
               />
             </div>
             <div className="flex justify-end space-x-4">
@@ -519,13 +578,19 @@ const BookingManager = () => {
               >
                 Close
               </button>
-              <button
-                type="button"
-                onClick={saveModalConfirm}
-                className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-200"
-              >
-                Save
-              </button>
+              {currentBooking.insertTransportFlg === '1' ? (
+				<p className="text-sm text-red-600 font-medium">
+					Booking đã được chuyển sang danh sách vận chuyển nên không thể thay đổi!
+				</p>
+				) : (
+				<button
+					type="button"
+					onClick={saveModalConfirm}
+					className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-200"
+				>
+					Save
+				</button>
+			)}
             </div>
           </div>
         </div>

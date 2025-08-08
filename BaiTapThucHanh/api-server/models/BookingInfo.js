@@ -52,6 +52,11 @@ const driverSchema = new mongoose.Schema({
 		type: Date,
 		default: () => new Date(Date.now() + 7 * 60 * 60 * 1000),
 		required: true
+	  },
+	  insertTransportFlg: {
+		type: String,
+		default: '0', // 0: not inserted, 1: inserted',
+		required: false
 	  }
 });
 

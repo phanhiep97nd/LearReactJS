@@ -35,6 +35,9 @@ app.use('/booking', bookingRoutes);
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
 
+const transportRoutes = require('./routes/transportRoutes');
+app.use('/transport', transportRoutes);
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
