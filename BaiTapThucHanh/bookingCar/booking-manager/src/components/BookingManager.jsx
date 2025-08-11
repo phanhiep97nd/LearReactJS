@@ -101,9 +101,9 @@ const BookingManager = () => {
           aValue = a.id;
           bValue = b.id;
           break;
-        case 'name':
-          aValue = a.name.toLowerCase();
-          bValue = b.name.toLowerCase();
+        case 'type':
+          aValue = a.type;
+          bValue = b.type;
           break;
         case 'phoneNumber':
           aValue = a.phoneNumber;
@@ -179,7 +179,7 @@ const BookingManager = () => {
 	  let message = `✅ Booking ${updatedBookingID} đã cập nhật thành công! Trạng thái: ` + convertStatus(modalStatus);
 
 	  if(modalStatus === '2' && currentBooking.insertTransportFlg !== '1') {
-		const insertTransportFlg = await insertTransport(currentBooking);
+		const insertTransportFlg = await insertTransport({...currentBooking, status: modalStatus, confirmNote: modalConfirmNote});
 		console.log('✅ Thêm vận chuyển:', insertTransportFlg);
 		if (insertTransportFlg === 1) {
 			// Handle successful transport insertion
@@ -238,6 +238,19 @@ const BookingManager = () => {
     }
   };
 
+  const convertType = (type) => {
+	switch (type) {
+	  case '5cho':
+		return '🚗';
+	  case '7cho':
+		return '🚙';
+	  case 'xetai':
+		return '🚛';
+	  default:
+		return 'Unknown Type';
+	}
+  };
+
 const formatDateTimeVN = (dateInput) => {
   const raw = new Date(dateInput);
   const vnHours = raw.getUTCHours(); // dùng UTC để lấy đúng giá trị lưu
@@ -255,14 +268,17 @@ const formatDateTimeVN = (dateInput) => {
   const insertTransport = async (booking) => {
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/transport/RegisterTransport`, {
+		type: booking.type,
         bookingId: booking._id,
 		transportDate: booking.date,
 		phoneNumber: booking.phoneNumber,
 		pickupLocation: booking.pickupFrom,
 		dropoffLocation: booking.destination,
+		numberOfGuest: booking.numberOfGuest || 0,
 		status: '0', // Chưa lấy hàng
 		amount: 0, // Default amount, you can change this as needed
-        note: booking.confirmNote || ''
+        note: booking.confirmNote || '',
+		updateBy: user?.username || 'system',
       }, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
@@ -396,9 +412,14 @@ const formatDateTimeVN = (dateInput) => {
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-2xl font-bold mb-4">Booking List <span className="text-sm font-normal text-gray-600">({bookings.length} items)</span></h2>
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 text-xs sm:text-sm table-fixed w-[1100px]">
+            <table className="min-w-full divide-y divide-gray-200 text-xs sm:text-sm table-fixed w-[1150px]">
               <thead className="bg-gray-50">
                 <tr>
+				  <th className="w-[50px] px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <button onClick={() => handleSort('type')} className="text-indigo-600 hover:text-indigo-800 uppercase">
+                      Type <span>{sortConfig.column === 'type' ? (sortConfig.ascending ? '↑' : '↓') : ''}</span>
+                    </button>
+                  </th>
                   <th className="w-[150px] px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     <button onClick={() => handleSort('pickupFrom')} className="text-indigo-600 hover:text-indigo-800 uppercase">
                       Điểm đón <span>{sortConfig.column === 'pickupFrom' ? (sortConfig.ascending ? '↑' : '↓') : ''}</span>
@@ -446,6 +467,7 @@ const formatDateTimeVN = (dateInput) => {
                     } transition duration-200 cursor-pointer`}
                     onClick={() => openModalConfirm(booking)}
                   >
+                    <td className="px-2 py-2 whitespace-nowrap truncate overflow-hidden">{convertType(booking.type)}</td>
                     <td className="px-2 py-2 whitespace-nowrap truncate overflow-hidden">{booking.pickupFrom}</td>
                     <td className="px-2 py-2 whitespace-nowrap truncate overflow-hidden">{booking.destination}</td>
                     <td className="px-2 py-2 whitespace-nowrap truncate">{formatDateTimeVN(booking.date)}</td>

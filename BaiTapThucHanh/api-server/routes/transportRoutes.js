@@ -7,14 +7,17 @@ const router = express.Router();
 // Insert a new transport record
 router.post('/RegisterTransport', async (req, res) => {
   const transport = new Transport({
+	type: req.body.type,
 	bookingId: req.body.bookingId,
     transportDate: req.body.transportDate,
     phoneNumber: req.body.phoneNumber,
     pickupLocation: req.body.pickupLocation,
     dropoffLocation: req.body.dropoffLocation,
+	numberOfGuest: req.body.numberOfGuest || 0,
     status: req.body.status || '0',
     amount: req.body.amount,
-	note: req.body.note || ''
+	note: req.body.note || '',
+	updateBy: req.body.updateBy || 'system',
   });
 
   try {
@@ -27,21 +30,23 @@ router.post('/RegisterTransport', async (req, res) => {
 
 // Search transport records
 router.get('/SearchTransport', authMiddleware, async (req, res) => {
-  const { id, transportDate, status, phoneNumber, pickupLocation, dropoffLocation } = req.query;
+  const { id, transportDateFrom, transportDateTo, status, phoneNumber, pickupLocation, dropoffLocation } = req.query;
   let filter = {};
 
   if (id) {
     filter._id = id;
   }
 
-  if (transportDate) {
-    const startOfDay = new Date(transportDate);
-    const endOfDay = new Date(transportDate);
-    endOfDay.setHours(23, 59, 59, 999);
-    filter.transportDate = {
-      $gte: startOfDay,
-      $lte: endOfDay
-    };
+  if (transportDateFrom && transportDateTo) {
+		const from = new Date(`${transportDateFrom}T00:00:00.000Z`);
+		const to = new Date(`${transportDateTo}T23:59:59.999Z`);
+		filter.transportDate = { $gte: from, $lte: to };
+	} else if (transportDateFrom) {
+		const from = new Date(`${transportDateFrom}T00:00:00.000Z`);
+		filter.transportDate = { $gte: from };
+	} else if (transportDateTo) {
+		const to = new Date(`${transportDateTo}T23:59:59.999Z`);
+		filter.transportDate = { $lte: to };
   }
 
   if (status) {

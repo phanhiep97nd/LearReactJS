@@ -5,6 +5,10 @@ const transportSchema = new mongoose.Schema({
 	type: String,
 	required: false
   },
+  type: {
+	type: String,
+	required: true
+  },
   transportDate: {
     type: Date,
     required: true
@@ -20,6 +24,10 @@ const transportSchema = new mongoose.Schema({
   dropoffLocation: {
     type: String,
     required: true
+  },
+  numberOfGuest: {
+	type: Number,
+	required: false
   },
   status: {
     type: String,

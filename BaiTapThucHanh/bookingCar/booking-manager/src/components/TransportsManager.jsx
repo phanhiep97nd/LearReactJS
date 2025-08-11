@@ -10,7 +10,7 @@ const TransportsManager = () => {
   const [searchParams, setSearchParams] = useState({
     date: '',
     phoneNumber: '',
-    pickupFrom: '',
+    pickupLocation: '',
     destination: '',
     status: ''
   });
@@ -58,25 +58,28 @@ const TransportsManager = () => {
   const handleSearch = (e) => {
     e.preventDefault();
     setSearchParams({
-      date: e.target.date.value,
+      transportDateFrom: e.target.dateFrom.value,
+      transportDateTo: e.target.dateTo.value,
       phoneNumber: e.target.phoneNumber.value,
-      pickupFrom: e.target.pickupFrom.value,
-      destination: e.target.destination.value,
+      pickupLocation: e.target.pickupLocation.value,
+      dropoffLocation: e.target.destination.value,
       status: e.target.status.value
     });
   };
 
   const handleClearSearch = () => {
     setSearchParams({
-      date: '',
+      transportDateFrom: '',
+      transportDateTo: '',
       phoneNumber: '',
-      pickupFrom: '',
-      destination: '',
+      pickupLocation: '',
+      dropoffLocation: '',
       status: ''
     });
-    document.getElementById('date').value = '';
+    document.getElementById('dateFrom').value = '';
+    document.getElementById('dateTo').value = '';
     document.getElementById('phoneNumber').value = '';
-    document.getElementById('pickupFrom').value = '';
+    document.getElementById('pickupLocation').value = '';
     document.getElementById('destination').value = '';
     document.getElementById('status').value = '';
   };
@@ -92,9 +95,13 @@ const TransportsManager = () => {
     const sortedTransports = [...transports].sort((a, b) => {
       let aValue, bValue;
       switch (column) {
-        case 'pickupFrom':
-          aValue = a.pickupFrom.toLowerCase();
-          bValue = b.pickupFrom.toLowerCase();
+		case 'type':
+          aValue = a.type;
+          bValue = b.type;
+          break;
+        case 'pickupLocation':
+          aValue = a.pickupLocation.toLowerCase();
+          bValue = b.pickupLocation.toLowerCase();
           break;
         case 'destination':
           aValue = a.destination.toLowerCase();
@@ -125,6 +132,19 @@ const TransportsManager = () => {
     setTransports(sortedTransports);
   };
 
+  const convertType = (type) => {
+	switch (type) {
+	  case '5cho':
+		return '🚗';
+	  case '7cho':
+		return '🚙';
+	  case 'xetai':
+		return '🚛';
+	  default:
+		return 'Unknown Type';
+	}
+  };
+
   const openModal = (transport = null) => {
     setCurrentTransport(transport);
     setModalStatus(transport ? transport.status : '');
@@ -138,7 +158,7 @@ const TransportsManager = () => {
     try {
       const payload = {
         id: currentTransport?._id,
-        pickupFrom: currentTransport?.pickupFrom || '',
+        pickupLocation: currentTransport?.pickupLocation || '',
         destination: currentTransport?.destination || '',
         date: currentTransport?.date || new Date().toISOString().split('T')[0],
         phoneNumber: currentTransport?.phoneNumber || '',
@@ -199,25 +219,23 @@ const TransportsManager = () => {
         return '✅Đã trả hàng';
       case '3':
         return '🚫Đã hủy';
+	  case '4':
+		return '⏩Đã chuyển nhượng';
       default:
         return 'Unknown Status';
     }
   };
 
-  const formatDateTimeVN = (dateInput) => {
-    const date = new Date(dateInput);
-    const options = {
-      weekday: 'long',
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-      timeZone: 'Asia/Ho_Chi_Minh'
-    };
-    return date.toLocaleString('vi-VN', options);
-  };
+	const formatDateTimeVN = (dateInput) => {
+	const raw = new Date(dateInput);
+	const vnHours = raw.getUTCHours(); // dùng UTC để lấy đúng giá trị lưu
+	const vnMinutes = raw.getUTCMinutes();
+	const date = raw.getUTCDate();
+	const month = raw.getUTCMonth() + 1;
+	const year = raw.getUTCFullYear();
+
+	return `Thứ ${raw.getUTCDay() + 1}, ${String(date).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year} ${String(vnHours).padStart(2, '0')}:${String(vnMinutes).padStart(2, '0')}`;
+	};
 
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col">
@@ -257,11 +275,20 @@ const TransportsManager = () => {
             }`}
           >
             <form className="grid grid-cols-1 md:grid-cols-3 gap-4" onSubmit={handleSearch}>
-              <div>
-                <label htmlFor="date" className="block text-sm font-medium text-gray-700">Ngày vận chuyển</label>
+			  <div>
+                <label htmlFor="dateFrom" className="block text-sm font-medium text-gray-700">Ngày vận chuyển(From)</label>
                 <input
                   type="date"
-                  id="date"
+                  id="dateFrom"
+                  defaultValue={new Date(Date.now()).toISOString().split('T')[0]}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                />
+              </div>
+              <div>
+                <label htmlFor="dateTo" className="block text-sm font-medium text-gray-700">Ngày vận chuyển(To)</label>
+                <input
+                  type="date"
+                  id="dateTo"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
               </div>
@@ -275,10 +302,10 @@ const TransportsManager = () => {
                 />
               </div>
               <div>
-                <label htmlFor="pickupFrom" className="block text-sm font-medium text-gray-700">Điểm đón</label>
+                <label htmlFor="pickupLocation" className="block text-sm font-medium text-gray-700">Điểm đón</label>
                 <input
                   type="text"
-                  id="pickupFrom"
+                  id="pickupLocation"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   placeholder="Nhập điểm đón ..."
                 />
@@ -298,11 +325,12 @@ const TransportsManager = () => {
                   id="status"
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 >
-                  <option value="">📦Tất cả</option>
+                  <option value="">📖Tất cả</option>
                   <option value="0">📦Chưa lấy hàng</option>
                   <option value="1">🚚Đã lấy hàng</option>
                   <option value="2">✅Đã trả hàng</option>
                   <option value="3">🚫Đã hủy</option>
+				  <option value="4">⏩Đã chuyển nhượng</option>
                 </select>
               </div>
               <div className="md:col-span-3 flex justify-end space-x-4">
@@ -321,14 +349,32 @@ const TransportsManager = () => {
 
         {/* Transport List Section */}
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold mb-4">Transport List <span className="text-sm font-normal text-gray-600">({transports.length} items)</span></h2>
+           <div className="flex justify-between items-center mb-4">
+				<h2 className="text-2xl font-bold">
+				Transport List{" "}
+				<span className="text-sm font-normal text-gray-600">
+					({transports.length} items)
+				</span>
+				</h2>
+				<button
+					onClick={() => openModal()}
+					className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition duration-200 flex items-center"
+					>
+					<FaPlus className="mr-2" /> Thêm mới đơn vận chuyển
+				</button>
+			</div>
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 text-xs sm:text-sm table-fixed w-[1100px]">
+            <table className="min-w-full divide-y divide-gray-200 text-xs sm:text-sm table-fixed w-[1150px]">
               <thead className="bg-gray-50">
                 <tr>
+                  <th className="w-[50px] px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <button onClick={() => handleSort('type')} className="text-indigo-600 hover:text-indigo-800 uppercase">
+                      Type <span>{sortConfig.column === 'type' ? (sortConfig.ascending ? '↑' : '↓') : ''}</span>
+                    </button>
+                  </th>
                   <th className="w-[150px] px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    <button onClick={() => handleSort('pickupFrom')} className="text-indigo-600 hover:text-indigo-800 uppercase">
-                      Điểm đón <span>{sortConfig.column === 'pickupFrom' ? (sortConfig.ascending ? '↑' : '↓') : ''}</span>
+                    <button onClick={() => handleSort('pickupLocation')} className="text-indigo-600 hover:text-indigo-800 uppercase">
+                      Điểm đón <span>{sortConfig.column === 'pickupLocation' ? (sortConfig.ascending ? '↑' : '↓') : ''}</span>
                     </button>
                   </th>
                   <th className="w-[150px] px-2 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -373,15 +419,16 @@ const TransportsManager = () => {
                     } transition duration-200 cursor-pointer`}
                     onClick={() => openModal(transport)}
                   >
-                    <td className="px-2 py-2 whitespace-nowrap truncate overflow-hidden">{transport.pickupFrom}</td>
-                    <td className="px-2 py-2 whitespace-nowrap truncate overflow-hidden">{transport.destination}</td>
-                    <td className="px-2 py-2 whitespace-nowrap truncate">{formatDateTimeVN(transport.date)}</td>
+                    <td className="px-2 py-2 whitespace-nowrap truncate overflow-hidden">{convertType(transport.type)}</td>
+                    <td className="px-2 py-2 whitespace-nowrap truncate overflow-hidden">{transport.pickupLocation}</td>
+                    <td className="px-2 py-2 whitespace-nowrap truncate overflow-hidden">{transport.dropoffLocation}</td>
+                    <td className="px-2 py-2 whitespace-nowrap truncate">{formatDateTimeVN(transport.transportDate)}</td>
                     <td className="px-2 py-2 whitespace-nowrap truncate">
                       <a href={`tel:${transport.phoneNumber}`} className="text-blue-600 hover:underline">
                         {transport.phoneNumber}
                       </a>
                     </td>
-                    <td className="px-2 py-2 whitespace-nowrap truncate">{transport.numberOfPeople}</td>
+                    <td className="px-2 py-2 whitespace-nowrap truncate">{transport.numberOfGuest}</td>
                     <td className="px-2 py-2 whitespace-nowrap truncate">{transport.note}</td>
                     <td className="px-2 py-2 whitespace-nowrap truncate">{convertStatus(transport.status)}</td>
                     <td className="px-2 py-2 whitespace-nowrap text-xs font-medium">
@@ -403,12 +450,6 @@ const TransportsManager = () => {
               </tbody>
             </table>
           </div>
-          <button
-            onClick={() => openModal()}
-            className="mt-4 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-200 flex items-center"
-          >
-            <FaPlus className="mr-2" /> Thêm mới đơn vận chuyển
-          </button>
         </div>
       </div>
 
@@ -421,13 +462,21 @@ const TransportsManager = () => {
             </h3>
             <table className="mb-4 min-w-full text-sm text-left text-gray-700 dark:text-gray-300 table-fixed">
               <tbody>
+				<tr>
+                  <th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">Transport ID</th>
+                  <td className="py-1 break-words whitespace-normal">{currentTransport._id}</td>
+                </tr>
+				<tr>
+                  <th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">Loại</th>
+                  <td className="py-1 break-words whitespace-normal">{currentTransport.type}</td>
+                </tr>
                 <tr>
                   <th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">Điểm đón</th>
                   <td className="py-1 break-all whitespace-normal">
                     <input
                       type="text"
-                      value={currentTransport?.pickupFrom || ''}
-                      onChange={(e) => setCurrentTransport({ ...currentTransport, pickupFrom: e.target.value })}
+                      value={currentTransport?.pickupLocation || ''}
+                      onChange={(e) => setCurrentTransport({ ...currentTransport, pickupLocation: e.target.value })}
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     />
                   </td>
@@ -437,7 +486,7 @@ const TransportsManager = () => {
                   <td className="py-1 break-all whitespace-normal">
                     <input
                       type="text"
-                      value={currentTransport?.destination || ''}
+                      value={currentTransport?.dropoffLocation || ''}
                       onChange={(e) => setCurrentTransport({ ...currentTransport, destination: e.target.value })}
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     />
@@ -447,13 +496,40 @@ const TransportsManager = () => {
                   <th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">Ngày vận chuyển</th>
                   <td className="py-1 break-words whitespace-normal">
                     <input
-                      type="date"
-                      value={currentTransport?.date ? new Date(currentTransport.date).toISOString().split('T')[0] : ''}
-                      onChange={(e) => setCurrentTransport({ ...currentTransport, date: e.target.value })}
+                      type="datetime-local"
+                      defaultValue={currentTransport.transportDate ? new Date(currentTransport?.transportDate).toISOString().slice(0, 16) : ''}
+                      onChange={(e) => setCurrentTransport({ ...currentTransport, transportDate: e.target.value })}
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     />
                   </td>
                 </tr>
+				<tr>
+					<th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">
+						Số tiền
+					</th>
+					<td className="py-1 break-words whitespace-normal">
+						<div className="relative">
+						<input
+							type="text"
+							value={
+							currentTransport?.amount
+								? currentTransport.amount.toLocaleString("vi-VN")
+								: ""
+							}
+							onChange={(e) => {
+							// Bỏ tất cả ký tự không phải số
+							const raw = e.target.value.replace(/\D/g, "");
+							setCurrentTransport({
+								...currentTransport,
+								amount: raw ? parseInt(raw, 10) : 0
+							});
+							}}
+							className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 pr-8"
+						/>
+						<span className="absolute inset-y-0 right-2 flex items-center text-gray-600">₫</span>
+						</div>
+					</td>
+				</tr>
                 <tr>
                   <th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">Số điện thoại</th>
                   <td className="py-1 break-words whitespace-normal">
@@ -470,8 +546,8 @@ const TransportsManager = () => {
                   <td className="py-1 break-words whitespace-normal">
                     <input
                       type="number"
-                      value={currentTransport?.numberOfPeople || 0}
-                      onChange={(e) => setCurrentTransport({ ...currentTransport, numberOfPeople: e.target.value })}
+                      value={currentTransport?.numberOfGuest || 0}
+                      onChange={(e) => setCurrentTransport({ ...currentTransport, numberOfGuest: e.target.value })}
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     />
                   </td>
@@ -499,6 +575,7 @@ const TransportsManager = () => {
                       <option value="1">🚚Đã lấy hàng</option>
                       <option value="2">✅Đã trả hàng</option>
                       <option value="3">🚫Đã hủy</option>
+                      <option value="4">⏩Đã chuyển nhượng</option>
                     </select>
                   </td>
                 </tr>
