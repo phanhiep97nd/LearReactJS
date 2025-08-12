@@ -80,7 +80,7 @@ router.get('/SearchTransport', authMiddleware, async (req, res) => {
 router.put('/UpdateTransport', authMiddleware, async (req, res) => {
   const {
     id, transportDate, phoneNumber,
-    pickupLocation, dropoffLocation, status,
+    pickupLocation, dropoffLocation, status, note, numberOfGuest,
     amount, pickupTime, dropoffTime, updateBy
   } = req.body;
 
@@ -98,6 +98,8 @@ router.put('/UpdateTransport', authMiddleware, async (req, res) => {
     if (amount) transport.amount = amount;
     if (pickupTime) transport.pickupTime = pickupTime;
     if (dropoffTime) transport.dropoffTime = dropoffTime;
+	if (note) transport.note = note;
+	if (numberOfGuest) transport.numberOfGuest = numberOfGuest;
 
     transport.updateTime = new Date(Date.now() + 7 * 60 * 60 * 1000); // GMT+7
     transport.updateBy = updateBy || 'system';

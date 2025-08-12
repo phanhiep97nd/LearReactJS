@@ -8,10 +8,11 @@ const TransportsManager = () => {
   const navigate = useNavigate();
   const [transports, setTransports] = useState([]);
   const [searchParams, setSearchParams] = useState({
-    date: '',
+	transportDateFrom: new Date(Date.now()).toISOString().split('T')[0],
+	transportDateTo: '',
     phoneNumber: '',
     pickupLocation: '',
-    destination: '',
+    dropoffLocation: '',
     status: ''
   });
   const [modalOpen, setModalOpen] = useState(false);
@@ -147,7 +148,7 @@ const TransportsManager = () => {
 
   const openModal = (transport = null) => {
     setCurrentTransport(transport);
-    setModalStatus(transport ? transport.status : '');
+    setModalStatus(transport ? transport.status : '0');
     setModalNote(transport ? transport.note || '' : '');
     setModalOpen(true);
   };
@@ -159,14 +160,16 @@ const TransportsManager = () => {
       const payload = {
         id: currentTransport?._id,
         pickupLocation: currentTransport?.pickupLocation || '',
-        destination: currentTransport?.destination || '',
-        date: currentTransport?.date || new Date().toISOString().split('T')[0],
+        dropoffLocation: currentTransport?.dropoffLocation || '',
+        transportDate: currentTransport?.transportDate || new Date().toISOString(),
         phoneNumber: currentTransport?.phoneNumber || '',
-        numberOfPeople: currentTransport?.numberOfPeople || 0,
+        numberOfGuest: currentTransport?.numberOfGuest || 0,
+		amount: currentTransport?.amount || 0,
         status: modalStatus,
         note: modalNote,
         updateBy: user?.username || 'system',
       };
+	  console.log('payload:', payload);
 
       const url = currentTransport
         ? `${process.env.REACT_APP_API_URL}/transport/UpdateTransport`
@@ -184,7 +187,8 @@ const TransportsManager = () => {
 
       if (currentTransport) {
         const updatedTransports = transports.map((t) =>
-          t._id === currentTransport._id ? { ...t, status: modalStatus, note: modalNote } : t
+          t._id === currentTransport._id ? { ...t, pickupLocation: currentTransport.pickupLocation, dropoffLocation: currentTransport.dropoffLocation, transportDate: currentTransport.transportDate,
+			phoneNumber: currentTransport.phoneNumber, numberOfGuest: currentTransport.numberOfGuest, amount: currentTransport.amount, status: modalStatus, note: modalNote } : t
         );
         setTransports(updatedTransports);
         setAlert({ type: 'success', message: `✅ Transport ${updatedTransportID} đã cập nhật thành công! Status: ${convertStatus(modalStatus)}` });
@@ -415,6 +419,7 @@ const TransportsManager = () => {
                       transport.status === '1' ? 'bg-yellow-50 hover:bg-yellow-100' :
                       transport.status === '2' ? 'bg-green-50 hover:bg-green-100' :
                       transport.status === '3' ? 'bg-red-50 hover:bg-red-100' :
+                      transport.status === '4' ? 'bg-orange-50 hover:bg-orange-100' :
                       ''
                     } transition duration-200 cursor-pointer`}
                     onClick={() => openModal(transport)}
@@ -464,11 +469,11 @@ const TransportsManager = () => {
               <tbody>
 				<tr>
                   <th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">Transport ID</th>
-                  <td className="py-1 break-words whitespace-normal">{currentTransport._id}</td>
+                  <td className="py-1 break-words whitespace-normal">{currentTransport?._id}</td>
                 </tr>
 				<tr>
                   <th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">Loại</th>
-                  <td className="py-1 break-words whitespace-normal">{currentTransport.type}</td>
+                  <td className="py-1 break-words whitespace-normal">{currentTransport?.type}</td>
                 </tr>
                 <tr>
                   <th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">Điểm đón</th>
@@ -487,7 +492,7 @@ const TransportsManager = () => {
                     <input
                       type="text"
                       value={currentTransport?.dropoffLocation || ''}
-                      onChange={(e) => setCurrentTransport({ ...currentTransport, destination: e.target.value })}
+                      onChange={(e) => setCurrentTransport({ ...currentTransport, dropoffLocation: e.target.value })}
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     />
                   </td>
@@ -497,7 +502,7 @@ const TransportsManager = () => {
                   <td className="py-1 break-words whitespace-normal">
                     <input
                       type="datetime-local"
-                      defaultValue={currentTransport.transportDate ? new Date(currentTransport?.transportDate).toISOString().slice(0, 16) : ''}
+                      defaultValue={currentTransport?.transportDate ? new Date(currentTransport?.transportDate).toISOString().slice(0, 16) : ''}
                       onChange={(e) => setCurrentTransport({ ...currentTransport, transportDate: e.target.value })}
                       className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                     />
@@ -564,23 +569,45 @@ const TransportsManager = () => {
                   </td>
                 </tr>
                 <tr>
-                  <th className="w-40 pr-4 py-1 font-medium text-gray-700 dark:text-gray-400 align-top">Trạng thái</th>
-                  <td className="py-1 break-words whitespace-normal">
-                    <select
-                      value={modalStatus}
-                      onChange={(e) => setModalStatus(e.target.value)}
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                    >
-                      <option value="0">📦Chưa lấy hàng</option>
-                      <option value="1">🚚Đã lấy hàng</option>
-                      <option value="2">✅Đã trả hàng</option>
-                      <option value="3">🚫Đã hủy</option>
-                      <option value="4">⏩Đã chuyển nhượng</option>
-                    </select>
-                  </td>
                 </tr>
               </tbody>
             </table>
+			<div className="mb-4">
+				<h3 className="mb-2 text-sm font-medium text-gray-900 dark:text-white">
+					Thay đổi trạng thái
+				</h3>
+				<ul className="grid grid-cols-3 gap-2 p-0">
+					{[
+					{ id: "0", label: "📦Chưa lấy hàng", bg: "peer-checked:bg-blue-100 peer-checked:hover:bg-blue-150" },
+					{ id: "1", label: "🚚Đã lấy hàng", bg: "peer-checked:bg-yellow-100 peer-checked:hover:bg-yellow-150 " },
+					{ id: "2", label: "✅Đã trả hàng", bg: "peer-checked:bg-green-100 peer-checked:hover:bg-green-150" },
+					{ id: "3", label: "🚫Đã hủy", bg: "peer-checked:bg-red-100 peer-checked:hover:bg-red-150" },
+					{ id: "4", label: "⏩Đã chuyển nhượng", bg: "peer-checked:bg-orange-100 peer-checked:hover:bg-orange-150" },
+					].map((item) => (
+						<li key={item.id}>
+							<input
+							type="radio"
+							id={`status-${item.id}`}
+							name="status"
+							value={item.id}
+							className="hidden peer"
+							checked={modalStatus === item.id}
+							onChange={() => setModalStatus(item.id)}
+							/>
+							<label
+							htmlFor={`status-${item.id}`}
+							className={`inline-flex items-center justify-center w-full min-h-[64px] px-2 py-1 text-xs text-center text-gray-500 border border-gray-200 rounded cursor-pointer
+							bg-gray-100 hover:bg-gray-200
+							dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-gray-400
+							peer-checked:border-blue-600 peer-checked:text-blue-600 dark:peer-checked:text-blue-500
+							${item.bg}`}
+							>
+							<span className="text-sm font-semibold break-words">{item.label}</span>
+							</label>
+						</li>
+					))}
+				</ul>
+			</div>
             <div className="flex justify-end space-x-4">
               <button
                 type="button"
